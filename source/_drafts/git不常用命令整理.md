@@ -1,5 +1,5 @@
 ---
-title: git不常用命令整理
+title: git不常用命令整理（1）
 categories:
   - git
 tags:
@@ -73,17 +73,19 @@ tags:
 
 - git show: 展示一个或者多个对象。如 `git show HEAD` 是展示当前最新提交的 diff 信息
 
-- git sparse-checkout:
+- git sparse-checkout: 只下载远程仓库中某一个特定文件夹
 
-- git submodule:
+- git submodule: 在一个 git 仓库中允许建立另一个 git 仓库。但是可以保持各自的工作流独立。常用于多个项目复用同一个包。
 
-- git switch:
+- git switch: 切换分支，相当于 git checkout
 
-- git worktree:
+- git worktree: 在存在一个 git 仓库的情况下，在另一个文件夹下创建这个项目某一个分支的代码，但是新的文件夹下的 .git 并不会维护全部的代码历史，只会标明指向原来的项目。这样可以节省磁盘空间。也省了切换分支的开销。常用于大型项目。
 
-- git fast-export:
+- git fast-export: 将提交导出为 git-fast-import 格式
 
-- git fast-import:
+- git fast-import: 其他版本库迁移至Git的通用工具
+
+TODO， 敬请期待下一期
 
 - git filter-branch:
 
