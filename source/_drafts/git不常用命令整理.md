@@ -87,9 +87,9 @@ tags:
 
 TODO， 敬请期待下一期
 
-- git filter-branch:
+- git filter-branch: 重写 git 历史。极其危险的一个指令，慎用。
 
-- git mergetool:
+- git mergetool: 打开 mergetool（解决冲突的工具），需要自定义
 
 - git pack-refs:
 
@@ -99,7 +99,7 @@ TODO， 敬请期待下一期
 
 - git annotate:
 
-- git blame:
+- git blame: 查看代码某一次改变的是由哪个人做的详细信息。
 
 - git bugreport:
 
