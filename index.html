@@ -157,6 +157,60 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-CSS Variables">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/CSS/CSS-Variables/">CSS Variables</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-09-07
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/CSS/" class="cube-excerpt-tag-link">#CSS</a>
+                
+                <a href="/tags/CSS-Variables/" class="cube-excerpt-tag-link">#CSS Variables</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="什么是-CSS-Variables"><a href="#什么是-CSS-Variables" class="headerlink" title="什么是 CSS Variables"></a>什么是 CSS Variables</h2><p>显而易见，这是一个让你可以在 CSS 中使用变量的技术。</p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>除了 IE 以外，所有主流的浏览器都对 CSS Variables 有很好的支持。但是你可以引入 polyfill，<code>css-vars-ponyfill</code> 将让你可以在 IE9+ 的浏览器中使用 CSS Variables。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>CSS Variables 的语法非常简单。定义变量一定以双中划线开头，使用 var 函数来使用定义过的变量。var 函数的第二个参数支持默认值。当那个变量没有定义的时候将使用默认值。var 函数将第一个逗号后的所有参数视为默认值，不会处理其中的逗号，引号等等。</p>
+<pre><code>// define
+--gray: #F5F5F5
+// use
+color: var(--gray)
+// use with default value
+color: var(--gray, #E0E0E0)
+border: var(--border, 1px solid gray)</code></pre><p>如果定义的是一个数字，后面不可以直接跟单位，但是你可以使用 calc 函数来做这件事</p>
+<pre><code>--twenty: 20
+
+// wrong
+height: var(--twenty)px
+// right
+height: calc(var(--twenty) * 1px)</code></pre><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>CSS Variables 和正常的 CSS 一样也有作用域的规则。权重更高的变量将生效。一般情况下，我们将CSS Variables 定义在 :root 的 CSS 选择器中。这样所有的地方都可以使用这些变量。</p>
+<h2 id="JS-与-CSS-交互"><a href="#JS-与-CSS-交互" class="headerlink" title="JS 与 CSS 交互"></a>JS 与 CSS 交互</h2><p>我们可以使用 JS 设置一些 CSS Variables，也可以通过 JS 读取 CSS Variables。</p>
+<pre><code>// set
+document.body.style.setProperty(&quot;--gray&quot;, &quot;#E0E0E0&quot;)
+// get
+document.body.style.getPropertyValue(&quot;--gray&quot;)
+// delete
+document.body.style.removeProperty(&quot;--gray&quot;)</code></pre><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="定制主题"><a href="#定制主题" class="headerlink" title="定制主题"></a>定制主题</h3><p>我们有一个常见的需求，就是网页除了正常的样式外，还要定制一个暗黑模式。这种情况下，CSS Variables 就是一种实现的方案。我们只需要定义两套不同的 CSS Variables，分别定义在暗黑模式和正常模式下的调色板是什么。通过程序控制加载什么变量即可。</p>
+<h3 id="CSS-存储信息"><a href="#CSS-存储信息" class="headerlink" title="CSS 存储信息"></a>CSS 存储信息</h3><p>我们可以看到，我们现在可以通过 JS 来读取 CSS Variables，所以我们可以在 CSS 中存储一些信息然后通过 JS 读取。</p>
+<h3 id="JS-设置-CSS"><a href="#JS-设置-CSS" class="headerlink" title="JS 设置 CSS"></a>JS 设置 CSS</h3><p>比如说我们要实现一个进度条。那么我们可以通过使用 CSS Variables 的方案，设置他的宽度为一个CSS Variable，然后通过用 JS 改变 CSS Variable 的值来改变进度条的进度。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/CSS/CSS-Variables/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-什么是AST">
     <header class="cube-excerpt-header">
         <h1><a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/">什么是AST</a></h1>
@@ -1336,8 +1390,8 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
     
     
     <div class="count">
-        <a class="count articles"><span>7</span>Article</a>
-        <a class="count tags"><span>13</span>Tags</a>
+        <a class="count articles"><span>8</span>Article</a>
+        <a class="count tags"><span>14</span>Tags</a>
         <a class="count categories"><span>4</span>Categories</a>
     </div>
 </div>
@@ -1361,7 +1415,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
+                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
                 </p>
             </div>
             
@@ -1375,7 +1429,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/" title="几种CSS管理方案">几种CSS管理方案</a>
+                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
                 </p>
             </div>
         </li>
@@ -1388,7 +1442,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/" title=".git 文件夹探秘">.git 文件夹探秘</a>
+                    <a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/" title="几种CSS管理方案">几种CSS管理方案</a>
                 </p>
             </div>
         </li>
@@ -1401,7 +1455,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/JS%E9%81%8D%E5%8E%86%E5%B1%9E%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95/" title="JS遍历属性的方法">JS遍历属性的方法</a>
+                    <a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/" title=".git 文件夹探秘">.git 文件夹探秘</a>
                 </p>
             </div>
         </li>
@@ -1414,7 +1468,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/HTML/web-component/" title="web component">web component</a>
+                    <a href="/blog/js/JS%E9%81%8D%E5%8E%86%E5%B1%9E%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95/" title="JS遍历属性的方法">JS遍历属性的方法</a>
                 </p>
             </div>
         </li>
@@ -1433,11 +1487,11 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/categories/js/">#js</a>
+            <a href="/categories/CSS/">#CSS</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/git/">#git</a>
         </div>
         
@@ -1448,7 +1502,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/categories/CSS/">#CSS</a>
+            <a href="/categories/js/">#js</a>
         </div>
         
     </div>
@@ -1464,7 +1518,12 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/tags/js/">#js</a>
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
         
@@ -1474,17 +1533,12 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/tags/Web-Component/">#Web Component</a>
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/CSS/">#CSS</a>
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
         </div>
         
         
@@ -1493,12 +1547,12 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS-module/">#CSS module</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/BEM/">#BEM</a>
         </div>
         
@@ -1513,7 +1567,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/UMD/">#UMD</a>
         </div>
         
@@ -1525,6 +1579,11 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         <div class="cube-box ">
             <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
         </div>
         
     </div>
