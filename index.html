@@ -157,6 +157,56 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-Unicode and utf-8">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/code/Unicode-and-utf-8/">Unicode and utf-8</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-09-13
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/unicode/" class="cube-excerpt-tag-link">#unicode</a>
+                
+                <a href="/tags/utf-8/" class="cube-excerpt-tag-link">#utf-8</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>我们知道，最一开始，我们计算机使用 ASCII 作为存贮字符集的一种规范。使用八个 bit，来表示一个字符。8 bit 一共有256中组合可能。他们使用了其中128种作为存储英文字符的编码规范。他们称之为ANSI 的”Ascii”编码（American Standard Code for Information Interchange，美国信息互换标准代码）。</p>
+<h2 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h2><p>在计算机来到中国后，当时的字符集还只有 ASCII，所以为了可以把中文编码，就创造了 GB2312 标准编码。使用两个字节来表示一个汉字。当两个大于127的字节连在一起时，就认为使用了 GBK。这就是我们常说的全角字符。而127以下的则是半角字符。但是两个127以上的字节只能表示7k多个字符，所以后来我们扩展了字符集，不再要求低位小于127，由此把更多的汉字和其他少数民族等的字符加入进去，扩展成了 GB18030。</p>
+<h2 id="UNICODE"><a href="#UNICODE" class="headerlink" title="UNICODE"></a>UNICODE</h2><p>规定了 128 个字符的字符编码。对于英文来说，这128个够用了，但是对于全世界的语言来说，明显这一个字节的空间就不够用了。所以说世界各地为了应对这种情况创造出了很多种不同的编码标准。这无疑造成了很多麻烦。为了统一全世界文字的编码方式，我们就制定了 Unicode 这个标准。使用更多的字节来存储这些字符。</p>
+<h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p>虽然 Unicode 解决了统一字符存储标准的问题，但是 Unicode 为了存储更多的字符而使用更多的存储空间显然造成了极大空间的浪费。这是不可接受的。所以，为了更好的使用 Unicode，UTF-8 出现了。<strong>UTF-8 是 Unicode 的一种实现方式。</strong></p>
+<p>UTF-8 是一种可变长的编码方式。他可以使用1-4个字节来表示一个符号。UTF-8 的编码规则有两条：</p>
+<ol>
+<li>单字节的字符，字节的第一位设为0，对于英语文本，UTF-8码只占用一个字节，和ASCII码完全相同</li>
+<li>n个字节的字符(n&gt;1)，第一个字节的前n位设为1，第n+1位设为0，后面字节的前两位都设为10，这n个字节的其余空位填充该字符unicode码，高位用0补足。</li>
+</ol>
+<pre><code>0xxxxxxx
+110xxxxx 10xxxxxx
+1110xxxx 10xxxxxx 10xxxxxx
+11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</code></pre><p>举一个例子，<code>我</code> 这个汉字的 Unicode 为 <code>%u6211</code>，用二进制表示为 <code>0110 0010 0001 0001</code>。可以看到，我们需要15位来存储这个汉字。让我们看看上面那串转换规则。一个x就表示一位可以存储的空间。一个字节可以表示7位，不够。两个字节可以存储11位，还是不够。三个字节可以存储16位，够了。所以说我们使用三个字节来存储这个字符。让我们开始填充。</p>
+<pre><code>0110 0010 0001 0001
+        变成
+     110   001000   010001
+1110xxxx 10xxxxxx 10xxxxxx
+        填充
+11100110 10001000 10010001
+        也就是
+E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编码。正是 <code>\xE6\x88\x91</code>。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/code/Unicode-and-utf-8/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-CSS Variables">
     <header class="cube-excerpt-header">
         <h1><a href="/blog/CSS/CSS-Variables/">CSS Variables</a></h1>
@@ -1390,9 +1440,9 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
     
     
     <div class="count">
-        <a class="count articles"><span>8</span>Article</a>
-        <a class="count tags"><span>14</span>Tags</a>
-        <a class="count categories"><span>4</span>Categories</a>
+        <a class="count articles"><span>9</span>Article</a>
+        <a class="count tags"><span>16</span>Tags</a>
+        <a class="count categories"><span>5</span>Categories</a>
     </div>
 </div>
 
@@ -1415,7 +1465,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
+                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
                 </p>
             </div>
             
@@ -1429,7 +1479,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
+                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
                 </p>
             </div>
         </li>
@@ -1442,7 +1492,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/" title="几种CSS管理方案">几种CSS管理方案</a>
+                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
                 </p>
             </div>
         </li>
@@ -1455,7 +1505,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/" title=".git 文件夹探秘">.git 文件夹探秘</a>
+                    <a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/" title="几种CSS管理方案">几种CSS管理方案</a>
                 </p>
             </div>
         </li>
@@ -1468,7 +1518,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/JS%E9%81%8D%E5%8E%86%E5%B1%9E%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95/" title="JS遍历属性的方法">JS遍历属性的方法</a>
+                    <a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/" title=".git 文件夹探秘">.git 文件夹探秘</a>
                 </p>
             </div>
         </li>
@@ -1492,11 +1542,16 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/categories/git/">#git</a>
+            <a href="/categories/code/">#code</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/categories/HTML/">#HTML</a>
         </div>
         
@@ -1517,13 +1572,23 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
     <div class="cube-boxs">
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS/">#CSS</a>
         </div>
         
         
         <div class="cube-box ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
@@ -1543,21 +1608,6 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-module/">#CSS module</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/BEM/">#BEM</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/tags/AMD/">#AMD</a>
         </div>
         
@@ -1572,7 +1622,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
@@ -1584,6 +1634,21 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         <div class="cube-box ">
             <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
         </div>
         
     </div>

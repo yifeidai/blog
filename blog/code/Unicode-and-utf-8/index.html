@@ -10,7 +10,7 @@
     
     
     
-    <title>Tags: git | blog</title>
+    <title>Unicode and utf-8 | blog</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -156,33 +156,71 @@
     
     <div class="cube-content">
         <div class="cube-left">
-            <style>
-    @media(max-width: 768px) {
-        body {
-            background-color: #fff!important;
-        }
-    }
-</style>
-<div class="cube-archives">
+            <div class="cube-article">
+    <h1 class="title">Unicode and utf-8</h1>
     
-    <div class="cube-archive" style="margin-top: 0;">
-        <h1 class="title">git</h1>
-        
-        <ul class="posts">
-            
-            <li class="post">
-                <a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/">.git 文件夹探秘</a>
-            </li>
-            
-            <li class="post">
-                <a href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">git不常用命令整理（1）</a>
-            </li>
-            
-        </ul>
-        
-    </div>
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-09-13
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/unicode/">#unicode</a>
+    
+    <a href="/tags/utf-8/">#utf-8</a>
     
 </div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>我们知道，最一开始，我们计算机使用 ASCII 作为存贮字符集的一种规范。使用八个 bit，来表示一个字符。8 bit 一共有256中组合可能。他们使用了其中128种作为存储英文字符的编码规范。他们称之为ANSI 的”Ascii”编码（American Standard Code for Information Interchange，美国信息互换标准代码）。</p>
+<h2 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h2><p>在计算机来到中国后，当时的字符集还只有 ASCII，所以为了可以把中文编码，就创造了 GB2312 标准编码。使用两个字节来表示一个汉字。当两个大于127的字节连在一起时，就认为使用了 GBK。这就是我们常说的全角字符。而127以下的则是半角字符。但是两个127以上的字节只能表示7k多个字符，所以后来我们扩展了字符集，不再要求低位小于127，由此把更多的汉字和其他少数民族等的字符加入进去，扩展成了 GB18030。</p>
+<h2 id="UNICODE"><a href="#UNICODE" class="headerlink" title="UNICODE"></a>UNICODE</h2><p>规定了 128 个字符的字符编码。对于英文来说，这128个够用了，但是对于全世界的语言来说，明显这一个字节的空间就不够用了。所以说世界各地为了应对这种情况创造出了很多种不同的编码标准。这无疑造成了很多麻烦。为了统一全世界文字的编码方式，我们就制定了 Unicode 这个标准。使用更多的字节来存储这些字符。</p>
+<h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p>虽然 Unicode 解决了统一字符存储标准的问题，但是 Unicode 为了存储更多的字符而使用更多的存储空间显然造成了极大空间的浪费。这是不可接受的。所以，为了更好的使用 Unicode，UTF-8 出现了。<strong>UTF-8 是 Unicode 的一种实现方式。</strong></p>
+<p>UTF-8 是一种可变长的编码方式。他可以使用1-4个字节来表示一个符号。UTF-8 的编码规则有两条：</p>
+<ol>
+<li>单字节的字符，字节的第一位设为0，对于英语文本，UTF-8码只占用一个字节，和ASCII码完全相同</li>
+<li>n个字节的字符(n&gt;1)，第一个字节的前n位设为1，第n+1位设为0，后面字节的前两位都设为10，这n个字节的其余空位填充该字符unicode码，高位用0补足。</li>
+</ol>
+<pre><code>0xxxxxxx
+110xxxxx 10xxxxxx
+1110xxxx 10xxxxxx 10xxxxxx
+11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</code></pre><p>举一个例子，<code>我</code> 这个汉字的 Unicode 为 <code>%u6211</code>，用二进制表示为 <code>0110 0010 0001 0001</code>。可以看到，我们需要15位来存储这个汉字。让我们看看上面那串转换规则。一个x就表示一位可以存储的空间。一个字节可以表示7位，不够。两个字节可以存储11位，还是不够。三个字节可以存储16位，够了。所以说我们使用三个字节来存储这个字符。让我们开始填充。</p>
+<pre><code>0110 0010 0001 0001
+        变成
+     110   001000   010001
+1110xxxx 10xxxxxx 10xxxxxx
+        填充
+11100110 10001000 10010001
+        也就是
+E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编码。正是 <code>\xE6\x88\x91</code>。</p>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        
+        <li class="next">
+            <a href="/blog/CSS/CSS-Variables/">
+                CSS Variables
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
         </div>
         <div class="cube-right">
             
@@ -331,7 +369,7 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/HTML/">#HTML</a>
         </div>
         
@@ -362,7 +400,7 @@
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/unicode/">#unicode</a>
         </div>
         
@@ -392,7 +430,7 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CMD/">#CMD</a>
         </div>
         
@@ -402,12 +440,12 @@
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/webpack/">#webpack</a>
         </div>
         
@@ -422,12 +460,12 @@
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS-module/">#CSS module</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/BEM/">#BEM</a>
         </div>
         
