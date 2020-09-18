@@ -9,7 +9,7 @@ categories:
 
 ## Web Component 概况
 
-Web Component 提供了原生的**组件化**支持。也就是说，这时可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。
+Web Component 提供了原生的**组件化**支持。也就是说，这是可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。
 
 ## Web Component 的基本用法
 

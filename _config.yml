@@ -13,7 +13,8 @@ timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://yifeidai.github.io
+url: 81.68.232.125
+# url: https://yifeidai.github.io
 root: /
 permalink: blog/:category/:title/
 permalink_defaults:
@@ -110,6 +111,12 @@ jsonContent:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: "git"
-  repo: git@github.com:yifeidai/yifeidai.github.io.git
-  branch: master
+  -
+    type: "git"
+    repo: git@github.com:yifeidai/yifeidai.github.io.git
+    branch: master
+
+  -
+    type: "git"
+    repo: root@81.68.232.125:/root/hexo.git
+    branch: master
