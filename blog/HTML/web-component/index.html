@@ -175,7 +175,7 @@
     
     <div class="cube-article-content cube-markdown">
         
-        <h2 id="Web-Component-概况"><a href="#Web-Component-概况" class="headerlink" title="Web Component 概况"></a>Web Component 概况</h2><p>Web Component 提供了原生的<strong>组件化</strong>支持。也就是说，这时可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。</p>
+        <h2 id="Web-Component-概况"><a href="#Web-Component-概况" class="headerlink" title="Web Component 概况"></a>Web Component 概况</h2><p>Web Component 提供了原生的<strong>组件化</strong>支持。也就是说，这是可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。</p>
 <h2 id="Web-Component-的基本用法"><a href="#Web-Component-的基本用法" class="headerlink" title="Web Component 的基本用法"></a>Web Component 的基本用法</h2><p>以下的代码都写在 my-button.js 中</p>
 <pre><code>const template = document.createElement(&#39;template&#39;);
 
@@ -370,8 +370,8 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
     
     
     <div class="count">
-        <a class="count articles"><span>9</span>Article</a>
-        <a class="count tags"><span>16</span>Tags</a>
+        <a class="count articles"><span>11</span>Article</a>
+        <a class="count tags"><span>19</span>Tags</a>
         <a class="count categories"><span>5</span>Categories</a>
     </div>
 </div>
@@ -395,7 +395,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
+                    <a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/" title="SVG 详解">SVG 详解</a>
                 </p>
             </div>
             
@@ -409,7 +409,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
+                    <a href="/blog/HTML/Hugo-with-Vue/" title="Hugo with Vue">Hugo with Vue</a>
                 </p>
             </div>
         </li>
@@ -422,7 +422,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
+                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
                 </p>
             </div>
         </li>
@@ -435,7 +435,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/" title="几种CSS管理方案">几种CSS管理方案</a>
+                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
                 </p>
             </div>
         </li>
@@ -448,7 +448,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/" title=".git 文件夹探秘">.git 文件夹探秘</a>
+                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
                 </p>
             </div>
         </li>
@@ -467,6 +467,11 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
         
         
         <div class="cube-box ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/categories/CSS/">#CSS</a>
         </div>
         
@@ -476,18 +481,13 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/categories/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/HTML/">#HTML</a>
-        </div>
-        
-        
         <div class="cube-box ">
             <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
         </div>
         
     </div>
@@ -503,6 +503,16 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
         
         
         <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/CSS/">#CSS</a>
         </div>
         
@@ -513,41 +523,66 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
         
         
         <div class="cube-box ">
-            <a href="/tags/unicode/">#unicode</a>
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
         <div class="cube-box-bg ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/git/">#git</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/Web-Component/">#Web Component</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/AST/">#AST</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/AMD/">#AMD</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CMD/">#CMD</a>
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
         
         <div class="cube-box-bg ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/UMD/">#UMD</a>
         </div>
         
@@ -557,28 +592,8 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/webpack/">#webpack</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-module/">#CSS module</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/BEM/">#BEM</a>
         </div>
         
     </div>

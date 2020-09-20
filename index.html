@@ -157,6 +157,150 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-SVG 详解">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/">SVG 详解</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-09-20
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/SVG/" class="cube-excerpt-tag-link">#SVG</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="什么是SVG"><a href="#什么是SVG" class="headerlink" title="什么是SVG"></a>什么是SVG</h2><p>SVG 是 Scalable Vector Graphics 的缩写。字面意思就是可伸缩矢量图形。他相对于传统的格式的图片（如png，jpg等）最大的优势就是他是可以<strong>无限缩放</strong>的。无论放大多少倍，他的图片都不会出现模糊的问题。而且他的兼容性也很好。除了 IE8 及以下，其他浏览器都对其提供了良好的支持。</p>
+<h2 id="SVG-语法"><a href="#SVG-语法" class="headerlink" title="SVG 语法"></a>SVG 语法</h2><p>SVG 使用 XML 来定义它的图像。常用的元素有：</p>
+<ul>
+<li>text: 创建一个文字元素</li>
+<li>circle: 创建一个圆形</li>
+<li>ellipse： 创建一个椭圆</li>
+<li>rect: 创建一个矩形</li>
+<li>line: 创建一条直线</li>
+<li>path: 创建一个路径</li>
+<li>textPath: 创建一个文本路径</li>
+<li>polygon: 创建一个多边形</li>
+<li>g: 创建一个元素组</li>
+</ul>
+<h3 id="text"><a href="#text" class="headerlink" title="text"></a>text</h3><p>属性x，y代表文本绘制的起始点</p>
+<pre><code>&lt;text x=&quot;10&quot; y=&quot;10&quot;&gt;I am a text&lt;/text&gt;</code></pre><h3 id="circle"><a href="#circle" class="headerlink" title="circle"></a>circle</h3><p>属性如下</p>
+<ul>
+<li>cx: 圆心x坐标</li>
+<li>cy：圆形y坐标</li>
+<li>r：圆半径</li>
+<li>fill：圆填充色</li>
+</ul>
+<pre><code>&lt;circle cx=&quot;20&quot; cy=&quot;20&quot; r=&quot;10&quot; fill=&quot;#e0e0e0&quot; /&gt;</code></pre><h3 id="ellipse"><a href="#ellipse" class="headerlink" title="ellipse"></a>ellipse</h3><p>属性如下</p>
+<ul>
+<li>cx： 椭圆圆心x坐标</li>
+<li>cy： 椭圆圆心y坐标</li>
+<li>rx： 椭圆横向半径</li>
+<li>ry： 椭圆纵向半径</li>
+</ul>
+<h3 id="rect"><a href="#rect" class="headerlink" title="rect"></a>rect</h3><p>属性如下</p>
+<ul>
+<li>x： 矩形左上角x坐标</li>
+<li>y： 矩形左上角y坐标</li>
+<li>width： 矩形横向长度</li>
+<li>height：矩形纵向长度</li>
+</ul>
+<h3 id="line"><a href="#line" class="headerlink" title="line"></a>line</h3><p>属性如下</p>
+<ul>
+<li>x1: 直线起点x坐标</li>
+<li>y1: 直线起点y坐标</li>
+<li>x2: 直线终点x坐标</li>
+<li>y2: 直线终点y坐标</li>
+</ul>
+<h3 id="path"><a href="#path" class="headerlink" title="path"></a>path</h3><p>有一个属性d，在这个属性中使用一些命令来绘制图形，命令如下</p>
+<ul>
+<li>M： 代表 moveto，接受一组x，y坐标，把绘制点移动到这个位置</li>
+<li>L： 代表 lineto，接受一组x，y坐标，从上一点开始到这个参数的点绘制一条直线</li>
+<li>H： 代表 horizontal lineto，接受一个x坐标，类似L，但是是绘制一条纵向的直线</li>
+<li>V： 代表 vertical lineto，接受一个y坐标，类似L，但是是绘制一条横向的直线</li>
+<li>C： 代表 curveto，接受三组x，y坐标，绘制一个三次贝塞尔曲线</li>
+<li>S： 代表 smooth curveto，接受两组x，y坐标，一个点某一侧的控制点是它另一侧的控制点的对称（以保持斜率不变），是简写的C命令</li>
+<li>Q： 代表 quadratic Bézier curve，接受两组x，y坐标，绘制一条二次贝塞尔曲线</li>
+<li>T： 代表 smooth quadratic Bézier curveto，接受一组x，y坐标，类似S命令，是Q命令的简写，可以只写终点自动推测中间的控制点。但是之前必须有Q命令或者T命令，否则将会成为一条直线</li>
+<li>A： 代表 elliptical Arc，A命令有许多参数，是用来生成一段曲线的</li>
+<li>Z： 代表 closepath，不接受参数，代表将终点和起点相连，闭合路径</li>
+</ul>
+<pre><code>&lt;path d=&quot;M 10 10 L 20 20 H 30 V 40 Z&quot; /&gt;</code></pre><h3 id="textPath"><a href="#textPath" class="headerlink" title="textPath"></a>textPath</h3><p>接受的参数和path相同。然后文字将在这段路径上显示</p>
+<pre><code>&lt;textPath d=&quot;M 10 10 L 20 20 H 30 V 40 Z&quot;&gt;i am a text path&lt;/textPath&gt;</code></pre><h3 id="polygon"><a href="#polygon" class="headerlink" title="polygon"></a>polygon</h3><p>有一个属性 points，接受多个x，y坐标组</p>
+<pre><code>&lt;polygon points=&quot;10,10 20,20 35,20&quot; /&gt;</code></pre><h3 id="g"><a href="#g" class="headerlink" title="g"></a>g</h3><p>将多个元素分组</p>
+<pre><code>&lt;g id=&quot;group&quot;&gt;
+  &lt;path d=&quot;M10 10 L20 20&quot; /&gt;
+  &lt;rect x=&quot;20&quot; y=&quot;20&quot; width=&quot;10&quot; height=&quot;10&quot;&gt;
+&lt;/g&gt;</code></pre><h2 id="SVG-常用属性"><a href="#SVG-常用属性" class="headerlink" title="SVG 常用属性"></a>SVG 常用属性</h2><ul>
+<li>fill: SVG 的填充颜色。在改变svg颜色的时候不能用color，而是要用fill。当然，你可以将fill属性设为currentColor，那么 SVG 将使用 color 属性的颜色进行渲染</li>
+<li>stroke: SVG 线条的颜色</li>
+<li>stroke-width: SVG 线条的宽度</li>
+</ul>
+<h2 id="使用JS，CSS操作SVG"><a href="#使用JS，CSS操作SVG" class="headerlink" title="使用JS，CSS操作SVG"></a>使用JS，CSS操作SVG</h2><p>当 SVG 使用内联的方式加载时（不是通过img等标签通过外部引入），我们可以通过JS或者CSS来操作SVG。SVG 中的每一个标签和正常的DOM标签一样，都拥有class，id等属性。可以通过设置CSS来改变样式，同时，他们也可以被类似于<code>document.querySelector</code> 等操作DOM的API来进行改变。通过这样，我们可以实现一些很炫酷的SVG动画等等功能。</p>
+<h2 id="viewport-和-viewBox"><a href="#viewport-和-viewBox" class="headerlink" title="viewport 和 viewBox"></a>viewport 和 viewBox</h2><h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h3><p>是指 SVG 可见区域，也就是 SVG 实际渲染的大小</p>
+<pre><code>&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;&lt;/svg&gt;</code></pre><p>这里定义了 SVG 长宽为 200px，这个200px的大小就是 SVG 的 viewport</p>
+<h3 id="viewBox"><a href="#viewBox" class="headerlink" title="viewBox"></a>viewBox</h3><p>viewBox 是指渲染的画布的区域范围</p>
+<p>viewBox 接受4个参数：x, y, width, height 定义了一个矩形。举一个例子</p>
+<pre><code>&lt;svg viewBox=&quot;0,0,50,50&quot;&gt;
+  &lt;rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;10&quot; height=&quot;10&quot;&gt;
+&lt;/svg&gt;</code></pre><p>这个 SVG 渲染出来的结果是什么呢？我们假设这个 SVG 设置长宽为100。那么展示的矩形起点在20，20处，长宽为20,20。</p>
+<p>也就是说，我们想象 SVG 有一个无限大的画布，里面的元素可以在这个任意大的画布中进行作画。但是我这个 SVG 向外界展示的区域是一个有限的区域，我们对 SVG 缩放的范围，渲染的范围就是这个区域。这个区域的名字就是 viewBox。</p>
+<h3 id="preserveAspectRatio"><a href="#preserveAspectRatio" class="headerlink" title="preserveAspectRatio"></a>preserveAspectRatio</h3><p>但是我们设置的 SVG 的长宽比和 viewBox 的长宽比并不一定是一样的。这时候就需要 preserveAspectRatio 属性来出马了。他由两个值组成，第一个值表示 viewBox 和 viewport 的对其方式，第二个值表示长宽比如何维持。</p>
+<p>第一个值有10种</p>
+<ul>
+<li>一种是none，这时候 SVG 的长宽比将失真，强制使 viewBox 长宽适应 viewport 的长宽</li>
+<li>另外的9种，他们分别定义了x，y方向上，以起点，终点和中点三个方向进行对其，3*3 共 9 种</li>
+</ul>
+<p>第二个值：</p>
+<ul>
+<li>meet： 保持 viewBox 纵横比缩放， viewBox 尽可能放大占满 viewport。也就是说，整个整个 viewBox 区域都是可见的，小于 viewport 的大小</li>
+<li>slice： 保持 viewBox 纵横比缩放，同时比例小的方向放大填满 viewport。也就是说，部分 viewBox 区域可能会超出 viewport 的区域变得不可见</li>
+</ul>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-Hugo with Vue">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/HTML/Hugo-with-Vue/">Hugo with Vue</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-09-18
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/Hugo/" class="cube-excerpt-tag-link">#Hugo</a>
+                
+                <a href="/tags/Vue/" class="cube-excerpt-tag-link">#Vue</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>本文主要讲述如何在 Hugo 中使用 Vue 进行开发一些复杂交互的网站。</p>
+<h2 id="Hugo"><a href="#Hugo" class="headerlink" title="Hugo"></a>Hugo</h2><p>Hugo 是一个 static site generator(静态网站生成)的框架。这个东西有什么优点呢？</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/HTML/Hugo-with-Vue/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-Unicode and utf-8">
     <header class="cube-excerpt-header">
         <h1><a href="/blog/code/Unicode-and-utf-8/">Unicode and utf-8</a></h1>
@@ -737,7 +881,7 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
     <article class="cube-excerpt-entry cube-markdown">
         
         
-           <h2 id="Web-Component-概况"><a href="#Web-Component-概况" class="headerlink" title="Web Component 概况"></a>Web Component 概况</h2><p>Web Component 提供了原生的<strong>组件化</strong>支持。也就是说，这时可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。</p>
+           <h2 id="Web-Component-概况"><a href="#Web-Component-概况" class="headerlink" title="Web Component 概况"></a>Web Component 概况</h2><p>Web Component 提供了原生的<strong>组件化</strong>支持。也就是说，这是可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。</p>
 <h2 id="Web-Component-的基本用法"><a href="#Web-Component-的基本用法" class="headerlink" title="Web Component 的基本用法"></a>Web Component 的基本用法</h2><p>以下的代码都写在 my-button.js 中</p>
 <pre><code>const template = document.createElement(&#39;template&#39;);
 
@@ -1173,210 +1317,6 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
     </footer>
 </div>
 
-<div class="cube-excerpt" id="cube-excerpt-JS包管理机制">
-    <header class="cube-excerpt-header">
-        <h1><a href="/blog/js/JS%E5%8C%85%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/">JS包管理机制</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2020-07-15
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-                <a href="/tags/AMD/" class="cube-excerpt-tag-link">#AMD</a>
-                
-                <a href="/tags/CMD/" class="cube-excerpt-tag-link">#CMD</a>
-                
-                <a href="/tags/UMD/" class="cube-excerpt-tag-link">#UMD</a>
-                
-                <a href="/tags/ES6-MODULE/" class="cube-excerpt-tag-link">#ES6 MODULE</a>
-                
-                <a href="/tags/webpack/" class="cube-excerpt-tag-link">#webpack</a>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
-        
-        
-           <h2 id="最初的JS模块化"><a href="#最初的JS模块化" class="headerlink" title="最初的JS模块化"></a>最初的JS模块化</h2><p>最初的JS是不存在规范化的模块化管理的，所有的函数和变量会直接污染全局的命名空间。最初人们的解决方法是使用立即执行函数(IIFE: Immediately Invoked Function Expression)进行模块化。</p>
-<pre><code>// 全局变量
-var global = &quot;hello world&quot;
-(function() {
-  // 只能在闭包内访问的变量
-  var a = 1
-})()</code></pre><p>但是仅仅这样是不够的。2009年 Mozilla 工程师 Kevin Dangoor 发起了 ServerJS 项目（后更名为CommonJS），后被我们熟知的 Node.js 使用作为模块管理的规范，也就是后来广为人知的 CommonJS 规范。</p>
-<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><p>CommonJS 使用入如下语法定义一个模块。 CommonJS 暴露了 <code>module.exports</code> 作为了对外界的接口。CommonJS 同时定义了 <code>exports</code> 作为了 <code>module.exports</code> 的引用。同样可以使用他来作为输出对象。</p>
-<pre><code>// module.js
-const a = 1
-function b() {
-  console.log(&quot;hello world&quot;)
-}
-module.exports = {
-  b: b,
-}
-
-exports.a = a</code></pre><p>这时候，如果想在另一个模块引用这些函数以及变量</p>
-<pre><code>// main.js
-const a = require(&quot;module&quot;).a
-const b = require(&quot;module&quot;).b</code></pre><p>如果想让模块直接暴露一个函数或变量，可以这么写</p>
-<pre><code>// module.js
-const a = 1
-module.exports = a</code></pre><p>这时候如果想要使用这个变量</p>
-<pre><code>// main.js
-const a = require(&quot;module&quot;) // 1</code></pre><p>但是，如果你抖一个小机灵说，既然同样可以使用 <code>exports</code> 来输出对象，那我这样写怎么样？</p>
-<pre><code>// module.js
-const a = 1
-exports = a</code></pre><p>这样是不行的。因为之前说过， <code>exports</code> 是作为 <code>module.exports</code> 的引用存在的，你这样写相当于改变了 <code>exports</code> 的指向。程序对外暴露的只是 <code>module.exports</code>，这时的 <code>exports</code> 当然无法生效了。看如下代码你就明白了。</p>
-<pre><code>const module = {
-  exports: {},
-}
-const exports = module.exports
-// 以上代码是程序的预定义部分，将 module.exports 向外暴露
-const a = 1
-exports = a // 这时 module.exports 仍然为空对象</code></pre><p>CommonJS 致力于服务端的生态。但是对于浏览器端 CommonJS 是无法接受的。在服务端，在引用一个模块时，从磁盘中读取一个模块的延时是很短的，但是在浏览器端，网络的延迟导致了模块的加载可能会阻碍其他代码的运行。所以 CommonJS 是无法被浏览器端所接受的。这时候， AMD 规范也就应运而生。</p>
-<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><p>AMD 规范采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。require.js 是最常见的实现 AMD 规范的库。</p>
-<p>require.js 的 API 是这样子的</p>
-<pre><code>define(id?, dependencies?, factory)</code></pre><p>第一个参数是这个模块的名字。第二个参数是这个模块的依赖。第三个参数是定义这个模块的代码主题。如果你想要定义的模块存在依赖，定义的回调函数将在所有的依赖加载完，并且初始化完成后加载。</p>
-<pre><code>// define 第一个参数是依赖列表，分别对应第二个参数回调函数的每一个函数参数
-define([&quot;a&quot;, &quot;jquery&quot;, &quot;c&quot;], function(a, $, c)) {
-  $(&quot;body&quot;).innerHTML = &quot;hello world&quot;
-  a.doSomething()
-  c.doSomething()
-}</code></pre><p>如果你想引用一个模块，第一个参数是依赖列表，第二个参数是所有模块加载完后的回调函数</p>
-<pre><code>require([&quot;jquery&quot;], function($) {
-  $(&quot;body&quot;).innerHTML = &quot;hello world&quot;
-})</code></pre><p>但是 玉伯 认为 RequireJS 不够完善，于是就催生了 CMD</p>
-<h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><p>SeaJS 是实现 CMD 规范的一个库。</p>
-<p>不同于 AMD 推崇的<strong>依赖前置</strong>, CMD 推崇的是<strong>依赖就近</strong>。他们俩都会提前把依赖下载下载下来，但是不同的是 AMD 在下载后悔立即执行依赖模块的代码，但是 CMD 只有在你实际使用的时候，也就是你调用 <code>require</code> 的时候才会执行被你所 <code>require</code> 的模块的代码。这两种模式的优劣社区中有很多中看法。仁者见仁，智者见智。</p>
-<p>SeaJS 的 API 是这样子的</p>
-<pre><code>define(function(require, exports, module) {
-  var $ = require(&quot;jquery.js&quot;)
-  $(&quot;body&quot;).innerHTML = &quot;hello world&quot;
-});</code></pre><h2 id="ES6-MODULE"><a href="#ES6-MODULE" class="headerlink" title="ES6 MODULE"></a>ES6 MODULE</h2><p>之前提到的几种模块化标准都是不是一种标准，而是由社区提出并广受大众接受的一种方案。而 ES6 MODULE 则是在语言标准层面实现的模块化。目前所有的现代浏览器都已经支持了这种语法。</p>
-<pre><code>// 导出早前定义的函数
-const myFunction = () =&gt; {}
-export { myFunction }
-// 或者作为默认导出，相当于 export { myFunction as default } 的语法糖
-export default myFunction
-
-// 导入模块
-import { foo, bar } from &quot;module.js&quot;
-// 导入默认模块，相当于 import { default as foo } from &quot;module.js&quot; 的语法糖
-import foo from &quot;module.js&quot;</code></pre><p>这种声明式而非命令式的语法让静态分析成为了可能。在编译时和写代码时带来了极大的益处。</p>
-<p>和 CommonJS 不同的是， import 导出的是一个引用，而 require 导出的是一个拷贝。也就是说，在 CommonJS 中如果改变一个模块内部的值是不会对引用他的地方的值造成影响的，但是 ES6 MODULE 是有影响的。举一个简单的例子。</p>
-<pre><code>// 对于 CommonJS
-// module.js
-let a = 1
-const adder = () =&gt; a++
-module.export = {
-  a,
-  adder,
-}
-
-// main.js
-const { a, adder } = require(&quot;module.js&quot;)
-console.log(a) // 1
-adder()
-console.log(a) // 1</code></pre><pre><code>// 对于 ES6 MODULE
-// module.js
-let a = 1
-const adder = () =&gt; a++
-export { a, adder }
-
-// main.js
-import { a, adder } from &quot;module.js&quot;
-console.log(a) // 1
-adder()
-console.log(a) // 2</code></pre><h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><p>UMD 其实是一种利用 IIFE(立即执行函数) 来兼容 AMD 和 CommonJS 的一种形式。使你的代码可以在多个不同平台上，不同的模块化标准都可以运行。</p>
-<pre><code>(function(global, factory) {
-  // 判断是 CommonJS 环境
-  typeof exports === &#39;object&#39; &amp;&amp; typeof module !== &#39;undefined&#39; ? module.exports = factory() :
-  // 判断使用 AMD 标准，如果想要兼容 CMD，多加一条判断 define.cmd 即可
-  typeof define === &#39;function&#39; &amp;&amp; define.amd ?
-    define(factory)
-   :
-   // 否则就作为全局变量挂在当前环境的 this 上
-  (global.NAME = factory());
-}(this, (function () {
-  // 你自己定义的模块
-  return obj;
-})));</code></pre><h2 id="Webpack-中的模块化打包"><a href="#Webpack-中的模块化打包" class="headerlink" title="Webpack 中的模块化打包"></a>Webpack 中的模块化打包</h2><p>那么在现在大家常用的打包工具 Webpack 中，模块化是如何进行编译处理的呢？让我们看一个例子。节选自 <a href="https://github.com/lq782655835/webpack-module-example" target="_blank" rel="noopener">lq782655835/webpack-module-example</a></p>
-<pre><code>// src/add.js
-export default function(a, b) {
-    let { name } = { name: &#39;hello world,&#39;}
-    return name + a + b
-}
-
-// src/main.js
-import Add from &#39;./add&#39;
-console.log(Add, Add(1, 2))</code></pre><pre><code>// modules是存放所有模块的数组，数组中每个元素存储{ 模块路径: 模块导出代码函数 }
-(function(modules) {
-// 模块缓存作用，已加载的模块可以不用再重新读取，提升性能
-var installedModules = {};
-
-// 关键函数，加载模块代码
-// 形式有点像Node的CommonJS模块，但这里是可跑在浏览器上的es5代码
-function __webpack_require__(moduleId) {
-  // 缓存检查，有则直接从缓存中取得
-  if(installedModules[moduleId]) {
-    return installedModules[moduleId].exports;
-  }
-  // 先创建一个空模块，塞入缓存中
-  var module = installedModules[moduleId] = {
-    i: moduleId,
-    l: false, // 标记是否已经加载
-    exports: {} // 初始模块为空
-  };
-
-  // 把要加载的模块内容，挂载到module.exports上
-  modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-  module.l = true; // 标记为已加载
-
-  // 返回加载的模块，调用方直接调用即可
-  return module.exports;
-}
-
-// __webpack_require__对象下的r函数
-// 在module.exports上定义__esModule为true，表明是一个模块对象
-__webpack_require__.r = function(exports) {
-  Object.defineProperty(exports, &#39;__esModule&#39;, { value: true });
-};
-
-// 启动入口模块main.js
-return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
-})
-({
-  // add模块
-  &quot;./src/add.js&quot;: (function(module, __webpack_exports__, __webpack_require__) {
-    // 在module.exports上定义__esModule为true
-    __webpack_require__.r(__webpack_exports__);
-    // 直接把add模块内容，赋给module.exports.default对象上
-    __webpack_exports__[&quot;default&quot;] = (function(a, b) {
-      let { name } = { name: &#39;hello world,&#39;}
-      return name + a + b
-    });
-  }),
-
-  // 入口模块
-  &quot;./src/main.js&quot;: (function(module, __webpack_exports__, __webpack_require__) {
-    __webpack_require__.r(__webpack_exports__)
-    // 拿到add模块的定义
-    // _add__WEBPACK_IMPORTED_MODULE_0__ = module.exports，有点类似require
-    var _add__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(&quot;./src/add.js&quot;);
-    // add模块内容: _add__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;]
-    console.log(_add__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;], Object(_add__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;])(1, 2))
-  })
-});</code></pre><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="https://juejin.im/post/5aaa37c8f265da23945f365c" target="_blank" rel="noopener">前端模块化：CommonJS,AMD,CMD,ES6</a><br><a href="https://juejin.im/post/5c94a2f36fb9a070fc623df4" target="_blank" rel="noopener">Webpack 模块打包原理</a></p>
-
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/blog/js/JS%E5%8C%85%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/">Read More</a>
-    </footer>
-</div>
-
 
 
 <ul class="cube-pagination cube-pagination-6">
@@ -1393,11 +1333,17 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
             </li>
             
         
+            
+            <li class="cube-pagination-index">
+                <a href="/page/2">2</a>
+            </li>
+            
+        
     
 
     
-    <li class="cube-pagination-next disabled">
-        <span>Next »</span>
+    <li class="cube-pagination-next">
+        <a href="/page/2/">Next »</a>
     </li>
     
 </ul>
@@ -1440,8 +1386,8 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
     
     
     <div class="count">
-        <a class="count articles"><span>9</span>Article</a>
-        <a class="count tags"><span>16</span>Tags</a>
+        <a class="count articles"><span>11</span>Article</a>
+        <a class="count tags"><span>19</span>Tags</a>
         <a class="count categories"><span>5</span>Categories</a>
     </div>
 </div>
@@ -1465,7 +1411,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
+                    <a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/" title="SVG 详解">SVG 详解</a>
                 </p>
             </div>
             
@@ -1479,7 +1425,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
+                    <a href="/blog/HTML/Hugo-with-Vue/" title="Hugo with Vue">Hugo with Vue</a>
                 </p>
             </div>
         </li>
@@ -1492,7 +1438,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
+                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
                 </p>
             </div>
         </li>
@@ -1505,7 +1451,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/" title="几种CSS管理方案">几种CSS管理方案</a>
+                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
                 </p>
             </div>
         </li>
@@ -1518,7 +1464,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/" title=".git 文件夹探秘">.git 文件夹探秘</a>
+                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
                 </p>
             </div>
         </li>
@@ -1537,27 +1483,27 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/categories/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/code/">#code</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
             <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
         </div>
         
     </div>
@@ -1573,12 +1519,27 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/CSS/">#CSS</a>
+            <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
@@ -1593,6 +1554,11 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/git/">#git</a>
         </div>
         
@@ -1602,8 +1568,23 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/BEM/">#BEM</a>
         </div>
         
         
@@ -1622,33 +1603,13 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/webpack/">#webpack</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-module/">#CSS module</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/BEM/">#BEM</a>
         </div>
         
     </div>

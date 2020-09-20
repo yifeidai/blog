@@ -10,7 +10,7 @@
     
     
     
-    <title>JS包管理机制 | blog</title>
+    <title>blog</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -156,34 +156,35 @@
     
     <div class="cube-content">
         <div class="cube-left">
-            <div class="cube-article">
-    <h1 class="title">JS包管理机制</h1>
-    
-    <div class="cube-article-header">
-        <div class="cube-article-date">
-            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-            <!-- moment.js对象 -->
-            2020-07-15
+            
+<div class="cube-excerpt" id="cube-excerpt-JS包管理机制">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/js/JS%E5%8C%85%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/">JS包管理机制</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-07-15
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/AMD/" class="cube-excerpt-tag-link">#AMD</a>
+                
+                <a href="/tags/CMD/" class="cube-excerpt-tag-link">#CMD</a>
+                
+                <a href="/tags/UMD/" class="cube-excerpt-tag-link">#UMD</a>
+                
+                <a href="/tags/ES6-MODULE/" class="cube-excerpt-tag-link">#ES6 MODULE</a>
+                
+                <a href="/tags/webpack/" class="cube-excerpt-tag-link">#webpack</a>
+                
+            </div>
         </div>
-        <div class="cube-article-tags">
-    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-    
-    <a href="/tags/AMD/">#AMD</a>
-    
-    <a href="/tags/CMD/">#CMD</a>
-    
-    <a href="/tags/UMD/">#UMD</a>
-    
-    <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
-    
-    <a href="/tags/webpack/">#webpack</a>
-    
-</div>
-    </div>
-    
-    <div class="cube-article-content cube-markdown">
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
         
-        <h2 id="最初的JS模块化"><a href="#最初的JS模块化" class="headerlink" title="最初的JS模块化"></a>最初的JS模块化</h2><p>最初的JS是不存在规范化的模块化管理的，所有的函数和变量会直接污染全局的命名空间。最初人们的解决方法是使用立即执行函数(IIFE: Immediately Invoked Function Expression)进行模块化。</p>
+        
+           <h2 id="最初的JS模块化"><a href="#最初的JS模块化" class="headerlink" title="最初的JS模块化"></a>最初的JS模块化</h2><p>最初的JS是不存在规范化的模块化管理的，所有的函数和变量会直接污染全局的命名空间。最初人们的解决方法是使用立即执行函数(IIFE: Immediately Invoked Function Expression)进行模块化。</p>
 <pre><code>// 全局变量
 var global = &quot;hello world&quot;
 (function() {
@@ -353,28 +354,45 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
   })
 });</code></pre><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="https://juejin.im/post/5aaa37c8f265da23945f365c" target="_blank" rel="noopener">前端模块化：CommonJS,AMD,CMD,ES6</a><br><a href="https://juejin.im/post/5c94a2f36fb9a070fc623df4" target="_blank" rel="noopener">Webpack 模块打包原理</a></p>
 
-    </div>
-</div>
-
-<div class="cube-article-nav">
-    <ul>
         
-        <li class="prev">
-            <a href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">
-                <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                git不常用命令整理（1）
-            </a>
-        </li>
-        
-        
-    </ul>
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/js/JS%E5%8C%85%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/">Read More</a>
+    </footer>
 </div>
 
 
-<!-- TODO 根据theme.comment的内容进行入口选择 -->
 
+<ul class="cube-pagination cube-pagination-6">
+    
+    <li class="cube-pagination-prev">
+        <a href="/">« Prev</a>
+    </li>
+    
+    
+        
+            
+            <li class="cube-pagination-index">
+                <a href="/">1</a>
+            </li>
+            
+        
+            
+            <li class="cube-pagination-index disabled">
+                <span>2</span>
+            </li>
+            
+        
+    
 
+    
+    <li class="cube-pagination-next disabled">
+        <span>Next »</span>
+    </li>
+    
+</ul>
 
+<!--其他组件后续添加-->
         </div>
         <div class="cube-right">
             
@@ -523,7 +541,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/js/">#js</a>
         </div>
         
@@ -554,7 +572,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS/">#CSS</a>
         </div>
         
@@ -574,7 +592,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
@@ -609,7 +627,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/BEM/">#BEM</a>
         </div>
         
@@ -619,12 +637,12 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CMD/">#CMD</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/UMD/">#UMD</a>
         </div>
         
