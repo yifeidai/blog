@@ -157,6 +157,306 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-git不常用命令整理（1）">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">git不常用命令整理（1）</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-07-26
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/git/" class="cube-excerpt-tag-link">#git</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>本文是对于一些不是很常用的 git 命令的整理，让我们想要用到一些 git 不常用的功能时，心里可以有一点逼数，知道哪些是可以做的，哪些是做不到的。</p>
+<h2 id="基础的-git-命令"><a href="#基础的-git-命令" class="headerlink" title="基础的 git 命令"></a>基础的 git 命令</h2><p>在写不常用的命令前，这里是我整理的一些比较常用的一些 git 命令。如果发现自己不认识的话就自己去谷歌一下补补课吧。</p>
+<ul>
+<li>git init</li>
+<li>git config</li>
+<li>git clone</li>
+<li>git add</li>
+<li>git status</li>
+<li>git diff</li>
+<li>git commit</li>
+<li>git mv</li>
+<li>git rm</li>
+<li>git reset</li>
+<li>git branch</li>
+<li>git checkout</li>
+<li>git merge</li>
+<li>git log</li>
+<li>git stash</li>
+<li>git tag</li>
+<li>git fetch</li>
+<li>git pull</li>
+<li>git push</li>
+<li>git remote</li>
+<li>git cherry-pick</li>
+<li>git rebase</li>
+<li>git revert</li>
+<li>git help</li>
+</ul>
+<h2 id="不常用的-git-命令"><a href="#不常用的-git-命令" class="headerlink" title="不常用的 git 命令"></a>不常用的 git 命令</h2><p>以下是一些不常用的 git 命令。由于这是一篇总结性的文章，所以这里只会简单的说明每个命令的功能，让大家知道 git 可以干些什么。如果想要知道更加详细具体的用法，或者遇到了某些不知道含义的名词，可以去查看 git 文档。</p>
+<ul>
+<li><p>git archive: 将整个项目打包并压缩成一个文件，<strong>不包含 git 历史</strong></p>
+</li>
+<li><p>git bisect: 在项目遇到 bug 时，用这个命令可以帮助你用二分查找法的方式迅速定位是哪一个 commit 引入了这个 bug</p>
+</li>
+<li><p>git bundle: 将整个项目打包成一个文件，<strong>包含 git 历史</strong></p>
+</li>
+<li><p>git citool: 这是一个图形化 <code>git commit</code> 命令，是 <code>git gui citool</code> 的 alias</p>
+</li>
+<li><p>git clean: 删除所有不在暂存区的<strong>文件或目录</strong></p>
+</li>
+<li><p>git describe: 查找从提交可访问的最新标记。 如果标签指向提交，则只显示标签。 否则，它将标记名称与标记对象之上的其他提交数量以及最近提交的缩写对象名称后缀</p>
+</li>
+<li><p>git format-patch: 打包出一个包含 commit 信息的 patch 文件。可以只用 <code>git am</code> 把打包文件应用于另一个 git 仓库。类似于使用 <code>git diff</code> 生成的 patch 文件，只不过多了 commit 信息。</p>
+</li>
+<li><p>git gc: gc 是 garbage collection 的缩写，主要是用于优化磁盘空间</p>
+</li>
+<li><p>git grep: 用于在 git 历史中进行搜索</p>
+</li>
+<li><p>git gui: 展示 git 的 gui 界面</p>
+</li>
+<li><p>gitk: 展示 git 图形化操作工具</p>
+</li>
+<li><p>git notes: 为提交添加评注</p>
+</li>
+<li><p>git range-diff: 展示两组提交之间的 diff。比如我在master上提交了一些 commit，你也在master上提交了一些 commit（由于没有 push，没冲突），对你我提交的内容进行 diff</p>
+</li>
+<li><p>git restore: 类似于 <code>git checkout --</code></p>
+</li>
+<li><p>git shortlog: 输出所有的git 的 commit msg，以用户进行分组</p>
+</li>
+<li><p>git show: 展示一个或者多个对象。如 <code>git show HEAD</code> 是展示当前最新提交的 diff 信息</p>
+</li>
+<li><p>git sparse-checkout: 只下载远程仓库中某一个特定文件夹</p>
+</li>
+<li><p>git submodule: 在一个 git 仓库中允许建立另一个 git 仓库。但是可以保持各自的工作流独立。常用于多个项目复用同一个包。</p>
+</li>
+<li><p>git switch: 切换分支，相当于 git checkout</p>
+</li>
+<li><p>git worktree: 在存在一个 git 仓库的情况下，在另一个文件夹下创建这个项目某一个分支的代码，但是新的文件夹下的 .git 并不会维护全部的代码历史，只会标明指向原来的项目。这样可以节省磁盘空间。也省了切换分支的开销。常用于大型项目。</p>
+</li>
+<li><p>git fast-export: 将提交导出为 git-fast-import 格式</p>
+</li>
+<li><p>git fast-import: 其他版本库迁移至Git的通用工具</p>
+</li>
+</ul>
+<p>TODO， 敬请期待下一期</p>
+<ul>
+<li><p>git filter-branch:</p>
+</li>
+<li><p>git mergetool:</p>
+</li>
+<li><p>git pack-refs:</p>
+</li>
+<li><p>git repack:</p>
+</li>
+<li><p>git replace:</p>
+</li>
+<li><p>git annotate:</p>
+</li>
+<li><p>git blame:</p>
+</li>
+<li><p>git bugreport:</p>
+</li>
+<li><p>git count-objects:</p>
+</li>
+<li><p>git difftool:</p>
+</li>
+<li><p>git fsck:</p>
+</li>
+<li><p>git instaweb:</p>
+</li>
+<li><p>git merge-tree:</p>
+</li>
+<li><p>git rerere:</p>
+</li>
+<li><p>git show-branch:</p>
+</li>
+<li><p>git verify-commit:</p>
+</li>
+<li><p>git verify-tag:</p>
+</li>
+<li><p>git whatchanged:</p>
+</li>
+<li><p>git archimport:</p>
+</li>
+<li><p>git cvsexportcommit:</p>
+</li>
+<li><p>git cvsimport:</p>
+</li>
+<li><p>git cvsserver:</p>
+</li>
+<li><p>git imap-send:</p>
+</li>
+<li><p>git p4:</p>
+</li>
+<li><p>git quiltimport:</p>
+</li>
+<li><p>git request-pull:</p>
+</li>
+<li><p>git send-email:</p>
+</li>
+<li><p>git svn:</p>
+</li>
+<li><p>git apply:</p>
+</li>
+<li><p>git checkout-index:</p>
+</li>
+<li><p>git commit-graph:</p>
+</li>
+<li><p>git commit-tree:</p>
+</li>
+<li><p>git hash-object:</p>
+</li>
+<li><p>git index-pack:</p>
+</li>
+<li><p>git merge-file:</p>
+</li>
+<li><p>git merge-index:</p>
+</li>
+<li><p>git multi-pack-index:</p>
+</li>
+<li><p>git mktag:</p>
+</li>
+<li><p>git mktree:</p>
+</li>
+<li><p>git pack-objects:</p>
+</li>
+<li><p>git prune-packed:</p>
+</li>
+<li><p>git read-tree:</p>
+</li>
+<li><p>git symbolic-ref:</p>
+</li>
+<li><p>git unpack-objects:</p>
+</li>
+<li><p>git update-index:</p>
+</li>
+<li><p>git update-ref:</p>
+</li>
+<li><p>git write-tree:</p>
+</li>
+<li><p>git cat-file:</p>
+</li>
+<li><p>git cherry:</p>
+</li>
+<li><p>git diff-files:</p>
+</li>
+<li><p>git diff-index:</p>
+</li>
+<li><p>git diff-tree:</p>
+</li>
+<li><p>git for-each-ref:</p>
+</li>
+<li><p>git get-tar-commit-id:</p>
+</li>
+<li><p>git ls-files:</p>
+</li>
+<li><p>git ls-remote:</p>
+</li>
+<li><p>git ls-tree:</p>
+</li>
+<li><p>git merge-base:</p>
+</li>
+<li><p>git name-rev:</p>
+</li>
+<li><p>git pack-redundant:</p>
+</li>
+<li><p>git rev-list:</p>
+</li>
+<li><p>git rev-parse:</p>
+</li>
+<li><p>git show-index:</p>
+</li>
+<li><p>git show-ref:</p>
+</li>
+<li><p>git unpack-file:</p>
+</li>
+<li><p>git var:</p>
+</li>
+<li><p>git verify-pack:</p>
+</li>
+<li><p>git daemon:</p>
+</li>
+<li><p>git fetch-pack:</p>
+</li>
+<li><p>git http-backend:</p>
+</li>
+<li><p>git send-pack:</p>
+</li>
+<li><p>git update-server-info:</p>
+</li>
+<li><p>git http-fetch:</p>
+</li>
+<li><p>git http-push:</p>
+</li>
+<li><p>git parse-remote:</p>
+</li>
+<li><p>git receive-pack:</p>
+</li>
+<li><p>git shell:</p>
+</li>
+<li><p>git upload-archive:</p>
+</li>
+<li><p>git upload-pack:</p>
+</li>
+<li><p>git check-attr:</p>
+</li>
+<li><p>git check-ignore:</p>
+</li>
+<li><p>git check-mailmap:</p>
+</li>
+<li><p>git check-ref-format:</p>
+</li>
+<li><p>git column:</p>
+</li>
+<li><p>git credential:</p>
+</li>
+<li><p>git credential-cache:</p>
+</li>
+<li><p>git credential-store:</p>
+</li>
+<li><p>git fmt-merge-msg:</p>
+</li>
+<li><p>git interpret-trailers:</p>
+</li>
+<li><p>git mailinfo:</p>
+</li>
+<li><p>git mailsplit:</p>
+</li>
+<li><p>git merge-one-file:</p>
+</li>
+<li><p>git patch-id:</p>
+</li>
+<li><p>git sh-i18n:</p>
+</li>
+<li><p>git sh-setup:</p>
+</li>
+<li><p>git stripspace:</p>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a href="https://git-scm.com/docs" target="_blank" rel="noopener">git reference</a></li>
+</ul>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-JS包管理机制">
     <header class="cube-excerpt-header">
         <h1><a href="/blog/js/JS%E5%8C%85%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/">JS包管理机制</a></h1>
@@ -430,7 +730,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
     
     
     <div class="count">
-        <a class="count articles"><span>11</span>Article</a>
+        <a class="count articles"><span>12</span>Article</a>
         <a class="count tags"><span>19</span>Tags</a>
         <a class="count categories"><span>5</span>Categories</a>
     </div>
@@ -455,7 +755,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/" title="SVG 详解">SVG 详解</a>
+                    <a href="/blog/uncategorized/JS-%E5%BC%82%E6%AD%A5%E9%99%B7%E9%98%B1/" title="JS 异步陷阱">JS 异步陷阱</a>
                 </p>
             </div>
             
@@ -469,7 +769,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/HTML/Hugo-with-Vue/" title="Hugo with Vue">Hugo with Vue</a>
+                    <a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/" title="SVG 详解">SVG 详解</a>
                 </p>
             </div>
         </li>
@@ -482,7 +782,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
+                    <a href="/blog/HTML/Hugo-with-Vue/" title="Hugo with Vue">Hugo with Vue</a>
                 </p>
             </div>
         </li>
@@ -495,7 +795,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
+                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
                 </p>
             </div>
         </li>
@@ -508,7 +808,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/" title="什么是AST">什么是AST</a>
+                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
                 </p>
             </div>
         </li>
@@ -527,7 +827,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/categories/git/">#git</a>
+            <a href="/categories/CSS/">#CSS</a>
         </div>
         
         
@@ -537,17 +837,17 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/categories/CSS/">#CSS</a>
+            <a href="/categories/git/">#git</a>
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/categories/code/">#code</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
         </div>
         
     </div>
@@ -563,7 +863,12 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/tags/git/">#git</a>
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
         
@@ -578,12 +883,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/tags/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+            <a href="/tags/git/">#git</a>
         </div>
         
         
@@ -592,43 +892,8 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/js/">#js</a>
-        </div>
-        
-        
         <div class="cube-box ">
             <a href="/tags/Web-Component/">#Web Component</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-module/">#CSS module</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/BEM/">#BEM</a>
         </div>
         
         
@@ -637,7 +902,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CMD/">#CMD</a>
         </div>
         
@@ -654,6 +919,41 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         <div class="cube-box ">
             <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/BEM/">#BEM</a>
         </div>
         
     </div>
