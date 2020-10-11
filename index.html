@@ -157,6 +157,70 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-JS正则bug">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/js/JS%E6%AD%A3%E5%88%99bug/">JS正则bug</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-10-11
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/js/" class="cube-excerpt-tag-link">#js</a>
+                
+                <a href="/tags/%E6%AD%A3%E5%88%99/" class="cube-excerpt-tag-link">#正则</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>让我们来看一段代码</p>
+<pre><code>const reg = /\d/g
+console.log(reg.test(&quot;1&quot;)) // true
+console.log(reg.test(&quot;1&quot;)) // false
+console.log(reg.test(&quot;1&quot;)) // true
+console.log(reg.test(&quot;1&quot;)) // false</code></pre><p>这时我们会发现，有两次正则的 test 方法得出的结果是错误的。这是什么原因呢？让我们再看几段代码。</p>
+<pre><code>const reg = /\d/
+console.log(reg.test(&quot;1&quot;)) // true
+console.log(reg.test(&quot;1&quot;)) // true</code></pre><pre><code>console.log(/\d/g.test(&quot;1&quot;)) // true
+console.log(/\d/g.test(&quot;1&quot;)) // true</code></pre><p>我们可以看到，我们换了两种写法，这个 bug 就不再出现了。一个是去掉了正则的 g 这个 flag。一个是不再使用定义的正则常量，而是每次都使用新的正则实例。显然，这个 bug 出现的原因就在与这个正则常量以及 g 这个 flag 身上。让我们再看一段代码。</p>
+<pre><code>const reg = /\d/g
+console.log(reg.lastIndex) // 0
+console.log(reg.test(&quot;1&quot;)) // true
+console.log(reg.lastIndex) // 1
+console.log(reg.test(&quot;1&quot;)) // false
+console.log(reg.lastIndex) // 0
+console.log(reg.test(&quot;1&quot;)) // true
+console.log(reg.lastIndex) // 1
+console.log(reg.test(&quot;1&quot;)) // false
+console.log(reg.lastIndex) // 0</code></pre><p>我们可以看到，这个正则常量有一个叫做 lastIndex 的属性，这个属性是在正则使用了 g 这个 flag 的时候才会有作用。用处是记录上一次正则匹配的结果的索引值 +1，匹配失败则返回0。这样存在 g 这个 flag 的正则可以进行多次匹配。让我们来看一段代码来体会他的作用。</p>
+<pre><code>const reg = /\d/g
+console.log(reg.exec(&quot;12&quot;)) // [&quot;1&quot;, index: 0, input: &quot;12&quot;, groups: undefined]
+console.log(reg.exec(&quot;12&quot;)) // [&quot;2&quot;, index: 1, input: &quot;12&quot;, groups: undefined]
+console.log(reg.exec(&quot;12&quot;)) // null</code></pre><p>在使用正则进行多次匹配的时候，就是 lastIndex 这个属性记录的上一次匹配的位置，并告诉你他下次开始匹配的位置的索引值。我们也可以修改 lastIndex 来改变。</p>
+<pre><code>const reg = /\d/g
+console.log(reg.exec(&quot;12&quot;)) // [&quot;1&quot;, index: 0, input: &quot;12&quot;, groups: undefined]
+reg.lastIndex = 0
+console.log(reg.exec(&quot;12&quot;)) // [&quot;1&quot;, index: 0, input: &quot;12&quot;, groups: undefined]</code></pre><p>可以看到，这时候又从头开始匹配了。在我们平时的业务代码中，有时候经常会需要一个类型的正则，就比如说检查输入的数字是否是合法的金额，并且在好几个地方都会用到这个正则。这种情况下我们可能就会定义一个常量来储存这个通用的正则。所以我们平时要小心这个问题。</p>
+<p>但是，在我们的第一段代码中，显然这种结果不是我们所预期的。这显然是可以称为一个 bug 的。想要避开这个问题，一共有三种解决方法。</p>
+<pre><code>/\d/g.test(&quot;1&quot;)</code></pre><p>第一种我认为是最好的，可以最优雅的解决这个问题。就是每次用正则的时候都使用新的实例，不要定义常量。</p>
+<pre><code>cosnt reg = /\d/
+reg.test(&quot;1&quot;)</code></pre><p>第二种就是不使用 g 这个 flag 就不会触发 lastIndex 的问题。但是有时候我们确实会需要 g 这个 flag，并不一定能完美的解决问题。</p>
+<pre><code>const reg = /\d/g
+reg.test(&quot;1&quot;)
+reg.lastIndex = 0</code></pre><p>第三种就是每次使用过之后，都将 lastIndex 属性重置为 0。这个方法就不是非常优雅。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/js/JS%E6%AD%A3%E5%88%99bug/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-JS 异步陷阱">
     <header class="cube-excerpt-header">
         <h1><a href="/blog/uncategorized/JS-%E5%BC%82%E6%AD%A5%E9%99%B7%E9%98%B1/">JS 异步陷阱</a></h1>
@@ -898,161 +962,6 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
     </footer>
 </div>
 
-<div class="cube-excerpt" id="cube-excerpt-web component">
-    <header class="cube-excerpt-header">
-        <h1><a href="/blog/HTML/web-component/">web component</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2020-08-02
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-                <a href="/tags/Web-Component/" class="cube-excerpt-tag-link">#Web Component</a>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
-        
-        
-           <h2 id="Web-Component-概况"><a href="#Web-Component-概况" class="headerlink" title="Web Component 概况"></a>Web Component 概况</h2><p>Web Component 提供了原生的<strong>组件化</strong>支持。也就是说，这是可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。</p>
-<h2 id="Web-Component-的基本用法"><a href="#Web-Component-的基本用法" class="headerlink" title="Web Component 的基本用法"></a>Web Component 的基本用法</h2><p>以下的代码都写在 my-button.js 中</p>
-<pre><code>const template = document.createElement(&#39;template&#39;);
-
-template.innerHTML = `
-  &lt;div&gt;
-    &lt;button&gt;my button&lt;/button&gt;
-  &lt;/div&gt;
-`</code></pre><p>如果我们想要定义一个组件，首先我们要定义他的 HTML 模板。</p>
-<pre><code>class Button extends HTMLElement {
-  constructor() {
-    super();
-
-    this._shadowRoot = this.attachShadow({ mode: &#39;open&#39; });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
-  }
-}</code></pre><p>其次，我们要定义这个组件的内部行为。我们看到，Web Component 的定义采取了类继承的定义方式。继承了 HTMLElement 类。所以在这个类中我们可以使用一切 Element 有的方法。<br>在构造函数中，第一行 <code>attachShadow</code> 获取到了当前组件的根节点(称为 shadowRoot)。这里设置了 mode 为 open，意思是可以直接通过 JS 访问和修改该元素。如果设置为 closed，那么将无法被 JS 访问及修改。例如 video 标签。<br>下一行中，把 template 元素克隆了一下加入到了 HTML 中。注意一定要<strong>克隆</strong>节点。因为在多次调用这个组件时，如果不克隆而是直接 appendChild 的话，几个组件就会公用这个节点而引起问题。</p>
-<pre><code>window.customElements.define(&#39;my-button&#39;, Button);</code></pre><p>最后这一行代码申明了，当使用 my-button 标签的时候，使用我们刚刚定义的类 Button 来描述他的行为。请注意，为了区分 Web Component 与平常的 HTML 标签，Web Component 强制规定了在申明的标签名中必须要带有 <code>-</code> 符号。</p>
-<p>这些代码合在一起，组成了定义一个 Web Component 的文件。</p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;./my-button.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;my-button&gt;&lt;/my-button&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>最后在想要使用 Web Component 的地方引入这个文件，并像普通的 HTML 标签一样使用即可。</p>
-<h2 id="Web-Component-的生命周期与传参"><a href="#Web-Component-的生命周期与传参" class="headerlink" title="Web Component 的生命周期与传参"></a>Web Component 的生命周期与传参</h2><p>Web Component 提供了 <code>connectedCallback</code> 的生命周期。这个生命周期在这个组件被插入 DOM 树后触发。相当于 React 的 componentDidMount， Vue 的 mounted 生命周期。<br>与之对应的是 <code>disconnectCallback</code>，在元素被移出 DOM 数后触发。</p>
-<pre><code>// index.html
-&lt;my-button label=&quot;hi&quot;&gt;&lt;/my-button&gt;
-
-// my-button.js
-static get observedAttributes() {
-  return [&quot;label&quot;]
-}
-
-attributeChangedCallback(attr, oldVal, newVal) {
-  switch(attr) {
-    case &quot;label&quot;:
-      document.querySelector(&quot;button&quot;).innerHTML = newVal
-  }
-}</code></pre><p>Web Component 提供了生命周期 <code>attributeChangedCallback</code> 来提示属性的变化。但是只有在 <code>observedAttributes</code> 中注册过的变量才会触发这个生命周期。这个生命周期在组件初始化时会触发，之后在任一注册过的属性发生变化时也会触发。</p>
-<pre><code>&lt;my-button&gt;&lt;/my-button&gt;
-
-const button = document.querySelector(&quot;my-button&quot;)
-button.label = &quot;hi&quot;</code></pre><p>单纯的这样定义和改变一个组件的属性是不会触发 <code>attributeChangedCallback</code> 的生命周期的。我们可以通过使用 getter 和 setter 的方式来控制和获取。</p>
-<pre><code>class Button extends HTMLElement {
-  ...
-
-  set label(value) {
-    this.setAttribute(&quot;label&quot;, value)
-  }
-
-  get label() {
-    return this.getAtribute(&quot;label&quot;)
-  }
-
-  attributeChangedCallback(attr, oldVal, newVal) {
-    this.render()
-  }
-
-  render() {
-    // render HTML
-  }
-}</code></pre><h2 id="使用-Web-Component-内部的方法"><a href="#使用-Web-Component-内部的方法" class="headerlink" title="使用 Web Component 内部的方法"></a>使用 Web Component 内部的方法</h2><pre><code>// my-button.js
-class Button extends HTMLElement {
-  ...
-  doSomething() {
-
-  }
-}
-
-// index.html
-&lt;my-button&gt;&lt;/my-button&gt;
-
-document.querySelector(&quot;my-button&quot;).doSomething()</code></pre><p>我们可以直接访问我们定义的 Web Component 下定义的方法。</p>
-<h2 id="Web-Component-的事件"><a href="#Web-Component-的事件" class="headerlink" title="Web Component 的事件"></a>Web Component 的事件</h2><pre><code>// my-button.js
-connectedCallback() {
-  this.$button.addEventListener(&quot;click&quot;, () =&gt; {
-    this.$button.dispatchEvent(
-      new CustomEvent(&quot;test&quot;, {
-        detail: &quot;hello,
-        composed: true,
-      })
-    );
-  })
-}
-
-// index.html
-document.querySelector(&quot;my-button&quot;).addEventListener(&quot;test&quot;, value =&gt; {
-  console.log(&quot;test&quot;, value) // CustomEvent Object
-})</code></pre><p>当想要向外触发事件的时候，先使用 <code>CustomEvent</code> 自定义一个事件，其中 detail 字段可以是任意值，为向外传递的信息。必须设置 <code>composed: true</code>，否则将无法在组件外监听到信息。然后使用 dispatchEvent 在组件的一个 HTML 元素上触发事件。这样就可以在外界监听到这个事件。</p>
-<h2 id="Shadow-DOM"><a href="#Shadow-DOM" class="headerlink" title="Shadow DOM"></a>Shadow DOM</h2><p>你所定义的 Web Component 全部都封装在 Shadow Dom 中。你在其中定义的 CSS 将不会污染外部的 CSS。但是你可以通过外部来改变 Shadow DOM 内部的样式。推荐的方法是在 Shadow DOM 内部使用 CSS 变量，然后在外部定义不同的 CSS 变量值来控制内部的样式。所有的自定义组件的元素将被挂载在一个被称为 Shadow Root 的根元素上。这个元素的 css 选择器为 <code>:host</code>。</p>
-<h2 id="Web-Component-的-slot"><a href="#Web-Component-的-slot" class="headerlink" title="Web Component 的 slot"></a>Web Component 的 slot</h2><p>Web Component 中的 slot 和 Vue 中的 slot 形式非常相似。</p>
-<pre><code>// my-button.js 的 template 定义部分
-&lt;div&gt;
-  &lt;button&gt;
-    &lt;slot&gt;&lt;/slot&gt;
-  &lt;/button&gt;
-  &lt;slot name=&quot;after&quot;&gt;&lt;/slot&gt;
-&lt;/div&gt;
-
-// index.html
-&lt;my-button&gt;
-  &lt;div&gt;hello&lt;/div&gt;
-  &lt;div slot=&quot;after&quot;&gt;after&lt;/div&gt;
-&lt;/my-button&gt;
-
-// 实际渲染
-&lt;div&gt;
-  &lt;button&gt;
-    &lt;slot&gt;
-      &lt;div&gt;hello&lt;/div&gt;
-    &lt;/slot&gt;
-  &lt;/button&gt;
-  &lt;slot name=&quot;after&quot;&gt;
-    &lt;div&gt;after&lt;/div&gt;
-  &lt;/slot&gt;
-&lt;/div&gt;</code></pre><p>有默认的 slot 和具名的 slot，他们分别将插入在各自对应的 slot 的内部。slot 也有他自己的 CSS 选择器： <code>::slot(after)</code> 指名字为 after 的 slot 的 CSS 选择器。</p>
-<h2 id="扩展原生元素"><a href="#扩展原生元素" class="headerlink" title="扩展原生元素"></a>扩展原生元素</h2><p>当你想让你的元素继承一个原生元素所有的特性时，你可以这样定义你的组件。</p>
-<pre><code>class MyButton extends HTMLButtonElement {
-  ...
-}
-
-customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&quot; });</code></pre><p>只需要在继承时继承那个原生组件的类，并且在 define 时的第三个属性中申明 extends 的原生标签的名字。这是就可以使用这个元素。这个元素可以通过 is 属性来使用。</p>
-<pre><code>&lt;button is=&quot;my-button&quot;&gt;&lt;/button&gt;</code></pre><p>但是在扩展元素时不能尝试创建 Shadow Root。如果尝试创建 Shadow Root 将会报错。</p>
-<p>扩展原生元素的另一个好处是在子元素被限制的时候也可以使用。例如 thead 的子元素必须是 tr。这时如果你想使用一个自己定义的 Web Component 作为子元素的话是不行的，只有使用这种扩展原生元素的方法，写成 <code>&lt;tr is=&quot;my-tr&quot;&gt;&lt;/tr&gt;</code> 才能正常使用。</p>
-
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/blog/HTML/web-component/">Read More</a>
-    </footer>
-</div>
-
 
 
 <ul class="cube-pagination cube-pagination-6">
@@ -1122,8 +1031,8 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
     
     
     <div class="count">
-        <a class="count articles"><span>12</span>Article</a>
-        <a class="count tags"><span>19</span>Tags</a>
+        <a class="count articles"><span>13</span>Article</a>
+        <a class="count tags"><span>20</span>Tags</a>
         <a class="count categories"><span>5</span>Categories</a>
     </div>
 </div>
@@ -1147,7 +1056,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/JS-%E5%BC%82%E6%AD%A5%E9%99%B7%E9%98%B1/" title="JS 异步陷阱">JS 异步陷阱</a>
+                    <a href="/blog/js/JS%E6%AD%A3%E5%88%99bug/" title="JS正则bug">JS正则bug</a>
                 </p>
             </div>
             
@@ -1161,7 +1070,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/" title="SVG 详解">SVG 详解</a>
+                    <a href="/blog/uncategorized/JS-%E5%BC%82%E6%AD%A5%E9%99%B7%E9%98%B1/" title="JS 异步陷阱">JS 异步陷阱</a>
                 </p>
             </div>
         </li>
@@ -1174,7 +1083,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/HTML/Hugo-with-Vue/" title="Hugo with Vue">Hugo with Vue</a>
+                    <a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/" title="SVG 详解">SVG 详解</a>
                 </p>
             </div>
         </li>
@@ -1187,7 +1096,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
+                    <a href="/blog/HTML/Hugo-with-Vue/" title="Hugo with Vue">Hugo with Vue</a>
                 </p>
             </div>
         </li>
@@ -1200,7 +1109,7 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/CSS/CSS-Variables/" title="CSS Variables">CSS Variables</a>
+                    <a href="/blog/code/Unicode-and-utf-8/" title="Unicode and utf-8">Unicode and utf-8</a>
                 </p>
             </div>
         </li>
@@ -1218,23 +1127,23 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
     <div class="cube-boxs">
         
         
-        <div class="cube-box ">
-            <a href="/categories/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/categories/git/">#git</a>
+            <a href="/categories/js/">#js</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/categories/js/">#js</a>
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/git/">#git</a>
         </div>
         
         
@@ -1254,23 +1163,38 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
     <div class="cube-boxs">
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-Variables/">#CSS Variables</a>
-        </div>
-        
-        
         <div class="cube-box ">
             <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
@@ -1279,8 +1203,18 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/SVG/">#SVG</a>
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
         </div>
         
         
@@ -1304,42 +1238,22 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/webpack/">#webpack</a>
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
         <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-module/">#CSS module</a>
         </div>
         
