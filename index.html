@@ -399,6 +399,15 @@ function setA(value) {
 <li>Vue 的基本知识</li>
 <li>webpack 配置基础</li>
 </ul>
+<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>想要使用Vue进行开发，就先思考一下，我们平时使用的Vue编译后的结果是什么样子的。只要我们模仿一下这个编译后的结果，就可以使用Vue进行开发了。</p>
+<p>首先，我们肯定是要分两种环境进行考虑的，一种是开发环境，一种是生产环境。开发环境使用热加载开发简便。生产环境直接编译出结果可以使用。</p>
+<pre><code>&lt;body&gt;
+  &lt;script src=&quot;localhost:8080/app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><p>以上大致就是开发环境中Vue的关键代码。所以在开发环境中，我们的想法是，利用webpack-dev-server启动Vue部分的代码，hugo部分的代码中判断环境，如果是开发环境就插入<code>&lt;script src=&quot;localhost:8080/app.js&quot;&gt;&lt;/script&gt;</code>这段代码。</p>
+<pre><code>&lt;body&gt;
+  &lt;script src=&quot;.../vender.vue.[hash].js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;.../vendor.[dep].[hash].js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><p>以上大致就是生产环境中Vue的关键代码。也就是很多的js业务代码，运行时的依赖文件，css文件等，要把这些依赖引入到文件之中。所以在生产环境中，我们的想法是，利用HTML-webpack-plugin把我们所有的依赖的引入代码打包成一个文件，然后在hugo中判断是生产环境就引入并序列化这个文件的内容（hugo 有一个叫 <a href="https://gohugo.io/functions/readfile/" target="_blank" rel="noopener">readFile</a> 的函数可以读取一个文件内容并序列化到模板文件中）。</p>
 
         
     </article>
@@ -1143,7 +1152,7 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/js/">#js</a>
         </div>
         
@@ -1153,7 +1162,7 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -1174,12 +1183,12 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Vue/">#Vue</a>
         </div>
         
@@ -1189,23 +1198,18 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS/">#CSS</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
@@ -1215,17 +1219,7 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/utf-8/">#utf-8</a>
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
@@ -1244,7 +1238,22 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
         <div class="cube-box-bg ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/AMD/">#AMD</a>
         </div>
         
@@ -1254,7 +1263,7 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/UMD/">#UMD</a>
         </div>
         
