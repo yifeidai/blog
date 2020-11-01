@@ -408,6 +408,33 @@ function setA(value) {
   &lt;script src=&quot;.../vender.vue.[hash].js&quot;&gt;&lt;/script&gt;
   &lt;script src=&quot;.../vendor.[dep].[hash].js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;</code></pre><p>以上大致就是生产环境中Vue的关键代码。也就是很多的js业务代码，运行时的依赖文件，css文件等，要把这些依赖引入到文件之中。所以在生产环境中，我们的想法是，利用HTML-webpack-plugin把我们所有的依赖的引入代码打包成一个文件，然后在hugo中判断是生产环境就引入并序列化这个文件的内容（hugo 有一个叫 <a href="https://gohugo.io/functions/readfile/" target="_blank" rel="noopener">readFile</a> 的函数可以读取一个文件内容并序列化到模板文件中）。</p>
+<h2 id="文件结构设计"><a href="#文件结构设计" class="headerlink" title="文件结构设计"></a>文件结构设计</h2><p>该项目的文件结构如下</p>
+<pre><code>root(hugo root folder)
+  - content
+  - layouts
+    - ...(template files)
+  - ui(Vue root folder)
+  package.json</code></pre><p>其中，在 template files 中代码的末尾加入如下代码。</p>
+<pre><code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+
+{{ if eq (getenv "HUGO_DEV") "true" }}
+  &lt;script src=&quot;http://localhost:8800/app.js&quot;&gt;&lt;/script&gt;
+{{ else }}
+  {{ readFile "/ui/dist/body.partial" | safeHTML }}
+{{ end }}</code></pre><p>这样，在生成的模板文件中，会根据环境来判断引入的script标签。在开发环境使用webpack-dev-server生成的app.js文件。在生产环境中，利用HTML-webpack-plugin生成的文件，把项目需要是引入的文件全部导入。</p>
+<p>最后，在ui文件夹下就可以看做一个完整的Vue的项目。配置webpack分环境进行打包。开发环境下起webpack-dev-server，生产环境下打包进dist目录。具体的webpack配置后文将细说。</p>
+<h2 id="打包方式"><a href="#打包方式" class="headerlink" title="打包方式"></a>打包方式</h2><p>我们将打包的命令配置在package.json文件中。具体的命令定义如下。</p>
+<pre><code>&quot;scripts&quot;: {
+  &quot;hugoDev&quot;: &quot;cross-env HUGO_DEV=true hugo server --bind 0.0.0.0 --noHTTPCache --disableFastRender&quot;,
+  &quot;webpackDev&quot;: &quot;cd ui &amp;&amp; node ../node_modules/webpack-dev-server/bin/webpack-dev-server.js&quot;,
+  &quot;hugoBuild&quot;: &quot;hugo -d dist&quot;,
+  &quot;webpackBuild&quot;: &quot;cd ui &amp;&amp; rm -rf dist &amp;&amp; cross-env BUILD=true node ../node_modules/webpack/bin/webpack.js --prod --progress --hide-modules&quot;,
+  &quot;assetCopy&quot;: &quot;cp -r ui/dist dist/assets&quot;,
+  &quot;dev&quot;: &quot;npm-run-all --parallel hugoDev webpackDev&quot;,
+  &quot;clean&quot;: &quot;rm -rf dist&quot;,
+  &quot;build&quot;: &quot;yarn clean &amp;&amp; yarn webpackBuild &amp;&amp; yarn hugoBuild &amp;&amp; yarn assetCopy&quot;
+}</code></pre><p>开发环境使用的命令是<code>yarn dev</code>。我们看到这里使用了<code>npm-run-all</code>插件。因为在开发环境webpack-dev-server和hugo的任务并不会结束，所以直接使用&amp;&amp;符号进行串行的任务并不能执行两个命令，所以要利用他让我们可以一个命令同时执行hugo和webpack的命令。我们可以看到，这个命令同时执行了两个命令。第一个 hugoDev 就是在启动开发环境hugo的编译流程，我们可以注意到其中一开始有一段<code>cross-env HUGO_DEV=true</code>的代码就是为了给 template files 中的代码区分环境用的。我们回顾一下在上一节中提到，可以发现插入在末尾的代码中判断环境使用的变量就是 <code>HUGO_DEV</code>。第二个命令就是启动webpack-dev-server。这样开发环境就可以正常使用了。</p>
+<p>生产环境使用的命令是<code>yarn build</code>。这个编译流程分为了四步。第一个命令<code>yarn clean</code>用于清除上一次编译留下来的文件。第二个命令<code>yarn webpackBuild</code>是执行webpack的打包流程，把Vue的运行时代码打包成一个文件夹。第三个命令<code>yarn hugoBuild</code>是执行hugo的打包流程。最后一个命令<code>yarn assetCopy</code>把webpack打包出的代码复制到hugo打包出的文件夹下，生成一个最终的项目打包代码文件夹。</p>
 
         
     </article>
@@ -1142,27 +1169,27 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
     <div class="cube-boxs">
         
         
-        <div class="cube-box ">
-            <a href="/categories/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/js/">#js</a>
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/categories/CSS/">#CSS</a>
+        <div class="cube-box-bg ">
+            <a href="/categories/git/">#git</a>
         </div>
         
         
         <div class="cube-box-bg ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -1176,11 +1203,6 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         <a href="/tags">Tagcloud</a>
     </div>
     <div class="cube-boxs">
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/git/">#git</a>
-        </div>
         
         
         <div class="cube-box ">
@@ -1204,12 +1226,37 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box ">
-            <a href="/tags/CSS/">#CSS</a>
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
         <div class="cube-box-bg ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
@@ -1219,7 +1266,27 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box ">
-            <a href="/tags/SVG/">#SVG</a>
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/webpack/">#webpack</a>
         </div>
         
         
@@ -1235,46 +1302,6 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         <div class="cube-box ">
             <a href="/tags/BEM/">#BEM</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/AMD/">#AMD</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/CMD/">#CMD</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/UMD/">#UMD</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/webpack/">#webpack</a>
         </div>
         
     </div>
