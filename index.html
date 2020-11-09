@@ -435,7 +435,15 @@ function setA(value) {
   &quot;build&quot;: &quot;yarn clean &amp;&amp; yarn webpackBuild &amp;&amp; yarn hugoBuild &amp;&amp; yarn assetCopy&quot;
 }</code></pre><p>开发环境使用的命令是<code>yarn dev</code>。我们看到这里使用了<code>npm-run-all</code>插件。因为在开发环境webpack-dev-server和hugo的任务并不会结束，所以直接使用&amp;&amp;符号进行串行的任务并不能执行两个命令，所以要利用他让我们可以一个命令同时执行hugo和webpack的命令。我们可以看到，这个命令同时执行了两个命令。第一个 hugoDev 就是在启动开发环境hugo的编译流程，我们可以注意到其中一开始有一段<code>cross-env HUGO_DEV=true</code>的代码就是为了给 template files 中的代码区分环境用的。我们回顾一下在上一节中提到，可以发现插入在末尾的代码中判断环境使用的变量就是 <code>HUGO_DEV</code>。第二个命令就是启动webpack-dev-server。这样开发环境就可以正常使用了。</p>
 <p>生产环境使用的命令是<code>yarn build</code>。这个编译流程分为了四步。第一个命令<code>yarn clean</code>用于清除上一次编译留下来的文件。第二个命令<code>yarn webpackBuild</code>是执行webpack的打包流程，把Vue的运行时代码打包成一个文件夹。第三个命令<code>yarn hugoBuild</code>是执行hugo的打包流程。最后一个命令<code>yarn assetCopy</code>把webpack打包出的代码复制到hugo打包出的文件夹下，生成一个最终的项目打包代码文件夹。</p>
-
+<h2 id="数据获取方式"><a href="#数据获取方式" class="headerlink" title="数据获取方式"></a>数据获取方式</h2><p>由于要用Vue来进行网页的编码，那么我们就不可能像使用hugo一样直接在模板文件中写HTML，而是要利用Vue来生成不同的页面。要生成不同的页面，其关键点就在于同类型的页面要获取不同的数据。所以说，我们的做法是预先把数据存储在网页之中。</p>
+<p>我们获取的数据源一共有两个，一个是定义在data文件夹中，一个是定义在content文件夹中md文件的frontmatter中。我们可以在模板文件中，将这些数据定义在window下，作为全局变量。这样就可以在Vue中进行调用这些数据。</p>
+<pre><code>{
+  window.data = &quot;{{ Site.Data.config }}&quot;
+  window.title = &quot;{{ .Title }}&quot;
+}</code></pre><p>还有一部分数据是定义在md文件中的markdown。这一部分也可以将其挂载在模板文件中，但是使用 <code>display:none</code> 进行隐藏。然后再使用Vue操作这一部分的DOM即可。</p>
+<pre><code>&lt;div id=&quot;_page-content&quot; style=&quot;display: none&quot;&gt;
+  {{ .Content | markdownify }}
+&lt;/div&gt;</code></pre>
         
     </article>
     <footer class="cube-excerpt-footer">
@@ -1169,8 +1177,18 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
     <div class="cube-boxs">
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
         </div>
         
         
@@ -1180,16 +1198,6 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box-bg ">
-            <a href="/categories/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/categories/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -1210,28 +1218,8 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/Vue/">#Vue</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/SVG/">#SVG</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/git/">#git</a>
         </div>
         
         
@@ -1246,22 +1234,32 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
+            <a href="/tags/git/">#git</a>
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AST/">#AST</a>
         </div>
         
         
@@ -1280,22 +1278,32 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/webpack/">#webpack</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+            <a href="/tags/unicode/">#unicode</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-module/">#CSS module</a>
         </div>
         
