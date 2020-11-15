@@ -423,7 +423,15 @@ function setA(value) {
   {{ readFile "/ui/dist/body.partial" | safeHTML }}
 {{ end }}</code></pre><p>这样，在生成的模板文件中，会根据环境来判断引入的script标签。在开发环境使用webpack-dev-server生成的app.js文件。在生产环境中，利用HTML-webpack-plugin生成的文件，把项目需要是引入的文件全部导入。</p>
 <p>最后，在ui文件夹下就可以看做一个完整的Vue的项目。配置webpack分环境进行打包。开发环境下起webpack-dev-server，生产环境下打包进dist目录。具体的webpack配置后文将细说。</p>
-<h2 id="打包方式"><a href="#打包方式" class="headerlink" title="打包方式"></a>打包方式</h2><p>我们将打包的命令配置在package.json文件中。具体的命令定义如下。</p>
+<h2 id="数据获取方式"><a href="#数据获取方式" class="headerlink" title="数据获取方式"></a>数据获取方式</h2><p>由于要用Vue来进行网页的编码，那么我们就不可能像使用hugo一样直接在模板文件中写HTML，而是要利用Vue来生成不同的页面。要生成不同的页面，其关键点就在于同类型的页面要获取不同的数据。所以说，我们的做法是预先把数据存储在网页之中。</p>
+<p>我们获取的数据源一共有两个，一个是定义在data文件夹中，一个是定义在content文件夹中md文件的frontmatter中。我们可以在模板文件中，将这些数据定义在window下，作为全局变量。这样就可以在Vue中进行调用这些数据。</p>
+<pre><code>{
+  window.data = &quot;{{ Site.Data.config }}&quot;
+  window.title = &quot;{{ .Title }}&quot;
+}</code></pre><p>还有一部分数据是定义在md文件中的markdown。这一部分也可以将其挂载在模板文件中，但是使用 <code>display:none</code> 进行隐藏。然后再使用Vue操作这一部分的DOM即可。</p>
+<pre><code>&lt;div id=&quot;_page-content&quot; style=&quot;display: none&quot;&gt;
+  {{ .Content | markdownify }}
+&lt;/div&gt;</code></pre><h2 id="打包方式"><a href="#打包方式" class="headerlink" title="打包方式"></a>打包方式</h2><p>我们将打包的命令配置在package.json文件中。具体的命令定义如下。</p>
 <pre><code>&quot;scripts&quot;: {
   &quot;hugoDev&quot;: &quot;cross-env HUGO_DEV=true hugo server --bind 0.0.0.0 --noHTTPCache --disableFastRender&quot;,
   &quot;webpackDev&quot;: &quot;cd ui &amp;&amp; node ../node_modules/webpack-dev-server/bin/webpack-dev-server.js&quot;,
@@ -435,15 +443,35 @@ function setA(value) {
   &quot;build&quot;: &quot;yarn clean &amp;&amp; yarn webpackBuild &amp;&amp; yarn hugoBuild &amp;&amp; yarn assetCopy&quot;
 }</code></pre><p>开发环境使用的命令是<code>yarn dev</code>。我们看到这里使用了<code>npm-run-all</code>插件。因为在开发环境webpack-dev-server和hugo的任务并不会结束，所以直接使用&amp;&amp;符号进行串行的任务并不能执行两个命令，所以要利用他让我们可以一个命令同时执行hugo和webpack的命令。我们可以看到，这个命令同时执行了两个命令。第一个 hugoDev 就是在启动开发环境hugo的编译流程，我们可以注意到其中一开始有一段<code>cross-env HUGO_DEV=true</code>的代码就是为了给 template files 中的代码区分环境用的。我们回顾一下在上一节中提到，可以发现插入在末尾的代码中判断环境使用的变量就是 <code>HUGO_DEV</code>。第二个命令就是启动webpack-dev-server。这样开发环境就可以正常使用了。</p>
 <p>生产环境使用的命令是<code>yarn build</code>。这个编译流程分为了四步。第一个命令<code>yarn clean</code>用于清除上一次编译留下来的文件。第二个命令<code>yarn webpackBuild</code>是执行webpack的打包流程，把Vue的运行时代码打包成一个文件夹。第三个命令<code>yarn hugoBuild</code>是执行hugo的打包流程。最后一个命令<code>yarn assetCopy</code>把webpack打包出的代码复制到hugo打包出的文件夹下，生成一个最终的项目打包代码文件夹。</p>
-<h2 id="数据获取方式"><a href="#数据获取方式" class="headerlink" title="数据获取方式"></a>数据获取方式</h2><p>由于要用Vue来进行网页的编码，那么我们就不可能像使用hugo一样直接在模板文件中写HTML，而是要利用Vue来生成不同的页面。要生成不同的页面，其关键点就在于同类型的页面要获取不同的数据。所以说，我们的做法是预先把数据存储在网页之中。</p>
-<p>我们获取的数据源一共有两个，一个是定义在data文件夹中，一个是定义在content文件夹中md文件的frontmatter中。我们可以在模板文件中，将这些数据定义在window下，作为全局变量。这样就可以在Vue中进行调用这些数据。</p>
-<pre><code>{
-  window.data = &quot;{{ Site.Data.config }}&quot;
-  window.title = &quot;{{ .Title }}&quot;
-}</code></pre><p>还有一部分数据是定义在md文件中的markdown。这一部分也可以将其挂载在模板文件中，但是使用 <code>display:none</code> 进行隐藏。然后再使用Vue操作这一部分的DOM即可。</p>
-<pre><code>&lt;div id=&quot;_page-content&quot; style=&quot;display: none&quot;&gt;
-  {{ .Content | markdownify }}
-&lt;/div&gt;</code></pre>
+<h2 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h2><p>webpack 配置文件中的大部分都与普通的Vue项目没有什么区别，唯一有区别的地方在于 HTML-webpack-plugin 的配置。</p>
+<p>首先，在开发环境，并不需要做任何特殊的配置。编译输出了一个app.js的文件给webpack-dev-server，直接就可以使用了。</p>
+<p>在生产环境的编译下，对配置做如下修改。</p>
+<pre><code>new HTMLWebpackPlugin({
+  inject: false,
+  minify: false,
+  filename: &quot;head.partial&quot;,
+  templateContent: ({htmlWebpackPlugin}) =&gt; `${htmlWebpackPlugin.tags.headTags}`,
+})
+
+new HTMLWebpackPlugin({
+  inject: false,
+  minify: false,
+  filename: &quot;body.partial&quot;,
+  templateContent: ({htmlWebpackPlugin}) =&gt; `${htmlWebpackPlugin.tags.bodyTags}`,
+})</code></pre><p>加入了上述两个HTML-webpack-plugin的配置后，这两者将分别把JS文件和CSS文件的引入标签代码打包成了 body.partial 和 head.partial 两个文件。让我们来看看这两个文件。</p>
+<pre><code>// body.partial
+&lt;script src=&quot;/assets/js/vendor.runtime.bf9a7ce533402d6e1e4b.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.vue.10426c5f37b9909f3356.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.core-js.0dd09ca0b957f339ec22.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.normalize.css.c25d28ba90daebf55ddd.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.velocity-animate.96372836ed735c252945.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/app.c1b601945336515e1a70.chunk.js&quot;&gt;&lt;/script&gt;</code></pre><pre><code>// head.partial
+&lt;link href=&quot;/assets/css/vendor.normalize.css.24bf1742e3764eb5de3c.chunk.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;link href=&quot;/assets/css/app.fd7d6ea5c66bbd36de53.chunk.css&quot; rel=&quot;stylesheet&quot;&gt;</code></pre><p>然后上述的两个文件在生产环境下分别被以下的代码引入模板文件。</p>
+<pre><code>{{ if not (eq (getenv "HUGO_DEV") "true") }}
+  {{ readFile "/ui/dist/head.partial" | safeHTML }}
+{{ end }}
+
+{{ if eq (getenv "HUGO_DEV") "true" }}
+  &lt;script src=&quot;http://localhost:8800/app.js&quot;&gt;&lt;/script&gt;
+{{ else }}
+  {{ readFile "/ui/dist/body.partial" | safeHTML }}
+{{ end }}</code></pre><p>这样就完成了一个 Hugo with Vue 项目的配置。</p>
+
         
     </article>
     <footer class="cube-excerpt-footer">
@@ -1178,12 +1206,12 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box ">
-            <a href="/categories/HTML/">#HTML</a>
+            <a href="/categories/CSS/">#CSS</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/categories/CSS/">#CSS</a>
+            <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
@@ -1192,12 +1220,12 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/js/">#js</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -1214,22 +1242,17 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box ">
-            <a href="/tags/Hugo/">#Hugo</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/Vue/">#Vue</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/tags/CSS/">#CSS</a>
         </div>
         
         
         <div class="cube-box ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
@@ -1244,11 +1267,11 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box ">
-            <a href="/tags/SVG/">#SVG</a>
+            <a href="/tags/AST/">#AST</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/js/">#js</a>
         </div>
         
@@ -1258,8 +1281,23 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
         <div class="cube-box-bg ">
-            <a href="/tags/AST/">#AST</a>
+            <a href="/tags/Vue/">#Vue</a>
         </div>
         
         
@@ -1278,7 +1316,7 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
@@ -1289,16 +1327,6 @@ console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
         
         
         <div class="cube-box ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
             <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
