@@ -10,7 +10,7 @@
     
     
     
-    <title>Tags: AST | blog</title>
+    <title>canvas中的图片跨域问题 | blog</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -156,29 +156,72 @@
     
     <div class="cube-content">
         <div class="cube-left">
-            <style>
-    @media(max-width: 768px) {
-        body {
-            background-color: #fff!important;
-        }
-    }
-</style>
-<div class="cube-archives">
+            <div class="cube-article">
+    <h1 class="title">canvas中的图片跨域问题</h1>
     
-    <div class="cube-archive" style="margin-top: 0;">
-        <h1 class="title">AST</h1>
-        
-        <ul class="posts">
-            
-            <li class="post">
-                <a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/">什么是AST</a>
-            </li>
-            
-        </ul>
-        
-    </div>
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-11-23
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/canvas/">#canvas</a>
+    
+    <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
     
 </div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <p>canvas的图片跨域问题是指，当在canvas中使用和当前网站不同域名的图片资源的时候，如果你想使用canvas的<code>toDataURL</code>等转化成实际图片进行处理，比如下载。这时候你会发现跨域的图片的那部分将无法加载出来。</p>
+<p>这种事情是非常常见的，因为我们很多情况下并不会把图片资源和网页挂在同一个域名下。当然，你也可以对某些子路径的域名做一层反代规避掉这个问题。如果你没有做这个，那么你应该怎么办呢？</p>
+<p>这时候你就需要做两件事：</p>
+<ol>
+<li><p>首先在你存放文件的地方，如果是在腾讯云或者阿里云这种，直接设置图片的跨域头。也就是加上<code>Access-Control-Allow-Origin: ${ your domain }</code>的跨域头。当然如果你嫌麻烦，跨域直接把<code>${ your domain }</code>这一部分写成*，这样任何网页都可以使用你的图片。</p>
+</li>
+<li><p>然后在 img 标签上添加一个属性,有两种方法添加</p>
+<ul>
+<li><p>通过js添加，也就是在那个img标签中做如下操作</p>
+<pre><code>const image = new Image()
+image.crossOrigin = &quot;anonymous&quot;
+image.src = &quot;url&quot; // set a true url</code></pre></li>
+<li><p>直接在HTML代码中添加</p>
+<pre><code>&lt;img src=&quot;url&quot; crossorigin=&quot;anonymous&quot; /&gt;</code></pre></li>
+</ul>
+</li>
+</ol>
+<p>但是，以上的解决方法都是在图片的控制权在你的手上的情况下。如果这是一张第三方的图片，你就无法设置他的跨域头来解决问题了。就比如产品希望我在canvas上画上一个微信生成的二维码。我不是马化腾，没有能力让腾讯的工程师给我加一个跨域头。所以这种情况下，也有两个办法：</p>
+<ol>
+<li>让后端的同学们帮忙开一个接口，下载那个图片。后端的接口是可以控制的。</li>
+<li>通过nginx设置反代来获取那张图片，并且在nginx中加入设置跨域头的配置。</li>
+</ol>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        
+        <li class="next">
+            <a href="/blog/js/JS%E6%AD%A3%E5%88%99bug/">
+                JS正则bug
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
         </div>
         <div class="cube-right">
             
@@ -353,12 +396,12 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/canvas/">#canvas</a>
         </div>
         
@@ -408,22 +451,22 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Web-Component/">#Web Component</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/unicode/">#unicode</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
@@ -443,7 +486,7 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/UMD/">#UMD</a>
         </div>
         
