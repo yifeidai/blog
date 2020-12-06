@@ -157,6 +157,114 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-几种CSS管理方案">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/">几种CSS管理方案</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-08-23
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/CSS/" class="cube-excerpt-tag-link">#CSS</a>
+                
+                <a href="/tags/CSS-in-JS/" class="cube-excerpt-tag-link">#CSS in JS</a>
+                
+                <a href="/tags/CSS-module/" class="cube-excerpt-tag-link">#CSS module</a>
+                
+                <a href="/tags/BEM/" class="cube-excerpt-tag-link">#BEM</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>CSS 的管理一直都是一个让人头大的难题。在 SPA 中，由于 CSS 的作用域是全局的，所以每一个页面的文件的样式都可能会影响到其他页面的样式。当你无意识中写了一个和其他页面同名的样式时，这无疑是致命的。而当你在对 DOM 结构进行删改时，非常容易遗留下无用的 CSS。所以如何合理的维护一个工程的 CSS 无疑是一个巨大的难题。</p>
+<h2 id="BEM"><a href="#BEM" class="headerlink" title="BEM"></a>BEM</h2><p>BEM 是最简单的解决 CSS 命名冲突的方案。是一种通过约定来解决命名冲突的实现方式。</p>
+<pre><code>.block {}
+.block__element {}
+.block__another-element {}
+.block--modifier {}</code></pre><ul>
+<li><code>block</code> 代表了一个命名空间。可能是一个页面，可能是一个组件，也可能是一个组件中的一部分。可以自行约定。</li>
+<li>所有在 <code>block</code> 命名空间下的样式都已 <code>block</code> 开头，并已双下划线连接自己的名字</li>
+<li>中划线作为连字符</li>
+<li>双中划线连接的代表不同的状态</li>
+<li>不可嵌套过深的层级，避免出现过长的 CSS</li>
+</ul>
+<p>当然这些都是一些约定，所以自然你也可以加入一些自己的约定。</p>
+<p>BEM 结构清晰，易于扩展，但是很容易出现 CSS 类名过长，CSS 文件过于繁琐的问题。</p>
+<h2 id="CSS-in-JS"><a href="#CSS-in-JS" class="headerlink" title="CSS in JS"></a>CSS in JS</h2><p>显而易见的，CSS in JSS 就是在 JS 代码中写 CSS。具体是什么样子的，我们就来看一个最流行的实现 CSS in JS 的库的代码。</p>
+<pre><code>import React, { Component } from &quot;react&quot;
+import styled from &quot;styled-components&quot;
+
+const Wrapper = styled.div`
+  background: black
+`
+const Title = styled.h1`
+  background: white
+`
+class App extends Component {
+  render() {
+    return (
+      &lt;Wrapper&gt;
+        &lt;Title&gt;Hello world!&lt;/Title&gt;
+      &lt;/Wrapper&gt;
+    )
+  }
+}
+
+export default App</code></pre><p>这一份代码应该十分的浅显易懂。每一个标签都由 styled 使用 ES6 的新语法，变迁模板字符串生成一个 HOC。这样每一层样式都定义成了一个组件来进行使用。</p>
+<p>他的实现方式并不是简单的使用内联样式，而是生成了一个随机的字符串作为类的名字，并且保证了每一个类名都不会重复。这样就完美的解决了之前提到的样式名称重复的问题。</p>
+<p>优点：</p>
+<ul>
+<li>可以在 CSS 中使用 JS 的变量</li>
+<li>可以在 CSS 中使用 JS 来进行计算</li>
+<li>解决了全局命名冲突的问题</li>
+<li>对于推崇 everything in JS 理念的人很友好</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>不能使用 post CSS</li>
+<li>不能使用 CSS 预处理器</li>
+<li>难以调试，在 devtool 中只能修改当前的组件实例</li>
+<li>性能不可避免的更低</li>
+<li>生成的代码有很多冗余</li>
+<li>将样式和 JS 代码混合在一起，对一些人来说不可接受</li>
+</ul>
+<p>除此之外，前面提到的优点都不是没有解决方法的，比如使用 BEM，使用 less，sass 等等。</p>
+<h2 id="CSS-Module"><a href="#CSS-Module" class="headerlink" title="CSS Module"></a>CSS Module</h2><p>CSS Module 的开启方法是只要在 webpack 的 css-loader 配置中的 options 选项中把 module 设为 true 即为开启了 Css Module。</p>
+<p>让我们看看 CSS Module 的使用方式。</p>
+<pre><code>// index.js
+import Index from &#39;./index.css&#39;
+
+const html = `&lt;div class=${ Index.header }&gt;
+    &lt;h1 class=${ Index.title }&gt;CSS Modules&lt;/h1&gt;
+  &lt;h1 class=&quot;title&quot;&gt;global class title&lt;/h1&gt;
+&lt;/div&gt;`</code></pre><pre><code>// index.css
+.header {
+  background: black;
+}
+
+.title {
+  color: white;
+}
+
+:global(.title) {
+  composes: header;
+  color: green;
+}</code></pre><p>CSS Module 的作用相当于把每一份 CSS 文件的进行了隔离。然后可以 import 进来引用他的名字。当不想只有页面的作用于的类在前面加上 global 即可。这样可以直接在使用他本身的类名而不用 使用 import 进来的名字。可以使用 composes 来复用已存在的类。</p>
+<p>他的原理十分的简单，就是 webpack 在编译的时候用哈希的方式另外生成了一套类名。而 import 进来的就是原来的类名和编译后的类名的映射的对象。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-.git 文件夹探秘">
     <header class="cube-excerpt-header">
         <h1><a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/">.git 文件夹探秘</a></h1>
@@ -874,6 +982,8 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
             <div class="cube-excerpt-tags">
                 <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
                 
+                <a href="/tags/webpack/" class="cube-excerpt-tag-link">#webpack</a>
+                
                 <a href="/tags/AMD/" class="cube-excerpt-tag-link">#AMD</a>
                 
                 <a href="/tags/CMD/" class="cube-excerpt-tag-link">#CMD</a>
@@ -881,8 +991,6 @@ customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&q
                 <a href="/tags/UMD/" class="cube-excerpt-tag-link">#UMD</a>
                 
                 <a href="/tags/ES6-MODULE/" class="cube-excerpt-tag-link">#ES6 MODULE</a>
-                
-                <a href="/tags/webpack/" class="cube-excerpt-tag-link">#webpack</a>
                 
             </div>
         </div>
@@ -1136,7 +1244,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
     
     
     <div class="count">
-        <a class="count articles"><span>15</span>Article</a>
+        <a class="count articles"><span>16</span>Article</a>
         <a class="count tags"><span>24</span>Tags</a>
         <a class="count categories"><span>5</span>Categories</a>
     </div>
@@ -1161,7 +1269,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/stylus-%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86/" title="stylus 变量管理">stylus 变量管理</a>
+                    <a href="/blog/uncategorized/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/" title="优化webpack打包时间">优化webpack打包时间</a>
                 </p>
             </div>
             
@@ -1175,7 +1283,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/canvas%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="canvas中的图片跨域问题">canvas中的图片跨域问题</a>
+                    <a href="/blog/uncategorized/stylus-%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86/" title="stylus 变量管理">stylus 变量管理</a>
                 </p>
             </div>
         </li>
@@ -1188,7 +1296,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/JS%E6%AD%A3%E5%88%99bug/" title="JS正则bug">JS正则bug</a>
+                    <a href="/blog/uncategorized/canvas%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="canvas中的图片跨域问题">canvas中的图片跨域问题</a>
                 </p>
             </div>
         </li>
@@ -1201,7 +1309,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/JS-%E5%BC%82%E6%AD%A5%E9%99%B7%E9%98%B1/" title="JS 异步陷阱">JS 异步陷阱</a>
+                    <a href="/blog/js/JS%E6%AD%A3%E5%88%99bug/" title="JS正则bug">JS正则bug</a>
                 </p>
             </div>
         </li>
@@ -1214,7 +1322,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/" title="SVG 详解">SVG 详解</a>
+                    <a href="/blog/uncategorized/JS-%E5%BC%82%E6%AD%A5%E9%99%B7%E9%98%B1/" title="JS 异步陷阱">JS 异步陷阱</a>
                 </p>
             </div>
         </li>
@@ -1237,18 +1345,18 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
+        <div class="cube-box-bg ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
         <div class="cube-box ">
             <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/categories/js/">#js</a>
         </div>
         
         
@@ -1268,7 +1376,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
     <div class="cube-boxs">
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS/">#CSS</a>
         </div>
         
@@ -1278,12 +1386,32 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
         <div class="cube-box-bg ">
             <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/canvas/">#canvas</a>
         </div>
         
@@ -1299,27 +1427,17 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/tags/stylus/">#stylus</a>
+            <a href="/tags/webpack/">#webpack</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/css/">#css</a>
+            <a href="/tags/unicode/">#unicode</a>
         </div>
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/Web-Component/">#Web Component</a>
+            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
@@ -1329,12 +1447,7 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         
         
         <div class="cube-box ">
-            <a href="/tags/Hugo/">#Hugo</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/Vue/">#Vue</a>
+            <a href="/tags/Web-Component/">#Web Component</a>
         </div>
         
         
@@ -1358,33 +1471,28 @@ return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/webpack/">#webpack</a>
+        <div class="cube-box-bg ">
+            <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS-module/">#CSS module</a>
         </div>
         
         
         <div class="cube-box ">
             <a href="/tags/BEM/">#BEM</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
     </div>
