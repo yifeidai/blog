@@ -177,10 +177,33 @@
         
         <p>在开发一个项目的时候，一开始webpack进行编译的速度都是很快的，因为我们引入的依赖很少。但是，当你的项目越来越臃肿的时候，打包的时间将大幅度的上升，有时候达到几分钟这种完全不能接受的地步。这时候，我们就应该开始着手对于webpack的打包流程进行优化了。</p>
 <ol>
-<li><p>分析依赖</p>
-</li>
-<li><p>cache-loader</p>
-</li>
+<li>分析依赖</li>
+</ol>
+<p>想要知道什么东西影响了打包的时间，那么我们当然需要了解我们打包出来的文件的构成。是哪些依赖导致的我们打包速度变慢。这时候，我们就要用到 webpack-bundle-analyzer 这个插件了。在使用了这个插件后，会自动打开一个网页，里面的图片就是我们打包结果的构成。如下图所示。</p>
+<p><img src="https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202020-12-14%20002309%20%281%29.png?Expires=1607880388&OSSAccessKeyId=TMP.3Kk17ATZT8SrodLCzaxq2K4KsDXf7CogQeahPaTN9Nne1XCEwLVvNd8QbT9dWiytBkexfRVF7MptsxWDHDpnjhitAMQp9i&Signature=S7Lek%2FUnHyxEQuRLRrtgsw1UZhE%3D&versionId=CAEQDRiBgICSitnzshciIDc0Y2YxNTg2NTg3ZDRlZTNiMjhmN2U1ZDQzYWViMjMy&response-content-type=application%2Foctet-stream" alt=""></p>
+<p>显而易见的，我们可以发现，element 和 echarts 这两个库占用了大量的体积，我们可以对此进行优化。</p>
+<p>上面的插件是用来分析每个依赖的体积的。但是，我们要关心的不止是体积，我们关注点的根源应该是时间。所以，我们需要一个东西来分析所有的依赖打包所花的时间。这时候，我们就要用到 speed-measure-webpack-plugin 这个东西了。这个东西的引入也很简单。</p>
+<pre><code>// webpack file
+const SpeedMeasurePlugin = require(&quot;speed-measure-webpack-plugin&quot;)
+const smp = new SpeedMeasurePlugin()
+
+module.exports = smp.wrap(webpackConfig)</code></pre><p>使用如上所示的代码把 webpack 配置包裹在这个函数中即可。</p>
+<p>最后，我们运行命令进行打包可以看到如下图所示的结果。他们分别列出了每一个loader运行所花的时间。我们可以针对这些数据进行各自优化。</p>
+<p><img src="https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202020-12-14%20004832%20%281%29.png?Expires=1607881788&OSSAccessKeyId=TMP.3Kk17ATZT8SrodLCzaxq2K4KsDXf7CogQeahPaTN9Nne1XCEwLVvNd8QbT9dWiytBkexfRVF7MptsxWDHDpnjhitAMQp9i&Signature=K0HZByEYACZvDny67JF1A5PQ%2BBA%3D&versionId=CAEQDRiBgMDU9YL0shciIDBhMTgzYjA3YzA4YjQ2MzNiMzNhNDQ5MThkODA0YWM1&response-content-type=application%2Foctet-stream" alt=""></p>
+<ol start="2">
+<li>cache-loader</li>
+</ol>
+<p>说到优化打包时间，那么我们第一时间想到的就是利用缓存，利用空间换时间了。第一次打包时在磁盘中存储一些打包后的结果，之后每次打包都可以利用这个结果那是极好的了。</p>
+<p>cache-loader 就是用来做这件事情的东西。不过</p>
+<p>配置他很简单，把他放在其他loader之前即可。</p>
+<pre><code>{
+  test: /\.vue$/,
+  use: [
+    &quot;cache-loader&quot;,
+    &quot;vue-loader&quot;,
+  ],
+}</code></pre><p>我们仍然使用之前的项目进行测试。我们对于其中标红的两个包，babel-loaer 和 vue-loader 分别都配置了 cache-loader。第一次打包花了78s，第二次打包花了60s。</p>
+<ol start="3">
 <li><p>HardSourceWebpackPlugin</p>
 </li>
 <li><p>webpack dll</p>
@@ -346,18 +369,18 @@
     <div class="cube-boxs">
         
         
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
         <div class="cube-box ">
             <a href="/categories/CSS/">#CSS</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/categories/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/HTML/">#HTML</a>
+            <a href="/categories/code/">#code</a>
         </div>
         
         
@@ -367,7 +390,7 @@
         
         
         <div class="cube-box ">
-            <a href="/categories/code/">#code</a>
+            <a href="/categories/js/">#js</a>
         </div>
         
     </div>
@@ -382,6 +405,11 @@
     <div class="cube-boxs">
         
         
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
         <div class="cube-box-bg ">
             <a href="/tags/CSS/">#CSS</a>
         </div>
@@ -393,47 +421,12 @@
         
         
         <div class="cube-box ">
-            <a href="/tags/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/SVG/">#SVG</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/stylus/">#stylus</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/css/">#css</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
             <a href="/tags/canvas/">#canvas</a>
         </div>
         
         
         <div class="cube-box ">
             <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/webpack/">#webpack</a>
         </div>
         
         
@@ -448,36 +441,61 @@
         
         
         <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/AST/">#AST</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/Web-Component/">#Web Component</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/AMD/">#AMD</a>
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/CMD/">#CMD</a>
+            <a href="/tags/CSS-module/">#CSS module</a>
         </div>
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/UMD/">#UMD</a>
+            <a href="/tags/BEM/">#BEM</a>
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
-        </div>
-        
-        
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
@@ -487,18 +505,23 @@
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        <div class="cube-box-bg ">
+            <a href="/tags/AMD/">#AMD</a>
         </div>
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/CSS-module/">#CSS module</a>
+            <a href="/tags/CMD/">#CMD</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/BEM/">#BEM</a>
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
     </div>
