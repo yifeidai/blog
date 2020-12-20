@@ -206,11 +206,28 @@ module.exports = smp.wrap(webpackConfig)</code></pre><p>使用如上所示的代
 <p>而当我们不使用 cache-loader 的时候则花了77s。</p>
 <p>可以看到，使用了 cache-loader 后，第二次开始的打包时间有了明显的提升。</p>
 <ol start="3">
-<li><p>HardSourceWebpackPlugin</p>
-</li>
+<li>HardSourceWebpackPlugin</li>
+</ol>
+<p>HardSourceWebpackPlugin 同样是一个使用缓存来进行加速打包的一个插件。他的缓存默认被存在 /.cache/hard-source 文件夹中。第一次打包他将花费更多的时间以用于进行缓存。第二次打包则有显著的速度提升。</p>
+<p>我们通用使用之前的项目进行测试。第一次打包花了149秒，第二次打包花了45秒。相比于cache-loader的时间有了不小的提升。</p>
+<p>我们再尝试一下同时使用 cache-loader 和 HardSourceWebpackPlugin 进行打包。第一次打包花了156秒，第二次打包花了44秒。和单独使用 HardSourceWebpackPlugin 打包的速度并没有什么区别。</p>
+<p>当然，在配置这个插件的时候还是有很多坑的。这些在这个插件的 README 中的 <a href="https://www.npmjs.com/package/hard-source-webpack-plugin#troubleshooting" target="_blank" rel="noopener">troubleshooting</a>都有提到。</p>
+<ol start="4">
+<li>external</li>
+</ol>
+<p>external 是 webpack 中的一个配置项。这个配置项的功能是在打包的时候不对某些包进行打包。而是通过 CDN 的方式来引入这些包。这就是通过减少打包的内容来提高打包的时间的一种配置。</p>
+<p>示例配置如下。</p>
+<pre><code>// in webpack config
+external: {
+  jquery: &quot;jQuery&quot;,
+}
+
+// in code
+import $ from &quot;jquery&quot;</code></pre><p>这时候，这个 $ 就相当于引入 jQuery 了。</p>
+<ol start="5">
 <li><p>webpack dll</p>
 </li>
-<li><p>开区多进程</p>
+<li><p>开启多进程</p>
 </li>
 <li><p>webpack 5</p>
 </li>
@@ -372,26 +389,26 @@ module.exports = smp.wrap(webpackConfig)</code></pre><p>使用如上所示的代
         
         
         <div class="cube-box-bg ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/categories/git/">#git</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/categories/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/categories/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
             <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -405,11 +422,6 @@ module.exports = smp.wrap(webpackConfig)</code></pre><p>使用如上所示的代
         <a href="/tags">Tagcloud</a>
     </div>
     <div class="cube-boxs">
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/git/">#git</a>
-        </div>
         
         
         <div class="cube-box ">
@@ -433,41 +445,6 @@ module.exports = smp.wrap(webpackConfig)</code></pre><p>使用如上所示的代
         
         
         <div class="cube-box ">
-            <a href="/tags/SVG/">#SVG</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/Web-Component/">#Web Component</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/tags/stylus/">#stylus</a>
         </div>
         
@@ -478,11 +455,51 @@ module.exports = smp.wrap(webpackConfig)</code></pre><p>使用如上所示的代
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/webpack/">#webpack</a>
+            <a href="/tags/git/">#git</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
@@ -492,12 +509,12 @@ module.exports = smp.wrap(webpackConfig)</code></pre><p>使用如上所示的代
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/BEM/">#BEM</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
@@ -522,7 +539,7 @@ module.exports = smp.wrap(webpackConfig)</code></pre><p>使用如上所示的代
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
