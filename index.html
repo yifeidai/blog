@@ -157,6 +157,79 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-Canvas 的几个坑">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/">Canvas 的几个坑</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-12-28
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/canvas/" class="cube-excerpt-tag-link">#canvas</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>最近接到公司的一个临时需求，要生成一批不同名字的邀请函。一开始我觉得这实在是太简单了，不就是canvas上贴一张图再写名字就结束了吗？但是没想到，因为不熟悉canvas导致这其中好几个坑花了我好多时间。</p>
+<h2 id="fillText-参数"><a href="#fillText-参数" class="headerlink" title="fillText 参数"></a>fillText 参数</h2><p>接到这个需求，上来肯定是先去看看写字的api喽。然后我就开始测试一下。</p>
+<pre><code>ctx.fillText(&quot;hello&quot;, 0, 0)</code></pre><p>咦，怎么canvas上啥都没有啊？这个api我用错了吗？后来我发现我确实用错了。后两个参数代表的点是文字的左下角而不是左上角。这也很可以理解，因为绘制文字的时候总是以下方的线进行对齐绘制的。</p>
+<h2 id="canvas-的字体"><a href="#canvas-的字体" class="headerlink" title="canvas 的字体"></a>canvas 的字体</h2><p>为了让邀请函比较好看，当然是要对字使用某些比较好看的字体啦。但是，我却发现我设置的字体参数没有任何效果。</p>
+<p>咦？不会呀，我明明已经用 font-face 定义了这些字体了啊。到底问题在哪里呢？我打开调试器发现，字体文件竟然都没有被下载？？？那一定是我 font-face 的定义格式写错了？</p>
+<p>最后发现并非如此，浏览器会对字体进行懒加载，只有当实际使用这个字体的时候才会下载字体文件。所以说只定义 font-face 就在 canvas 中使用这个字体是没有效果的，因为这个字体文件都没有下载呢。这时候有两个办法：</p>
+<ol>
+<li>在 DOM 中事先使用一次这个字体，让这个字体文件先加载了。这种方法有比较大的限制。需要保证在 canvas 中使用这个字体的时候字体文件已经加载完成了。</li>
+<li>使用 JS 来加载这个字体。话不多说上代码</li>
+</ol>
+<pre><code>// 像font-face中一样定义这个字体
+const font = new FontFace(&quot;Arial&quot;, &quot;url(Arial.woff)&quot;, { style: &quot;normal&quot;, weight: 700 })
+// 下载字体
+font.load()
+  .then(function(loadedFace) {
+    // 把定义的字体加入文档流
+    document.fonts.add(loadedFace)
+  }).catch(function(error) {
+    // error
+  })</code></pre><ol start="3">
+<li>有一个字体加载的回调函数：</li>
+</ol>
+<pre><code>document.fonts.ready.then(function(fontFaceSet) {
+    // all fonts have been loaded
+})</code></pre><h2 id="获取文字的高度"><a href="#获取文字的高度" class="headerlink" title="获取文字的高度"></a>获取文字的高度</h2><p>由于要计算文字放置的位置，所以就需要获取文字的宽高。这时候就找到了 <code>measureText</code> 这个 api 了。但是之后才发现，这个 api 并不能获取文字的高度，只能获取宽度。</p>
+<p>经过查找，发现并不存在直接获取高度的api。准确的说，没有兼容度良好的获取高度的api。</p>
+<pre><code>const metrics = ctx.measureText(text)
+// 字体的高度，无论使用哪个字
+const fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent
+// 某一个字的实际高度
+const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent</code></pre><h2 id="绘制文字的参数"><a href="#绘制文字的参数" class="headerlink" title="绘制文字的参数"></a>绘制文字的参数</h2><p>这个很容易注意到，就提一句。当你绘制了一段文字后，要注意重置那些参数，否则下一段文字将要继续使用这些参数。</p>
+<h2 id="canvas-绘制层级"><a href="#canvas-绘制层级" class="headerlink" title="canvas 绘制层级"></a>canvas 绘制层级</h2><p>由于图片加载是异步的，所以如果用同步的方式写代码图片总是后与文字画的。也就是说图片会叠加在文字之上。当时我想偷懒不想写异步代码，所以很自然想到 canvas 中会不会有类似 css 中 z-index 的属性。结果发现是不存在的，层级只能由绘制的先后关系决定。</p>
+<h2 id="canvas-撤销操作"><a href="#canvas-撤销操作" class="headerlink" title="canvas 撤销操作"></a>canvas 撤销操作</h2><p>画上一张图，一段文字后生成了一张邀请函。这时候我就想要撤销写文字的操作。由于印象中 canvas 有 save 和 restore 的 api，就直接尝试了一下，发现不起作用。这时候我才知道 save 保存的是画布的坐标状态，而不是画布的全部状态。我又尝试找了一下canvas中撤销该怎么实现，发现并没有简单的实现方法。我看到的一共有以下几种方法：</p>
+<ol>
+<li>记录一个操作栈，撤销后就把canvas清空，然后把之前的操作重复一遍。当步数过多的时候就可能存在性能问题</li>
+<li>同样是记录一个操作栈，每次进行操作的时候，都记录一下要回撤这个操作所需要的操作是什么。这个比较难以实现，很难用程序写出所有的撤销应该怎么做。</li>
+<li>记录一个 canvas 状态的栈，每一次都把canvas当前图片保存下来。当步数过多时会占用很大的内存。</li>
+</ol>
+<p>所以还是需要根据程序的实际情况来做撤销的实现。当然我这里就直接清空重新画一遍是最方便的。</p>
+<h2 id="canvas-图片下载"><a href="#canvas-图片下载" class="headerlink" title="canvas 图片下载"></a>canvas 图片下载</h2><p>当邀请函生成后我就想要下载邀请函的图片了。我使用了 <code>toDataURL</code> 这个 api。然后把他放到一个HTML的链接标签 a 的 src 属性中。然后调用元素的 click 方法模拟点击进行下载。但是没想到下载的东西报了一个网络错误。经过调查，发现是因为某些浏览器中对于src属性中的值的长度有限制，如果太长就无法正常下载。为了解决这个问题，我找到了以下两个方法。</p>
+<ol>
+<li><p>减小图片体积：toDataURL 这个 api 的第一个参数是 MIME 类型。这时候我们可以将其指定为 image/jpeg 来压缩图片的体积。如果这还不够，toDataURL 的第二个参数是图片的压缩程度。我们可以使用 <code>toDataURL(&quot;image/jpeg&quot;, 0.5)</code> 来继续缩小图片体积。</p>
+</li>
+<li><p>使用 blob 来进行下载。</p>
+</li>
+</ol>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-优化webpack打包时间">
     <header class="cube-excerpt-header">
         <h1><a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/">优化webpack打包时间</a></h1>
@@ -767,104 +840,6 @@ document.body.style.removeProperty(&quot;--gray&quot;)</code></pre><h2 id="作�
     </footer>
 </div>
 
-<div class="cube-excerpt" id="cube-excerpt-什么是AST">
-    <header class="cube-excerpt-header">
-        <h1><a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/">什么是AST</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2020-08-30
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-                <a href="/tags/AST/" class="cube-excerpt-tag-link">#AST</a>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
-        
-        
-           <p>AST 是 Abstract Syntax Tree（抽象语法树）的缩写。简单的来说就是用来解析你写的代码结构的结果。</p>
-<p>AST 的作用是非常巨大的。我们平时最常用的 babel，webpack 等等生产力工具都会用到 AST 这个东西。</p>
-<p>现在，我们就来简单的看一看一个实际的 AST 的例子吧。</p>
-<pre><code>function add(a, b) {
-  return a + b
-}</code></pre><p>现在我们写了一个简单的 add 函数。希望将他解析成一个 AST。</p>
-<p>现在存在很多种解析的引擎</p>
-<ul>
-<li>esprima</li>
-<li>acron</li>
-<li>Traceur</li>
-<li>UglifyJS2</li>
-<li>shift</li>
-<li>…</li>
-</ul>
-<p>我们选择其中的一种进行解析。</p>
-<pre><code>const esprima = require(&quot;esprima&quot;)
-const code = `
-function add(a, b) {
-  return a + b
-}
-`
-const ast = esprima.parseScript(code)
-console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进行解析，转化为 AST 的结果是</p>
-<pre><code>{
-  &quot;type&quot;: &quot;Program&quot;,
-  &quot;body&quot;: [
-    {
-      &quot;type&quot;: &quot;FunctionDeclaration&quot;,
-      &quot;id&quot;: {
-        &quot;type&quot;: &quot;Identifier&quot;,
-        &quot;name&quot;: &quot;add&quot;
-      },
-      &quot;params&quot;: [
-        {
-          &quot;type&quot;: &quot;Identifier&quot;,
-          &quot;name&quot;: &quot;a&quot;
-        },
-        {
-          &quot;type&quot;: &quot;Identifier&quot;,
-          &quot;name&quot;: &quot;b&quot;
-        }
-      ],
-      &quot;body&quot;: {
-        &quot;type&quot;: &quot;BlockStatement&quot;,
-        &quot;body&quot;: [
-          {
-            &quot;type&quot;: &quot;ReturnStatement&quot;,
-            &quot;argument&quot;: {
-              &quot;type&quot;: &quot;BinaryExpression&quot;,
-              &quot;operator&quot;: &quot;+&quot;,
-              &quot;left&quot;: {
-                &quot;type&quot;: &quot;Identifier&quot;,
-                &quot;name&quot;: &quot;a&quot;
-              },
-              &quot;right&quot;: {
-                &quot;type&quot;: &quot;Identifier&quot;,
-                &quot;name&quot;: &quot;b&quot;
-              }
-            }
-          }
-        ]
-      },
-      &quot;generator&quot;: false,
-      &quot;expression&quot;: false,
-      &quot;async&quot;: false
-    }
-  ],
-  &quot;sourceType&quot;: &quot;script&quot;
-}</code></pre><p>我们可以通过上面这个 json 来很好的描述出 add 函数的代码。</p>
-<p>在我们的日常的生产力工具中，AST 占据了不小的地位。无论是 uglify，es6 到 es5 的转化，只要是对于我们代码结构解析的都无法离开 AST 的存在。这是因为 AST 不止可以解析代码结构，同样的也可以操作代码结构并生成修改后的代码结构。解析 -&gt; 操作 -&gt; 生成 这三步，正是这些生产力工具的基本原理。</p>
-
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/">Read More</a>
-    </footer>
-</div>
-
 
 
 <ul class="cube-pagination cube-pagination-6">
@@ -934,9 +909,9 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
     
     
     <div class="count">
-        <a class="count articles"><span>16</span>Article</a>
+        <a class="count articles"><span>17</span>Article</a>
         <a class="count tags"><span>24</span>Tags</a>
-        <a class="count categories"><span>6</span>Categories</a>
+        <a class="count categories"><span>7</span>Categories</a>
     </div>
 </div>
 
@@ -959,7 +934,7 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/" title="优化webpack打包时间">优化webpack打包时间</a>
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
                 </p>
             </div>
             
@@ -973,7 +948,7 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/stylus-%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86/" title="stylus 变量管理">stylus 变量管理</a>
+                    <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/" title="优化webpack打包时间">优化webpack打包时间</a>
                 </p>
             </div>
         </li>
@@ -986,7 +961,7 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/canvas%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="canvas中的图片跨域问题">canvas中的图片跨域问题</a>
+                    <a href="/blog/uncategorized/stylus-%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86/" title="stylus 变量管理">stylus 变量管理</a>
                 </p>
             </div>
         </li>
@@ -999,7 +974,7 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/js/JS%E6%AD%A3%E5%88%99bug/" title="JS正则bug">JS正则bug</a>
+                    <a href="/blog/uncategorized/canvas%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="canvas中的图片跨域问题">canvas中的图片跨域问题</a>
                 </p>
             </div>
         </li>
@@ -1012,7 +987,7 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/JS-%E5%BC%82%E6%AD%A5%E9%99%B7%E9%98%B1/" title="JS 异步陷阱">JS 异步陷阱</a>
+                    <a href="/blog/js/JS%E6%AD%A3%E5%88%99bug/" title="JS正则bug">JS正则bug</a>
                 </p>
             </div>
         </li>
@@ -1030,8 +1005,13 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
     <div class="cube-boxs">
         
         
+        <div class="cube-box ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
         <div class="cube-box-bg ">
-            <a href="/categories/git/">#git</a>
+            <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
@@ -1041,22 +1021,22 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
         
         
         <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/categories/js/">#js</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/categories/HTML/">#HTML</a>
+            <a href="/categories/webpack/">#webpack</a>
         </div>
         
         
         <div class="cube-box ">
             <a href="/categories/code/">#code</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/webpack/">#webpack</a>
         </div>
         
     </div>
@@ -1071,8 +1051,13 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
     <div class="cube-boxs">
         
         
+        <div class="cube-box-bg ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
         <div class="cube-box ">
-            <a href="/tags/git/">#git</a>
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
@@ -1081,12 +1066,17 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/js/">#js</a>
         </div>
         
@@ -1096,53 +1086,33 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/SVG/">#SVG</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/stylus/">#stylus</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/css/">#css</a>
-        </div>
-        
-        
         <div class="cube-box ">
             <a href="/tags/Web-Component/">#Web Component</a>
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/AST/">#AST</a>
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/webpack/">#webpack</a>
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
         </div>
         
         
@@ -1161,7 +1131,7 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
@@ -1186,8 +1156,18 @@ console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进�
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
     </div>
