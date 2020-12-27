@@ -205,7 +205,9 @@ font.load()
 // 字体的高度，无论使用哪个字
 const fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent
 // 某一个字的实际高度
-const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent</code></pre><h2 id="绘制文字的参数"><a href="#绘制文字的参数" class="headerlink" title="绘制文字的参数"></a>绘制文字的参数</h2><p>这个很容易注意到，就提一句。当你绘制了一段文字后，要注意重置那些参数，否则下一段文字将要继续使用这些参数。</p>
+const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent</code></pre><p>通过 caniuse 查看兼容度发现，Chrome 要版本 87 后才支持。Firefox和Edge默认不支持，需要设置某些特殊的实验属性才能支持。Safari要版本14才开始支持。</p>
+<p>网上常见的方法都是一些比较hack的方法。主要思路就是手动构造一段这个文字。然后测量这段文字的高度。测量的方式一种是在DOM中构造用JS进行测量，还有一种是在canvas中作图，转化成图片，根据图片的像素点进行测量。</p>
+<h2 id="绘制文字的参数"><a href="#绘制文字的参数" class="headerlink" title="绘制文字的参数"></a>绘制文字的参数</h2><p>这个很容易注意到，就提一句。当你绘制了一段文字后，要注意重置那些参数，否则下一段文字将要继续使用这些参数。</p>
 <h2 id="canvas-绘制层级"><a href="#canvas-绘制层级" class="headerlink" title="canvas 绘制层级"></a>canvas 绘制层级</h2><p>由于图片加载是异步的，所以如果用同步的方式写代码图片总是后与文字画的。也就是说图片会叠加在文字之上。当时我想偷懒不想写异步代码，所以很自然想到 canvas 中会不会有类似 css 中 z-index 的属性。结果发现是不存在的，层级只能由绘制的先后关系决定。</p>
 <h2 id="canvas-撤销操作"><a href="#canvas-撤销操作" class="headerlink" title="canvas 撤销操作"></a>canvas 撤销操作</h2><p>画上一张图，一段文字后生成了一张邀请函。这时候我就想要撤销写文字的操作。由于印象中 canvas 有 save 和 restore 的 api，就直接尝试了一下，发现不起作用。这时候我才知道 save 保存的是画布的坐标状态，而不是画布的全部状态。我又尝试找了一下canvas中撤销该怎么实现，发现并没有简单的实现方法。我看到的一共有以下几种方法：</p>
 <ol>
@@ -378,22 +380,12 @@ const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBox
         
         
         <div class="cube-box ">
-            <a href="/categories/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/HTML/">#HTML</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/categories/CSS/">#CSS</a>
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/categories/git/">#git</a>
+        <div class="cube-box ">
+            <a href="/categories/canvas/">#canvas</a>
         </div>
         
         
@@ -403,12 +395,22 @@ const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBox
         
         
         <div class="cube-box ">
-            <a href="/categories/webpack/">#webpack</a>
+            <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
         <div class="cube-box ">
             <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/webpack/">#webpack</a>
         </div>
         
     </div>
@@ -423,28 +425,18 @@ const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBox
     <div class="cube-boxs">
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/SVG/">#SVG</a>
-        </div>
-        
-        
         <div class="cube-box ">
             <a href="/tags/CSS/">#CSS</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/git/">#git</a>
+            <a href="/tags/canvas/">#canvas</a>
         </div>
         
         
@@ -459,17 +451,32 @@ const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBox
         
         
         <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/Web-Component/">#Web Component</a>
         </div>
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/webpack/">#webpack</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
+            <a href="/tags/git/">#git</a>
         </div>
         
         
@@ -478,17 +485,12 @@ const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBox
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/css/">#css</a>
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
-        </div>
-        
-        
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
@@ -500,6 +502,16 @@ const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBox
         
         <div class="cube-box ">
             <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
         </div>
         
         
@@ -530,16 +542,6 @@ const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBox
         
         <div class="cube-box ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
     </div>
