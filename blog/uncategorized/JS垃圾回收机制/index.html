@@ -176,7 +176,28 @@
     <div class="cube-article-content cube-markdown">
         
         <p>有些语言，比如C语言，是需要程序员手动申请和释放内存的，这增加了程序员的心智负担。大多数语言都提供了自动的垃圾处理机制。JS也同样如此。</p>
-<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><h2 id="内存泄露的原因"><a href="#内存泄露的原因" class="headerlink" title="内存泄露的原因"></a>内存泄露的原因</h2><h2 id="如何发现内存泄露"><a href="#如何发现内存泄露" class="headerlink" title="如何发现内存泄露"></a>如何发现内存泄露</h2>
+<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><p>JS 垃圾回收机制的根本就是判断一个变量是否可以被访问到。如果一个变量不可以从根上开始，由某种路径访问到的话，那么这个变量就是不可被访问的。这种情况下，JS引擎就认为这个变量是可以被垃圾回收的。</p>
+<pre><code>function a() {
+  const f = {}
+}
+
+function b() {
+  const g = {}
+  return g
+}
+
+const d = a()
+const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代码。</p>
+<p>在执行a函数期间，变量f始终存在，因为f可以在当前的上下文环境，也就是a函数中被访问到。但是当a函数执行结束，我们的上下文环境变成了全局，这时候我们就无法通过任何方式访问到f变量了。这时候JS引擎就把e变量给释放掉了。</p>
+<p>在执行b函数期间，变量g始终存在，因为g可以在当前的上下文环境，也就是b函数中被访问到。当b函数执行结束，将g作为返回值赋值给了e，所以即使上下文环境切换了，但是我们仍然可以通过变量e来访问变量g，所以变量g并不会被回收。</p>
+<p>一般垃圾回收的算法是通过 标记-清除 来实现的。垃圾回收期会定时的执行这些任务。</p>
+<ol>
+<li>获取根并标记。 也就是我们的全局环境。</li>
+<li>标记所有根可以访问到的引用。 也就是全局变量，以及各个代码块形成的局部环境。</li>
+<li>标记上一步标记的引用可以访问到的引用，并不断重复这一步，直到没有新的未被标记的变量出现为止。</li>
+<li>回收所有没有被标记到的变量。</li>
+</ol>
+<h2 id="内存泄露的原因"><a href="#内存泄露的原因" class="headerlink" title="内存泄露的原因"></a>内存泄露的原因</h2><h2 id="如何发现内存泄露"><a href="#如何发现内存泄露" class="headerlink" title="如何发现内存泄露"></a>如何发现内存泄露</h2>
     </div>
 </div>
 
@@ -333,12 +354,7 @@
         
         
         <div class="cube-box ">
-            <a href="/categories/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/CSS/">#CSS</a>
+            <a href="/categories/canvas/">#canvas</a>
         </div>
         
         
@@ -348,12 +364,17 @@
         
         
         <div class="cube-box ">
-            <a href="/categories/canvas/">#canvas</a>
+            <a href="/categories/CSS/">#CSS</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
         </div>
         
         
@@ -378,27 +399,17 @@
     <div class="cube-boxs">
         
         
+        <div class="cube-box-bg ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
         <div class="cube-box ">
             <a href="/tags/JS/">#JS</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-Variables/">#CSS Variables</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
             <a href="/tags/js/">#js</a>
         </div>
         
@@ -409,22 +420,17 @@
         
         
         <div class="cube-box ">
-            <a href="/tags/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/Web-Component/">#Web Component</a>
+            <a href="/tags/CSS/">#CSS</a>
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/webpack/">#webpack</a>
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
         
@@ -443,23 +449,28 @@
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/AMD/">#AMD</a>
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/CMD/">#CMD</a>
+            <a href="/tags/webpack/">#webpack</a>
         </div>
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/UMD/">#UMD</a>
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+            <a href="/tags/AST/">#AST</a>
         </div>
         
         
@@ -473,7 +484,32 @@
         </div>
         
         
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
         <div class="cube-box-bg ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
@@ -485,21 +521,6 @@
         
         <div class="cube-box ">
             <a href="/tags/BEM/">#BEM</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
     </div>
