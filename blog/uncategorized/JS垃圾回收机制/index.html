@@ -227,7 +227,40 @@ const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代
 <li>console.log</li>
 </ol>
 <p>被 console.log 所打印的变量是不会被回收的。这也很好理解，因为我们要随时可以去 console 里面看这个变量，所以当然不能被回收。所以在生产环境中，我们要尽量避免使用 console.log。一般生产环境的打包都有自动移除 console 的选项。</p>
-<h2 id="如何发现内存泄露"><a href="#如何发现内存泄露" class="headerlink" title="如何发现内存泄露"></a>如何发现内存泄露</h2>
+<h2 id="如何发现内存泄露（待补图）"><a href="#如何发现内存泄露（待补图）" class="headerlink" title="如何发现内存泄露（待补图）"></a>如何发现内存泄露（待补图）</h2><p>首先第一步是要确定是否存在内存泄露的现象。我们可以靠 Chrome 提供的调试工具来做到这个。</p>
+<ol>
+<li>首先按 F12 打开 Chrome 的调试面板。</li>
+<li>点击跳转到 Performance 这个 tab。</li>
+<li>点击左上方的实心小圆球，hover 上去显示的是 record 的那个。点击这个将开始记录之后的各种性能问题的参数。</li>
+<li>进行一些认为存在性能问题的操作。</li>
+<li>点击 Stop 按钮。结束记录。</li>
+</ol>
+<p>在最上面，我们可以看到 FPS，CPU，NET，HEAP 这四个性能指标的图表图表。内存问题的话可以看 HEAP 这个。如果他的趋势是一直上升那显然就存在内存泄露。</p>
+<p>详细的内容也可以给 ScreenShots 旁边的 Memory 打钩（注意不是和 Performance 同级的那个，在下一行中），打开这个新的面板。可以看到内存随着时间的使用详情。</p>
+<p>但是这个工具只能记录一段时间的使用情况。Chrome 有一个工具，名字叫 Performance Monitor 可以实时的监控各种性能指标的使用情况。打开方式如下：</p>
+<ol>
+<li>点击调试工具最上方的最右边的 X 左边的三个点，会弹出一个 context menu</li>
+<li>鼠标悬浮到这个弹出的菜单的 More tools 上，会再延伸出一个子菜单</li>
+<li>点击子菜单中的 Performance Menu，将在最下方弹出 Performance Menu 菜单</li>
+</ol>
+<p>我们可以看到，这个菜单中有 CPU usage， JS heap size， DOM Nodes 等众多性能指标，并且在实时的进行记录。通过这个工具，我们可以更加方便的进行性能分析。</p>
+<p>最后，我们就要分析到底是什么导致了内存泄露。</p>
+<p>这时候，我们就要点开最上面的 Memory 这个 tab 了。</p>
+<p>点开这个菜单后，点击左上角的小圆球（hover上去显示 Take heap snapshot）。点击这个后将生成一个那个时刻的内存使用情况的快照。我们可以生成多份快照，来比较不同时间之间内存使用的变化来分析哪里发生了内存泄露。当然，我们也可以点击那个垃圾桶的图标，来进行手动的触发垃圾回收。再生成新的快照来比较内存使用情况进行分析。</p>
+<p>再让我们点开一份快照，看看里面有哪些信息。我们可以看到，他分成了两个窗口，上面有很多条目，下面的标题是 Retainer（可以理解成定位器），但是空无一物。</p>
+<p>观察一下这些条目，发现有</p>
+<ul>
+<li>array</li>
+<li>closure</li>
+<li>compiled code</li>
+<li>concatenated string</li>
+<li>number</li>
+<li>regexp</li>
+<li>…</li>
+</ul>
+<p>可以看到，他把内存的使用情况进行分类的整理。随便点开一个类型，可以看到很多“变量”。他们都各自在当前实际占用了一部分内存。点击选中一个“变量”，我们可以发现，底下的那个 Retainer 窗口有值了。显示出来的是一个嵌套的结构。注意，这个嵌套结构是反的。这个嵌套的结构展示了，这个变量是如何通过root来访问到他的。也就是说最上层是自己，下层就是他自己的上级。这个结构就展示了为什么这个变量没有被回收。而且，更方便的是，在每一层的右边，有一个代码的链接，可以让你迅速的找到创建这一层上下文或者变量的代码的位置。</p>
+<p>通过对这两个窗口进行分析，我们可以比较清楚的定位到发生内存泄露的位置了。</p>
+
     </div>
 </div>
 
@@ -389,7 +422,7 @@ const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代
         
         
         <div class="cube-box ">
-            <a href="/categories/git/">#git</a>
+            <a href="/categories/canvas/">#canvas</a>
         </div>
         
         
@@ -404,17 +437,17 @@ const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代
         
         
         <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/categories/code/">#code</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/webpack/">#webpack</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/canvas/">#canvas</a>
         </div>
         
     </div>
@@ -430,62 +463,17 @@ const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代
         
         
         <div class="cube-box ">
-            <a href="/tags/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-Variables/">#CSS Variables</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/tags/JS/">#JS</a>
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/git/">#git</a>
-        </div>
-        
-        
         <div class="cube-box ">
-            <a href="/tags/js/">#js</a>
+            <a href="/tags/CSS/">#CSS</a>
         </div>
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/SVG/">#SVG</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/stylus/">#stylus</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/css/">#css</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/webpack/">#webpack</a>
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
         
@@ -495,22 +483,42 @@ const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代
         
         
         <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/Hugo/">#Hugo</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/Vue/">#Vue</a>
         </div>
         
         
@@ -524,7 +532,7 @@ const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/UMD/">#UMD</a>
         </div>
         
@@ -535,7 +543,32 @@ const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代
         
         
         <div class="cube-box ">
-            <a href="/tags/Web-Component/">#Web Component</a>
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
         </div>
         
         
@@ -544,7 +577,7 @@ const e = b()</code></pre><p>简单的举一个例子。我们看一下上述代
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-module/">#CSS module</a>
         </div>
         
