@@ -157,6 +157,42 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-wsl踩坑">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/">wsl踩坑</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2021-02-07
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>本文针对的是使用 wsl2 的开发者，记录的是我在使用 wsl 的过程中遇到的一些坑。欢迎大家一起来补充</p>
+<h2 id="wsl-hot-reload-not-work"><a href="#wsl-hot-reload-not-work" class="headerlink" title="wsl hot reload not work"></a>wsl hot reload not work</h2><p><a href="https://github.com/microsoft/WSL/issues/4417#issuecomment-526279339" target="_blank" rel="noopener">https://github.com/microsoft/WSL/issues/4417#issuecomment-526279339</a></p>
+<p>注：在 wsl2 中，如果打开的文件是在 /mnt 下（也就是在Windows中下载），是无法 hot reload 的，可以在 linux 子系统中下载项目</p>
+<h2 id="wsl-terminal-bashrc-file"><a href="#wsl-terminal-bashrc-file" class="headerlink" title="wsl terminal .bashrc file"></a>wsl terminal .bashrc file</h2><p>Windows 和 wsl2 的命令行使用的 bashrc 不是同一个文件。Windows 的是在 Windows 的用户目录下，wsl 在 <code>~/.bashrc</code>。这两个不是一个位置。</p>
+<h2 id="wsl-install-node"><a href="#wsl-install-node" class="headerlink" title="wsl install node"></a>wsl install node</h2><p><a href="https://github.com/nodejs/help/wiki/Installation#how-to-install-nodejs-via-binary-archive-on-linux" target="_blank" rel="noopener">https://github.com/nodejs/help/wiki/Installation#how-to-install-nodejs-via-binary-archive-on-linux</a></p>
+<h2 id="Windows-browse-linux-file-system"><a href="#Windows-browse-linux-file-system" class="headerlink" title="Windows browse linux file system"></a>Windows browse linux file system</h2><ul>
+<li><p>可以通过在地址栏中输入 <code>\\wsl$</code> 来访问</p>
+</li>
+<li><p>通过 wsl –mount 生成(preview 中，持续关注), <a href="https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk</a></p>
+</li>
+</ul>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-JS垃圾回收机制">
     <header class="cube-excerpt-header">
         <h1><a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">JS垃圾回收机制</a></h1>
@@ -892,56 +928,6 @@ new HTMLWebpackPlugin({
     </footer>
 </div>
 
-<div class="cube-excerpt" id="cube-excerpt-Unicode and utf-8">
-    <header class="cube-excerpt-header">
-        <h1><a href="/blog/code/Unicode-and-utf-8/">Unicode and utf-8</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2020-09-13
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-                <a href="/tags/unicode/" class="cube-excerpt-tag-link">#unicode</a>
-                
-                <a href="/tags/utf-8/" class="cube-excerpt-tag-link">#utf-8</a>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
-        
-        
-           <h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>我们知道，最一开始，我们计算机使用 ASCII 作为存贮字符集的一种规范。使用八个 bit，来表示一个字符。8 bit 一共有256中组合可能。他们使用了其中128种作为存储英文字符的编码规范。他们称之为ANSI 的”Ascii”编码（American Standard Code for Information Interchange，美国信息互换标准代码）。</p>
-<h2 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h2><p>在计算机来到中国后，当时的字符集还只有 ASCII，所以为了可以把中文编码，就创造了 GB2312 标准编码。使用两个字节来表示一个汉字。当两个大于127的字节连在一起时，就认为使用了 GBK。这就是我们常说的全角字符。而127以下的则是半角字符。但是两个127以上的字节只能表示7k多个字符，所以后来我们扩展了字符集，不再要求低位小于127，由此把更多的汉字和其他少数民族等的字符加入进去，扩展成了 GB18030。</p>
-<h2 id="UNICODE"><a href="#UNICODE" class="headerlink" title="UNICODE"></a>UNICODE</h2><p>规定了 128 个字符的字符编码。对于英文来说，这128个够用了，但是对于全世界的语言来说，明显这一个字节的空间就不够用了。所以说世界各地为了应对这种情况创造出了很多种不同的编码标准。这无疑造成了很多麻烦。为了统一全世界文字的编码方式，我们就制定了 Unicode 这个标准。使用更多的字节来存储这些字符。</p>
-<h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p>虽然 Unicode 解决了统一字符存储标准的问题，但是 Unicode 为了存储更多的字符而使用更多的存储空间显然造成了极大空间的浪费。这是不可接受的。所以，为了更好的使用 Unicode，UTF-8 出现了。<strong>UTF-8 是 Unicode 的一种实现方式。</strong></p>
-<p>UTF-8 是一种可变长的编码方式。他可以使用1-4个字节来表示一个符号。UTF-8 的编码规则有两条：</p>
-<ol>
-<li>单字节的字符，字节的第一位设为0，对于英语文本，UTF-8码只占用一个字节，和ASCII码完全相同</li>
-<li>n个字节的字符(n&gt;1)，第一个字节的前n位设为1，第n+1位设为0，后面字节的前两位都设为10，这n个字节的其余空位填充该字符unicode码，高位用0补足。</li>
-</ol>
-<pre><code>0xxxxxxx
-110xxxxx 10xxxxxx
-1110xxxx 10xxxxxx 10xxxxxx
-11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</code></pre><p>举一个例子，<code>我</code> 这个汉字的 Unicode 为 <code>%u6211</code>，用二进制表示为 <code>0110 0010 0001 0001</code>。可以看到，我们需要15位来存储这个汉字。让我们看看上面那串转换规则。一个x就表示一位可以存储的空间。一个字节可以表示7位，不够。两个字节可以存储11位，还是不够。三个字节可以存储16位，够了。所以说我们使用三个字节来存储这个字符。让我们开始填充。</p>
-<pre><code>0110 0010 0001 0001
-        变成
-     110   001000   010001
-1110xxxx 10xxxxxx 10xxxxxx
-        填充
-11100110 10001000 10010001
-        也就是
-E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编码。正是 <code>\xE6\x88\x91</code>。</p>
-
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/blog/code/Unicode-and-utf-8/">Read More</a>
-    </footer>
-</div>
-
 
 
 <ul class="cube-pagination cube-pagination-6">
@@ -1011,7 +997,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
     
     
     <div class="count">
-        <a class="count articles"><span>18</span>Article</a>
+        <a class="count articles"><span>19</span>Article</a>
         <a class="count tags"><span>25</span>Tags</a>
         <a class="count categories"><span>7</span>Categories</a>
     </div>
@@ -1036,7 +1022,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
                 </p>
             </div>
             
@@ -1050,7 +1036,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
                 </p>
             </div>
         </li>
@@ -1063,7 +1049,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/" title="优化webpack打包时间">优化webpack打包时间</a>
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
                 </p>
             </div>
         </li>
@@ -1076,7 +1062,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/stylus-%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86/" title="stylus 变量管理">stylus 变量管理</a>
+                    <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/" title="优化webpack打包时间">优化webpack打包时间</a>
                 </p>
             </div>
         </li>
@@ -1089,7 +1075,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/canvas%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="canvas中的图片跨域问题">canvas中的图片跨域问题</a>
+                    <a href="/blog/uncategorized/stylus-%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86/" title="stylus 变量管理">stylus 变量管理</a>
                 </p>
             </div>
         </li>
@@ -1132,7 +1118,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -1163,7 +1149,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
@@ -1183,7 +1169,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/SVG/">#SVG</a>
         </div>
         
@@ -1198,7 +1184,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/stylus/">#stylus</a>
         </div>
         
@@ -1213,7 +1199,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/AMD/">#AMD</a>
         </div>
         
@@ -1228,7 +1214,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
@@ -1243,27 +1229,27 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/Vue/">#Vue</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/unicode/">#unicode</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
@@ -1273,7 +1259,7 @@ E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/BEM/">#BEM</a>
         </div>
         

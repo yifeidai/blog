@@ -10,7 +10,7 @@
     
     
     
-    <title>Categories: git | blog</title>
+    <title>wsl踩坑 | blog</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -156,33 +156,57 @@
     
     <div class="cube-content">
         <div class="cube-left">
-            <style>
-    @media(max-width: 768px) {
-        body {
-            background-color: #fff!important;
-        }
-    }
-</style>
-<div class="cube-archives">
+            <div class="cube-article">
+    <h1 class="title">wsl踩坑</h1>
     
-    <div class="cube-archive" style="margin-top: 0;">
-        <h1 class="title">git</h1>
-        
-        <ul class="posts">
-            
-            <li class="post">
-                <a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/">.git 文件夹探秘</a>
-            </li>
-            
-            <li class="post">
-                <a href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">git不常用命令整理（1）</a>
-            </li>
-            
-        </ul>
-        
-    </div>
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2021-02-07
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
     
 </div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <p>本文针对的是使用 wsl2 的开发者，记录的是我在使用 wsl 的过程中遇到的一些坑。欢迎大家一起来补充</p>
+<h2 id="wsl-hot-reload-not-work"><a href="#wsl-hot-reload-not-work" class="headerlink" title="wsl hot reload not work"></a>wsl hot reload not work</h2><p><a href="https://github.com/microsoft/WSL/issues/4417#issuecomment-526279339" target="_blank" rel="noopener">https://github.com/microsoft/WSL/issues/4417#issuecomment-526279339</a></p>
+<p>注：在 wsl2 中，如果打开的文件是在 /mnt 下（也就是在Windows中下载），是无法 hot reload 的，可以在 linux 子系统中下载项目</p>
+<h2 id="wsl-terminal-bashrc-file"><a href="#wsl-terminal-bashrc-file" class="headerlink" title="wsl terminal .bashrc file"></a>wsl terminal .bashrc file</h2><p>Windows 和 wsl2 的命令行使用的 bashrc 不是同一个文件。Windows 的是在 Windows 的用户目录下，wsl 在 <code>~/.bashrc</code>。这两个不是一个位置。</p>
+<h2 id="wsl-install-node"><a href="#wsl-install-node" class="headerlink" title="wsl install node"></a>wsl install node</h2><p><a href="https://github.com/nodejs/help/wiki/Installation#how-to-install-nodejs-via-binary-archive-on-linux" target="_blank" rel="noopener">https://github.com/nodejs/help/wiki/Installation#how-to-install-nodejs-via-binary-archive-on-linux</a></p>
+<h2 id="Windows-browse-linux-file-system"><a href="#Windows-browse-linux-file-system" class="headerlink" title="Windows browse linux file system"></a>Windows browse linux file system</h2><ul>
+<li><p>可以通过在地址栏中输入 <code>\\wsl$</code> 来访问</p>
+</li>
+<li><p>通过 wsl –mount 生成(preview 中，持续关注), <a href="https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk</a></p>
+</li>
+</ul>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        
+        <li class="next">
+            <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+                JS垃圾回收机制
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
         </div>
         <div class="cube-right">
             
@@ -321,7 +345,7 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/canvas/">#canvas</a>
         </div>
         
@@ -336,12 +360,12 @@
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/git/">#git</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -372,7 +396,7 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
@@ -382,7 +406,7 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/js/">#js</a>
         </div>
         
@@ -397,7 +421,7 @@
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/git/">#git</a>
         </div>
         
@@ -427,7 +451,7 @@
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CMD/">#CMD</a>
         </div>
         
@@ -462,7 +486,7 @@
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
@@ -472,7 +496,7 @@
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-in-JS/">#CSS in JS</a>
         </div>
         
