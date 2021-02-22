@@ -16,6 +16,9 @@
 <li><p>通过 wsl –mount 生成(preview 中，持续关注), <a href="https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk</a></p>
 </li>
 </ul>
+<h2 id="open-current-folder-in-terminal"><a href="#open-current-folder-in-terminal" class="headerlink" title="open current folder in terminal"></a>open current folder in terminal</h2><pre><code>explorer.exe .</code></pre><p>为了方便，可以设置 alias</p>
+<pre><code>alias explorer=&quot;explorer.exe .&quot;</code></pre><h2 id="yarn-global-add-not-work"><a href="#yarn-global-add-not-work" class="headerlink" title="yarn global add not work"></a>yarn global add not work</h2><p><a href="https://stackoverflow.com/a/40333409" target="_blank" rel="noopener">https://stackoverflow.com/a/40333409</a></p>
+<p>You should add <code>export PATH=&quot;$PATH:$(yarn global bin)&quot;</code> to your ~/.bash_profile or whatever you use.</p>
 ]]></content>
       
         
