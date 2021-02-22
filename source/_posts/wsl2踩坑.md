@@ -25,3 +25,21 @@ https://github.com/nodejs/help/wiki/Installation#how-to-install-nodejs-via-binar
 - 可以通过在地址栏中输入 `\\wsl$` 来访问
 
 - 通过 wsl --mount 生成(preview 中，持续关注), https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk
+
+## open current folder in terminal
+
+```
+explorer.exe .
+```
+
+为了方便，可以设置 alias
+
+```
+alias explorer="explorer.exe ."
+```
+
+## yarn global add not work
+
+https://stackoverflow.com/a/40333409
+
+You should add `export PATH="$PATH:$(yarn global bin)"` to your ~/.bash_profile or whatever you use.
