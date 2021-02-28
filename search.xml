@@ -6,6 +6,7 @@
       <title><![CDATA[webpack5迁移记录]]></title>
       <url>/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/</url>
       <content type="html"><![CDATA[<p>webpack5 已经发布了好久了，但是我们现在项目构建使用的还是 webpack4。也是时候尝试一下使用 webpack5。感受一下 webpack5 有什么新的功能和改进了。</p>
+<h2 id="webpack5-相对于-webpack4-的提升"><a href="#webpack5-相对于-webpack4-的提升" class="headerlink" title="webpack5 相对于 webpack4 的提升"></a>webpack5 相对于 webpack4 的提升</h2><p><a href="https://webpack.js.org/blog/2020-10-10-webpack-5-release/#general-direction" target="_blank" rel="noopener">提升</a></p>
 <h2 id="升级准备"><a href="#升级准备" class="headerlink" title="升级准备"></a>升级准备</h2><p>webpack 提供了专门的文档，<a href="https://webpack.js.org/migrate/5/" target="_blank" rel="noopener">迁移到webpack5</a>，来从v4到v5进行升级。这是在官方文档中，他们建议的迁移过程。</p>
 <ol>
 <li>Node.js 至少需要 10.13.0 版本</li>
