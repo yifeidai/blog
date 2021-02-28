@@ -3,6 +3,62 @@
   
     
     <entry>
+      <title><![CDATA[webpack5迁移记录]]></title>
+      <url>/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/</url>
+      <content type="html"><![CDATA[<p>webpack5 已经发布了好久了，但是我们现在项目构建使用的还是 webpack4。也是时候尝试一下使用 webpack5。感受一下 webpack5 有什么新的功能和改进了。</p>
+<h2 id="升级准备"><a href="#升级准备" class="headerlink" title="升级准备"></a>升级准备</h2><p>webpack 提供了专门的文档，<a href="https://webpack.js.org/migrate/5/" target="_blank" rel="noopener">迁移到webpack5</a>，来从v4到v5进行升级。这是在官方文档中，他们建议的迁移过程。</p>
+<ol>
+<li>Node.js 至少需要 10.13.0 版本</li>
+<li>升级 plugin 和 loader</li>
+<li>确认构建没有 error 和 warning</li>
+<li>确保设置了 mode 选项</li>
+<li><a href="https://webpack.js.org/migrate/5/#update-outdated-options" target="_blank" rel="noopener">更新一些过时的配置</a>，这个链接中展示了完整的过时的配置列表</li>
+<li>测试 webpack5 的兼容性</li>
+<li>将 webpack 的包更新到5</li>
+<li><a href="https://webpack.js.org/migrate/5/#clean-up-configuration" target="_blank" rel="noopener">清理一些配置</a>，这个链接中展示了完整的迁移过程中需要注意修改的配置的列表</li>
+<li>尝试构建并解决构建的问题</li>
+</ol>
+<h2 id="升级实践"><a href="#升级实践" class="headerlink" title="升级实践"></a>升级实践</h2><p>看了一遍文档后，就要自己尝试实践一下这个过程，看看会遇到哪些问题了。我就以自己最近正负责的一个项目为例进行尝试，对照上述的步骤进行一一的尝试。</p>
+<ol>
+<li>Node.js 至少需要 10.13.0 版本</li>
+</ol>
+<p>这一步没有任何的问题，只是升级了本地的后别忘了升级构建生产包的服务器的 Node.js 版本。</p>
+<ol start="2">
+<li><p>升级 plugin 和 loader</p>
+</li>
+<li><p>确认构建没有 error 和 warning</p>
+</li>
+<li><p>确保设置了 mode 选项</p>
+</li>
+<li><p>更新一些过时的配置</p>
+</li>
+<li><p>测试 webpack5 的兼容性</p>
+</li>
+<li><p>将 webpack 的包更新到5</p>
+</li>
+<li><p>清理一些配置</p>
+</li>
+<li><p>尝试构建并解决构建的问题</p>
+</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> js </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> webpack </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[wsl踩坑]]></title>
       <url>/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/</url>
       <content type="html"><![CDATA[<p>本文针对的是使用 wsl2 的开发者，记录的是我在使用 wsl 的过程中遇到的一些坑。欢迎大家一起来补充</p>
