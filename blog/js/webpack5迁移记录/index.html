@@ -10,7 +10,7 @@
     
     
     
-    <title>stylus 变量管理 | blog</title>
+    <title>webpack5迁移记录 | blog</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -157,46 +157,61 @@
     <div class="cube-content">
         <div class="cube-left">
             <div class="cube-article">
-    <h1 class="title">stylus 变量管理</h1>
+    <h1 class="title">webpack5迁移记录</h1>
     
     <div class="cube-article-header">
         <div class="cube-article-date">
             <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
             <!-- moment.js对象 -->
-            2020-11-29
+            2021-03-01
         </div>
         <div class="cube-article-tags">
     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
     
-    <a href="/tags/stylus/">#stylus</a>
-    
-    <a href="/tags/css/">#css</a>
+    <a href="/tags/webpack/">#webpack</a>
     
 </div>
     </div>
     
     <div class="cube-article-content cube-markdown">
         
-        <p>这两天刚刚启动一个新项目，正好有一点时间来思考一些项目整体上的东西。其中我就遇到了一个问题。我们在使用 stylus 的时候，会定义一些变量，用这些变量来写css。比如说<code>$font-base = 14px</code>。但是，如果我们在 JS 中想要使用这个字体的大小，以前我只会直接在代码里面写一个14。再好一点，在函数中定义一个变量<code>const FONT_BASE = 14</code>。或者再开一个专门的文件来定义 JS 中使用的 stylus 的变量，用的时候再引入。</p>
-<p>但是，这样的话是违背代码书写的原则的。既然 stylus 的变量定义和 JS 中我们使用的变量是同一个东西，那么，我们当然也希望可以使用一个文件就可以管理 stylus 变量的定义。</p>
-<p>经过我的寻找，我发现 stylus 中确实存在这样一个方法来实现这个目标。</p>
-<p>那就是 stylus 的 json 函数。具体的文档位置为 <a href="https://stylus-lang.com/docs/bifs.html#jsonpath-options" target="_blank" rel="noopener">stylus json函数</a></p>
-<p>我们可以把想要定义的 stylus 变量都先定义在一个 JSON 文件中，然后我们可以在 stylus 文件中使用 json 函数进行引入。而当我们想在 JS 中使用这些变量，也可以通过这个 JSON 文件引入。这样就实现了同一个文件来管理 stylus 变量的方法。我们看一个例子。</p>
-<pre><code>// variable.json
-{
-  &quot;$main&quot;: &quot;#234235&quot;,
-
-  &quot;$font&quot;: {
-    &quot;base&quot;: &quot;14px&quot;,
-    &quot;medium&quot;: &quot;16px&quot;
-  }
-}</code></pre><pre><code>// variable.styl
-json(&quot;./variable.json&quot;)</code></pre><p>这样做相当于在 variable.styl 文件中做了如下定义。</p>
-<pre><code>$main = #234235
-$font-base = &quot;14px&quot;
-$font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 key 和 value 分别作为了变量名和变量的值。如果有嵌套的多层对象，那么对象将被全部展开到最底层，每一层的 key 将以中划线的形式进行连接。这就是 json 函数的使用方法。</p>
-<p>有了这个方法，我们就可以实现之前提到的目标，在同一个文件中管理 stylus 变量在 CSS 和 JS 中的使用。</p>
-<p>stylus 还是有很多高级的功能可以使用的，只不过我们平时只是常用他最基础的那些功能而已。在看 json 这个函数的文档的时候，我向下翻了一下，看到了<a href="https://stylus-lang.com/docs/bifs.html#usepath" target="_blank" rel="noopener">use 函数</a>。这个函数的作用是可以自定义一些新的函数，让 stylus 编译器可以识别这些函数。这就给了我们开发者很大的自由度，让我们可以实现一些骚操作。具体的使用方式还是见文档吧。但是这个文档写的不太仔细，详细使用方法说的不是很确切，有时间我可以再研究一下。</p>
+        <p>webpack5 已经发布了好久了，但是我们现在项目构建使用的还是 webpack4。也是时候尝试一下使用 webpack5。感受一下 webpack5 有什么新的功能和改进了。</p>
+<h2 id="webpack5-相对于-webpack4-的提升"><a href="#webpack5-相对于-webpack4-的提升" class="headerlink" title="webpack5 相对于 webpack4 的提升"></a>webpack5 相对于 webpack4 的提升</h2><p><a href="https://webpack.js.org/blog/2020-10-10-webpack-5-release/#general-direction" target="_blank" rel="noopener">提升</a></p>
+<h2 id="升级准备"><a href="#升级准备" class="headerlink" title="升级准备"></a>升级准备</h2><p>webpack 提供了专门的文档，<a href="https://webpack.js.org/migrate/5/" target="_blank" rel="noopener">迁移到webpack5</a>，来从v4到v5进行升级。这是在官方文档中，他们建议的迁移过程。</p>
+<ol>
+<li>Node.js 至少需要 10.13.0 版本</li>
+<li>升级 plugin 和 loader</li>
+<li>确认构建没有 error 和 warning</li>
+<li>确保设置了 mode 选项</li>
+<li><a href="https://webpack.js.org/migrate/5/#update-outdated-options" target="_blank" rel="noopener">更新一些过时的配置</a>，这个链接中展示了完整的过时的配置列表</li>
+<li>测试 webpack5 的兼容性</li>
+<li>将 webpack 的包更新到5</li>
+<li><a href="https://webpack.js.org/migrate/5/#clean-up-configuration" target="_blank" rel="noopener">清理一些配置</a>，这个链接中展示了完整的迁移过程中需要注意修改的配置的列表</li>
+<li>尝试构建并解决构建的问题</li>
+</ol>
+<h2 id="升级实践"><a href="#升级实践" class="headerlink" title="升级实践"></a>升级实践</h2><p>看了一遍文档后，就要自己尝试实践一下这个过程，看看会遇到哪些问题了。我就以自己最近正负责的一个项目为例进行尝试，对照上述的步骤进行一一的尝试。</p>
+<ol>
+<li>Node.js 至少需要 10.13.0 版本</li>
+</ol>
+<p>这一步没有任何的问题，只是升级了本地的后别忘了升级构建生产包的服务器的 Node.js 版本。</p>
+<ol start="2">
+<li><p>升级 plugin 和 loader</p>
+</li>
+<li><p>确认构建没有 error 和 warning</p>
+</li>
+<li><p>确保设置了 mode 选项</p>
+</li>
+<li><p>更新一些过时的配置</p>
+</li>
+<li><p>测试 webpack5 的兼容性</p>
+</li>
+<li><p>将 webpack 的包更新到5</p>
+</li>
+<li><p>清理一些配置</p>
+</li>
+<li><p>尝试构建并解决构建的问题</p>
+</li>
+</ol>
 
     </div>
 </div>
@@ -204,17 +219,10 @@ $font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 ke
 <div class="cube-article-nav">
     <ul>
         
-        <li class="prev">
-            <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/">
-                <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                优化webpack打包时间
-            </a>
-        </li>
-        
         
         <li class="next">
-            <a href="/blog/uncategorized/canvas%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
-                canvas中的图片跨域问题
+            <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/">
+                wsl踩坑
                 <i class="cube-icon cube-next" aria-hidden="true"></i>
             </a>
         </li>
@@ -375,7 +383,7 @@ $font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 ke
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -385,7 +393,7 @@ $font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 ke
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/HTML/">#HTML</a>
         </div>
         
@@ -436,7 +444,7 @@ $font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 ke
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/unicode/">#unicode</a>
         </div>
         
@@ -456,7 +464,7 @@ $font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 ke
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/css/">#css</a>
         </div>
         
@@ -466,7 +474,7 @@ $font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 ke
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/SVG/">#SVG</a>
         </div>
         
@@ -481,17 +489,17 @@ $font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 ke
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Hugo/">#Hugo</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/Vue/">#Vue</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/AMD/">#AMD</a>
         </div>
         
@@ -526,7 +534,7 @@ $font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 ke
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/BEM/">#BEM</a>
         </div>
         

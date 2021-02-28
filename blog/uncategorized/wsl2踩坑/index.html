@@ -184,12 +184,22 @@
 <li><p>通过 wsl –mount 生成(preview 中，持续关注), <a href="https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows/wsl/wsl2-mount-disk</a></p>
 </li>
 </ul>
+<h2 id="open-current-folder-in-terminal"><a href="#open-current-folder-in-terminal" class="headerlink" title="open current folder in terminal"></a>open current folder in terminal</h2><pre><code>explorer.exe .</code></pre><p>为了方便，可以设置 alias</p>
+<pre><code>alias explorer=&quot;explorer.exe .&quot;</code></pre><h2 id="yarn-global-add-not-work"><a href="#yarn-global-add-not-work" class="headerlink" title="yarn global add not work"></a>yarn global add not work</h2><p><a href="https://stackoverflow.com/a/40333409" target="_blank" rel="noopener">https://stackoverflow.com/a/40333409</a></p>
+<p>You should add <code>export PATH=&quot;$PATH:$(yarn global bin)&quot;</code> to your ~/.bash_profile or whatever you use.</p>
 
     </div>
 </div>
 
 <div class="cube-article-nav">
     <ul>
+        
+        <li class="prev">
+            <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                webpack5迁移记录
+            </a>
+        </li>
         
         
         <li class="next">
@@ -244,7 +254,7 @@
     
     
     <div class="count">
-        <a class="count articles"><span>19</span>Article</a>
+        <a class="count articles"><span>20</span>Article</a>
         <a class="count tags"><span>25</span>Tags</a>
         <a class="count categories"><span>7</span>Categories</a>
     </div>
@@ -269,7 +279,7 @@
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
                 </p>
             </div>
             
@@ -283,7 +293,7 @@
                     <span>2</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
                 </p>
             </div>
         </li>
@@ -296,7 +306,7 @@
                     <span>3</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
                 </p>
             </div>
         </li>
@@ -309,7 +319,7 @@
                     <span>4</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/" title="优化webpack打包时间">优化webpack打包时间</a>
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
                 </p>
             </div>
         </li>
@@ -322,7 +332,7 @@
                     <span>5</span>
                 </p>
                 <p class="title">
-                    <a href="/blog/uncategorized/stylus-%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86/" title="stylus 变量管理">stylus 变量管理</a>
+                    <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/" title="优化webpack打包时间">优化webpack打包时间</a>
                 </p>
             </div>
         </li>
@@ -345,18 +355,18 @@
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/categories/canvas/">#canvas</a>
-        </div>
-        
-        
         <div class="cube-box ">
             <a href="/categories/js/">#js</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/categories/HTML/">#HTML</a>
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/code/">#code</a>
         </div>
         
         
@@ -365,8 +375,8 @@
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/categories/code/">#code</a>
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
@@ -396,17 +406,12 @@
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
             <a href="/tags/js/">#js</a>
         </div>
         
@@ -417,7 +422,17 @@
         
         
         <div class="cube-box ">
-            <a href="/tags/SVG/">#SVG</a>
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
@@ -427,42 +442,12 @@
         
         
         <div class="cube-box ">
-            <a href="/tags/Web-Component/">#Web Component</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/tags/stylus/">#stylus</a>
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/css/">#css</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/AMD/">#AMD</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CMD/">#CMD</a>
-        </div>
-        
-        
         <div class="cube-box-bg ">
-            <a href="/tags/UMD/">#UMD</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+            <a href="/tags/css/">#css</a>
         </div>
         
         
@@ -472,26 +457,51 @@
         
         
         <div class="cube-box ">
-            <a href="/tags/Hugo/">#Hugo</a>
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/Vue/">#Vue</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/unicode/">#unicode</a>
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CMD/">#CMD</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
+            <a href="/tags/UMD/">#UMD</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
         </div>
         
