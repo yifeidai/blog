@@ -38,6 +38,11 @@ webpack 提供了专门的文档，[迁移到webpack5](https://webpack.js.org/mi
 
 2. 升级 plugin 和 loader
 
+我先运行了dev的编译命令，以下两个插件报错了，各自升级到最新版本后解决了问题
+
+- vue-loader
+- webpack-dev-middleware
+
 3. 确认构建没有 error 和 warning
 
 4. 确保设置了 mode 选项

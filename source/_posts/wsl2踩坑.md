@@ -43,3 +43,25 @@ alias explorer="explorer.exe ."
 https://stackoverflow.com/a/40333409
 
 You should add `export PATH="$PATH:$(yarn global bin)"` to your ~/.bash_profile or whatever you use.
+
+
+## wsl vmmem 进程内存占用过大
+
+我开了4个VSCode，结果电脑内存直接炸了，一查，vmmem进程占了5G
+
+https://blog.n0ts.cn/1155.html
+
+win+R,输入`%UserProfile%`，会打开一个文件夹，在其中新建一个`.wslconfig`,其中输入一下内容
+
+```
+[wsl2]
+memory=4GB
+swap=2GB
+localhostForwarding=true
+```
+
+memory为系统内存上限，可根据实际情况进行配置
+
+运行`wsl --shutdown`命令，关闭wsl的运行
+
+然后运行`wsl`命令，重启wsl
