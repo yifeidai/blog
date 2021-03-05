@@ -25,8 +25,14 @@
 </ol>
 <p>这一步没有任何的问题，只是升级了本地的后别忘了升级构建生产包的服务器的 Node.js 版本。</p>
 <ol start="2">
-<li><p>升级 plugin 和 loader</p>
-</li>
+<li>升级 plugin 和 loader</li>
+</ol>
+<p>我先运行了dev的编译命令，以下两个插件报错了，各自升级到最新版本后解决了问题</p>
+<ul>
+<li>vue-loader</li>
+<li>webpack-dev-middleware</li>
+</ul>
+<ol start="3">
 <li><p>确认构建没有 error 和 warning</p>
 </li>
 <li><p>确保设置了 mode 选项</p>
@@ -76,6 +82,15 @@
 <h2 id="open-current-folder-in-terminal"><a href="#open-current-folder-in-terminal" class="headerlink" title="open current folder in terminal"></a>open current folder in terminal</h2><pre><code>explorer.exe .</code></pre><p>为了方便，可以设置 alias</p>
 <pre><code>alias explorer=&quot;explorer.exe .&quot;</code></pre><h2 id="yarn-global-add-not-work"><a href="#yarn-global-add-not-work" class="headerlink" title="yarn global add not work"></a>yarn global add not work</h2><p><a href="https://stackoverflow.com/a/40333409" target="_blank" rel="noopener">https://stackoverflow.com/a/40333409</a></p>
 <p>You should add <code>export PATH=&quot;$PATH:$(yarn global bin)&quot;</code> to your ~/.bash_profile or whatever you use.</p>
+<h2 id="wsl-vmmem-进程内存占用过大"><a href="#wsl-vmmem-进程内存占用过大" class="headerlink" title="wsl vmmem 进程内存占用过大"></a>wsl vmmem 进程内存占用过大</h2><p>我开了4个VSCode，结果电脑内存直接炸了，一查，vmmem进程占了5G</p>
+<p><a href="https://blog.n0ts.cn/1155.html" target="_blank" rel="noopener">https://blog.n0ts.cn/1155.html</a></p>
+<p>win+R,输入<code>%UserProfile%</code>，会打开一个文件夹，在其中新建一个<code>.wslconfig</code>,其中输入一下内容</p>
+<pre><code>[wsl2]
+memory=4GB
+swap=2GB
+localhostForwarding=true</code></pre><p>memory为系统内存上限，可根据实际情况进行配置</p>
+<p>运行<code>wsl --shutdown</code>命令，关闭wsl的运行</p>
+<p>然后运行<code>wsl</code>命令，重启wsl</p>
 ]]></content>
       
         
