@@ -14,6 +14,13 @@ webpack5 已经发布了好久了，但是我们现在项目构建使用的还�
 
 [提升](https://webpack.js.org/blog/2020-10-10-webpack-5-release/#general-direction)
 
+1. 使用持久化缓存来提升构建性能
+2. 使用更好的算法和默认值来改进持久化缓存
+3. 使用更好的tree shaking和代码生成来减小打包的体积
+4. 改进web平台的兼容能力
+5. 在不造成breaking change的前提下改进一些遗留在webpack4中内部奇怪的结构
+6. 通过引入一些breaking changes来为未来的一些新需求做准备，这是为了可以尽可能长的将版本保持在v5
+
 ## 升级准备
 
 webpack 提供了专门的文档，[迁移到webpack5](https://webpack.js.org/migrate/5/)，来从v4到v5进行升级。这是在官方文档中，他们建议的迁移过程。
