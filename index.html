@@ -178,6 +178,14 @@
         
            <p>webpack5 已经发布了好久了，但是我们现在项目构建使用的还是 webpack4。也是时候尝试一下使用 webpack5。感受一下 webpack5 有什么新的功能和改进了。</p>
 <h2 id="webpack5-相对于-webpack4-的提升"><a href="#webpack5-相对于-webpack4-的提升" class="headerlink" title="webpack5 相对于 webpack4 的提升"></a>webpack5 相对于 webpack4 的提升</h2><p><a href="https://webpack.js.org/blog/2020-10-10-webpack-5-release/#general-direction" target="_blank" rel="noopener">提升</a></p>
+<ol>
+<li>使用持久化缓存来提升构建性能</li>
+<li>使用更好的算法和默认值来改进持久化缓存</li>
+<li>使用更好的tree shaking和代码生成来减小打包的体积</li>
+<li>改进web平台的兼容能力</li>
+<li>在不造成breaking change的前提下改进一些遗留在webpack4中内部奇怪的结构</li>
+<li>通过引入一些breaking changes来为未来的一些新需求做准备，这是为了可以尽可能长的将版本保持在v5</li>
+</ol>
 <h2 id="升级准备"><a href="#升级准备" class="headerlink" title="升级准备"></a>升级准备</h2><p>webpack 提供了专门的文档，<a href="https://webpack.js.org/migrate/5/" target="_blank" rel="noopener">迁移到webpack5</a>，来从v4到v5进行升级。这是在官方文档中，他们建议的迁移过程。</p>
 <ol>
 <li>Node.js 至少需要 10.13.0 版本</li>
@@ -196,8 +204,14 @@
 </ol>
 <p>这一步没有任何的问题，只是升级了本地的后别忘了升级构建生产包的服务器的 Node.js 版本。</p>
 <ol start="2">
-<li><p>升级 plugin 和 loader</p>
-</li>
+<li>升级 plugin 和 loader</li>
+</ol>
+<p>我先运行了dev的编译命令，以下两个插件报错了，各自升级到最新版本后解决了问题</p>
+<ul>
+<li>vue-loader</li>
+<li>webpack-dev-middleware</li>
+</ul>
+<ol start="3">
 <li><p>确认构建没有 error 和 warning</p>
 </li>
 <li><p>确保设置了 mode 选项</p>
@@ -252,6 +266,15 @@
 <h2 id="open-current-folder-in-terminal"><a href="#open-current-folder-in-terminal" class="headerlink" title="open current folder in terminal"></a>open current folder in terminal</h2><pre><code>explorer.exe .</code></pre><p>为了方便，可以设置 alias</p>
 <pre><code>alias explorer=&quot;explorer.exe .&quot;</code></pre><h2 id="yarn-global-add-not-work"><a href="#yarn-global-add-not-work" class="headerlink" title="yarn global add not work"></a>yarn global add not work</h2><p><a href="https://stackoverflow.com/a/40333409" target="_blank" rel="noopener">https://stackoverflow.com/a/40333409</a></p>
 <p>You should add <code>export PATH=&quot;$PATH:$(yarn global bin)&quot;</code> to your ~/.bash_profile or whatever you use.</p>
+<h2 id="wsl-vmmem-进程内存占用过大"><a href="#wsl-vmmem-进程内存占用过大" class="headerlink" title="wsl vmmem 进程内存占用过大"></a>wsl vmmem 进程内存占用过大</h2><p>我开了4个VSCode，结果电脑内存直接炸了，一查，vmmem进程占了5G</p>
+<p><a href="https://blog.n0ts.cn/1155.html" target="_blank" rel="noopener">https://blog.n0ts.cn/1155.html</a></p>
+<p>win+R,输入<code>%UserProfile%</code>，会打开一个文件夹，在其中新建一个<code>.wslconfig</code>,其中输入一下内容</p>
+<pre><code>[wsl2]
+memory=4GB
+swap=2GB
+localhostForwarding=true</code></pre><p>memory为系统内存上限，可根据实际情况进行配置</p>
+<p>运行<code>wsl --shutdown</code>命令，关闭wsl的运行</p>
+<p>然后运行<code>wsl</code>命令，重启wsl</p>
 
         
     </article>
@@ -1051,38 +1074,38 @@ function setA(value) {
     <div class="cube-boxs">
         
         
-        <div class="cube-box-bg ">
-            <a href="/categories/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/categories/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/code/">#code</a>
-        </div>
-        
-        
         <div class="cube-box ">
             <a href="/categories/git/">#git</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/categories/HTML/">#HTML</a>
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/canvas/">#canvas</a>
         </div>
         
         
         <div class="cube-box-bg ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
             <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
         </div>
         
     </div>
@@ -1098,7 +1121,7 @@ function setA(value) {
         
         
         <div class="cube-box ">
-            <a href="/tags/JS/">#JS</a>
+            <a href="/tags/git/">#git</a>
         </div>
         
         
@@ -1107,8 +1130,18 @@ function setA(value) {
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
         </div>
         
         
@@ -1123,22 +1156,7 @@ function setA(value) {
         
         
         <div class="cube-box ">
-            <a href="/tags/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/git/">#git</a>
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
@@ -1147,7 +1165,7 @@ function setA(value) {
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/css/">#css</a>
         </div>
         
@@ -1157,8 +1175,8 @@ function setA(value) {
         </div>
         
         
-        <div class="cube-box ">
-            <a href="/tags/SVG/">#SVG</a>
+        <div class="cube-box-bg ">
+            <a href="/tags/AST/">#AST</a>
         </div>
         
         
@@ -1168,17 +1186,17 @@ function setA(value) {
         
         
         <div class="cube-box ">
-            <a href="/tags/AST/">#AST</a>
+            <a href="/tags/unicode/">#unicode</a>
         </div>
         
         
         <div class="cube-box-bg ">
-            <a href="/tags/Hugo/">#Hugo</a>
+            <a href="/tags/utf-8/">#utf-8</a>
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/Vue/">#Vue</a>
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
         </div>
         
         
@@ -1187,7 +1205,7 @@ function setA(value) {
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/CMD/">#CMD</a>
         </div>
         
@@ -1197,13 +1215,18 @@ function setA(value) {
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
         
+        <div class="cube-box-bg ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
         <div class="cube-box ">
-            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+            <a href="/tags/Vue/">#Vue</a>
         </div>
         
         
@@ -1217,7 +1240,7 @@ function setA(value) {
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/BEM/">#BEM</a>
         </div>
         
