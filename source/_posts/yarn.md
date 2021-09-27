@@ -2,6 +2,9 @@
 title: yarn
 date: 2021-09-06 14:13:27
 tags:
+  - yarn
+  - Plug'n'Play
+  - Zero-Installs
 ---
 
 ## 历史
