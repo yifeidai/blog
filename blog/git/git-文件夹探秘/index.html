@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>.git 文件夹探秘 | blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">.git 文件夹探秘</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-08-16
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/git/">#git</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h2 id="什么是-git-文件夹"><a href="#什么是-git-文件夹" class="headerlink" title="什么是 .git 文件夹"></a>什么是 .git 文件夹</h2><p>.git 文件夹是 git 存储整个仓库的信息的位置。如果想要知道整个仓库的信息，那么只要这个文件夹就足够了。<br>这个文件夹的结构如下所示。</p>
+<pre><code>文件夹
+- hooks
+- info
+- logs
+- refs
+- objects
+文件
+- config
+- description
+- FETCH_HEAD
+- HEAD
+- index
+- ORIG_HEAD
+- packed-refs</code></pre><p>接下来我们来一个个看看这些文件夹都是用来干什么的。理解了这些文件夹是干什么的之后想必你对于 git 的理解将会加深一个层次。</p>
+<p>在解释 这个文件夹结构之前，我们首先要知道一个基础的知识。那就是 git 和以前的 SVN 这种版本控制系统的差别在哪里。 SVN 这种版本控制系统的原理是每一个改变都会作为一个 diff 记录下来。当前的版本就是所有 diff 之和。而 git 的存储方式是每一个文件的每一个版本都会作为一个快照保存下来。一次 commit 就相当于记录了所有文件的快照。</p>
+<h2 id="hooks"><a href="#hooks" class="headerlink" title="hooks"></a>hooks</h2><p>hooks 文件夹存储的是一些脚本，可以在不同的阶段运行，比如 commit、pull 等等。</p>
+<h2 id="info"><a href="#info" class="headerlink" title="info"></a>info</h2><p>info 文件夹中有一个文件名字叫 exclude。这个文件是派什么用的呢？顾名思义，其实这个文件的作用和 .gitignore 的作用是一样的，不过这个文件每一个人是可以不一样的，也就是说一个团队的每个人可以有一份自己的 .gitignore 文件。</p>
+<h2 id="logs"><a href="#logs" class="headerlink" title="logs"></a>logs</h2><p>顾名思义，这个文件夹的作用就是日志，给你反悔用的。我们看看这个文件夹下的文件结构</p>
+<pre><code>文件夹
+- refs
+文件
+- HEAD</code></pre><p>我们打开 HEAD 文件看一下，可以发现是如下的信息。</p>
+<pre><code>......
+9bb7f56e59fb83ea7b7c55a23409f8a2ab64a033 25c9b1108072c99c0643bad5d49092861f14e492 yifeidai &lt;floatdai@gmail.com&gt; 1581662743 +0800    commit: BBS 3114
+25c9b1108072c99c0643bad5d49092861f14e492 ce476df4e0c091b1ee00c0009778ca0fa8871c1f yifeidai &lt;floatdai@gmail.com&gt; 1581663490 +0800    commit: BBS 3120
+ce476df4e0c091b1ee00c0009778ca0fa8871c1f 1f1295bda02bb5d7e19b66bf3c86264bfdc0ce62 yifeidai &lt;floatdai@gmail.com&gt; 1582288127 +0800    commit: Finish sprint 20
+1f1295bda02bb5d7e19b66bf3c86264bfdc0ce62 a6d8378f0fcf66c6f00b61f5ce7150d645727c28 yifeidai &lt;floatdai@gmail.com&gt; 1588214020 +0800    pull: Fast-forward
+a6d8378f0fcf66c6f00b61f5ce7150d645727c28 978be520018e6a72359148afe2e5af9f5ba893a4 yifeidai &lt;floatdai@gmail.com&gt; 1588227237 +0800    commit: Add export data in welfare orders
+978be520018e6a72359148afe2e5af9f5ba893a4 c1348b61a2dd28ce03a98e1327909b5dc0ba377d yifeidai &lt;floatdai@gmail.com&gt; 1588229105 +0800    commit: Add import data in welfare orders
+c1348b61a2dd28ce03a98e1327909b5dc0ba377d 572ecb8ccd0b4259cd2acabbec57445b682d74dd yifeidai &lt;floatdai@gmail.com&gt; 1588242537 +0800    commit: Add edit in welfare goods
+572ecb8ccd0b4259cd2acabbec57445b682d74dd 401b1dff157a06b4dc53cf281bfbdb1c231128ae yifeidai &lt;floatdai@gmail.com&gt; 1588245717 +0800    commit: Fix welfare permission bug
+401b1dff157a06b4dc53cf281bfbdb1c231128ae 462579259947c59c562df4c43152ef4440e2d3e7 yifeidai &lt;floatdai@gmail.com&gt; 1589969280 +0800    pull: Fast-forward
+462579259947c59c562df4c43152ef4440e2d3e7 48b2c8aa20317ba0ee997897cd4b4c3a5ce47460 yifeidai &lt;floatdai@gmail.com&gt; 1589969439 +0800    commit: Change auth of management/userinfo</code></pre><p>可以看到，这是由一个个 commit 的信息组成的。然后再看看文件的名字： HEAD，显然这个就是 git 的 HEAD 变更的日志呀。再看看 refs 文件夹下的内容。</p>
+<pre><code>- heads
+  - master
+- remotes
+  - origin
+    - HEAD
+    - master
+    - release</code></pre><p>显然这个就是一个本地和远程的每一个分支的文件组成结构。打开后可以发现他们的内容和之前的 HEAD 文件是相同的类型。也就是说他们分别记录了本地和远程每一个分支的变动信息。</p>
+<p>记得如果我们有时候如果用了 hard 的 git reset 命令时想要找回被自己删掉的代码该怎么办吗？就是使用 <code>git reflog</code> 命令，会展示出所有的提交的信息。这些信息的来源就是这个文件夹。</p>
+<h2 id="refs-和-objects"><a href="#refs-和-objects" class="headerlink" title="refs 和 objects"></a>refs 和 objects</h2><p>refs 文件夹和 objects 文件夹必须放在一起说明。我们之前说的那些文件夹其实都没有涉及到 git 的核心，也就是 git 的版本控制是怎么实现的。这其中的秘密就在这两个文件夹里面。</p>
+<p>首先看一下 refs 文件夹下的文件结构</p>
+<pre><code>- heads
+  - master
+- remotes
+  - origin
+    - HEAD
+- tags
+  - v1.0.0
+  - v1.0.1
+  ...</code></pre><p>和上面 logs 文件夹的文件结构类似，这个文件结构包含了本地和远程所有的分支信息，除此之外还加上了 tags 的信息。那么显然每一个文件都是用来记载一个分支或者 tag 的详细信息的。那么这些文件是怎么记录这些信息的呢？让我们打开其中一个文件来看看。</p>
+<pre><code>heads/master 文件
+48b2c8aa20317ba0ee997897cd4b4c3a5ce47460</code></pre><p>这个是什么？这个显然是一个 git 的 commit 的 SHA-1 啊。我们知道 git 的每一个提交都会生成一个 SHA-1 来作为这个 commit 的唯一标记。所以我们可以知道 refs 文件夹的作用是保存了每个分支和 tag 的当前的 commit 是什么的信息。但是这个文件夹并没有保存每个 commit 具体内容是什么，也没有保存整条分支，而是只知道一个分支的最新的提交是什么。那么这个任务也就是有 objects 文件夹来完成的。那么久让我们看看 objects 文件夹中有哪些东西。</p>
+<pre><code>- 0a
+- 0b
+- 0c
+- 0d
+- 0e
+...
+- d0
+- d4
+- d5
+- d6
+...
+- fc
+- fd
+- fe
+- info
+- pack</code></pre><p>中间省略号部分省略了很多两个字母的文件夹。哇，这些乱七八糟的文件夹到底是干什么的？很显然，这些都是两位的十六进制数组成的。再联想到我们之前 refs 文件夹中记录的内容 SHA-1，显然这是在为 SHA-1 做索引啊。我们打开 0a 这个文件夹，发现里面有两个文件。</p>
+<pre><code>9bbb2c1faa43e0dcb27e93ec9263ec4a5cc539
+f23568e3ccab0fcfd4ce5e561076660e674d4c</code></pre><p>把这两个文件的前面加上 0a，可以发现这就是两个 SHA-1。也就说，之前在 refs 文件夹中记录的信息的意义找到了。这个 SHA-1 将这个 commit 的信息保存在了 objects 文件夹的一个个文件之中（注意，并不是所有的在 objects 文件夹中的文件都是这个，接下来我会意义说明）。那么就让我们打开之前之前记录在 heads/master 文件中的那串 SHA-1 的文件。由于 git 会对 objects 中的每一个文件做压缩，所以直接打开文件看到的都是乱码。 git 提供了指令 <code>git cat-file</code> 来查看 objects 文件夹中每一个文件的内容。那么就让我们输入 <code>git cat-file -p 48b2c8aa20317ba0ee997897cd4b4c3a5ce47460</code> 来看看这个文件中到底记录了什么。</p>
+<pre><code>tree bde4c5ed97de8cf3a311e8edc93ec2c1bbe7224e
+parent 462579259947c59c562df4c43152ef4440e2d3e7
+author yifeidai &lt;floatdai@gmail.com&gt; 1589969439 +0800
+committer yifeidai &lt;floatdai@gmail.com&gt; 1589969439 +0800</code></pre><p>我们先跳过第一行，看第二行。parent 代表的是这个 commit 的上一个 commit 的内容是什么，这个 commit 的对应的文件同样也可以在 objects 文件夹中找到。也就是说每一个 commit 的具体信息中都记录了上一个 commit 到底是什么。所以说之前的疑惑就得到了解决。在 refs 文件夹中的没有个分支文件都只记录了当前分支最新的 commit 是什么，那么怎么才能得出整个分支是什么样子的呢。那就是靠每一个 commit 都记录了他上一个 commit 是什么。一个个串起来就得到了一整条分支是有哪些 commit 构成的。</p>
+<p>接下来看第三第四行，他们分别具体记录了作者和提交者的信息和提交的具体时间。</p>
+<p>最后我们来看最重要的第一行。之前的那些信息让我们可以理解了 git 的 commit 树的信息是怎么存储的。但是，具体每一个 commit 他所包含的文件内容是什么还是没有。这个信息就是这个 tree 对象所存储的。tree 的意思其实就是相当于一个文件夹，最顶层的文件夹的信息当然就是一个提交的目录信息了。我们看看 tree 右边是什么？又是 SHA-1，说明这个 tree 的具体信息也是作为一个文件存储在 objects 文件夹之中的。说到这里大家可能有点蒙，objects 文件夹中村的不是所有 commit 的 SHA-1 吗？怎么突然有蹦出来一个具体 commit 的 tree 的 SHA-1？其实他们都是存储在 objects 文件夹之中的。这个文件夹存储了很多信息。可以看成一个索引的系统。那么就让我们看看这个 tree 中的信息是什么？同样的，我们使用 <code>git log -p bde4c5ed97de8cf3a311e8edc93ec2c1bbe7224e</code> 来查看这个文件</p>
+<pre><code>100644 blob cd68a1b91fea8d5f57f6bafe03b81bc0c89a78b0    .browserslistrc
+100644 blob 107ed74e6bfd14740b6334a931034b99c542cb5f    .gitignore
+040000 tree 0274a81f8ee9ca3669295dc40f510bd2021d0043    .vscode
+100644 blob 36109a8ca1e99df196b62750beffd2fb95ffd1a5    README.md
+100644 blob 12da593be7f40fed6e53780801e3ad03d54affa4    babel.config.js
+040000 tree d810c104ef132cd9765c070e9ee0f9a32db2d309    build
+100644 blob a4dbc245f2bc6c829ea3d7ebc1b9d25f5d664cd7    index.html
+100644 blob d9745d0b909f1a2497696f50bfd1347f399ca32b    package.json
+040000 tree 7c94cf2b4494855cd0b4f92d4a85cbfe36bf8e6b    src
+040000 tree 827cbc09e4a73bafe37c80eefd43f53f936cc89e    static
+100644 blob cead9117d91f1abc3339be2dcb0f7b71e70ce633    yarn.lock</code></pre><p>我们可以看到，这个文件中的第二列有两种值，blob 和 tree，之前说过了，tree 就相当于一个文件夹，那么 blob 显然就相当于一个具体的文件。我们再看看最后一列，他们就是每一个文件或文件夹的名字。而第一列则记录了这个文件或文件夹的具体类型等信息。和 linux 文件系统是不是很像。而第三列显然就是这些文件或文件夹的 SHA-1，他们具体的详细信息也将保存在另一个在 objects 文件夹中的文件中。tree 的文件保存的信息都和这个文件差不多，那么让我们看看 blob 类型的文件是什么样子的。同样的我们利用 <code>git cat-file -p cd68a1b91fea8d5f57f6bafe03b81bc0c89a78b0</code> 命令来看看 .browserslistrc 文件的内容是怎么保存的。</p>
+<pre><code>last 2 Chrome versions</code></pre><p>这个就是这个文件中的具体内容了。</p>
+<p>这样一来整个 git 的存储逻辑就非常清晰了。首先在 refs 文件夹中对每一个分支都简建立一个具体的文件。这个文件中保存了每个分支最新的 commit 的信息。接下来每一个 commit 的信息都记录在 objects 文件夹中。首先，每一个 commit 的文件中记录的是提交者的信息。其次是该 commit 的上一个 commit 的信息，这让每一个 commit 都连了起来，记录一个 commit 就相当于记录了整个分支的 commit 信息。最后是 tree，也就是一个文件夹的信息。每一个文件夹的信息文件中都记录了下一层文件夹中的文件和文件夹信息。这就构成了每一次提交的文件结构快照。最后 tree 的末端，也就是文件夹的末端就是 blob 类型，一个个具体的文件。每一个文件的信息也作为一个个单独的快照文件保存在了 objects 文件夹之中。这结合起来就构成了每一个提交的具体内容快照。</p>
+<h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><p>显然，这个文件夹就是我们每一个项目自己的 config， <code>git config --local</code> 命令中具体的信息就存储在这个文件中</p>
+<h2 id="description"><a href="#description" class="headerlink" title="description"></a>description</h2><p>这是一个被 git web 所使用的文件，展示了这个仓库的描述。</p>
+<h2 id="FETCH-HEAD"><a href="#FETCH-HEAD" class="headerlink" title="FETCH_HEAD"></a>FETCH_HEAD</h2><p>这个文件保存了 FETCH_HEAD 的引用是什么</p>
+<h2 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h2><p>打开这个文件，内容如下</p>
+<pre><code>ref: refs/heads/master</code></pre><p>这个文件显然记录了本地的 head 的具体信息。</p>
+<h2 id="index"><a href="#index" class="headerlink" title="index"></a>index</h2><p>顾名思义，这个文件保存了 git 的 index 区（暂存区）的信息。这个文件也是经过加密的。我们可以通过 <code>xxd -b -c 4 .git/index</code> 命令看看这个文件的全貌。</p>
+<pre><code>00000000: 01000100 01001001 01010010 01000011  DIRC
+00000004: 00000000 00000000 00000000 00000010  ....
+00000008: 00000000 00000000 00000000 00000001  ....
+0000000c: 01011110 01011011 11000111 10010001  ^[..
+00000010: 00101111 00001011 00100011 00101010  /.#*
+00000014: 01011110 01011011 11000111 10010001  ^[..
+00000018: 00100111 00101111 10101000 11100000  &#39;/..
+......</code></pre><p>我们也可以通过 <code>git ls-files --stage</code> 来查看仓库中的每一个文件及其对应的文件对象。</p>
+<pre><code>100644 063b0e4ce79bbd23403f7e8ebfb71fb7779f869a 0       .gitignore
+100644 3a814e386167aeb4e5bdc1ddc146612c4a42c154 0       package.json
+......</code></pre><p>具体这个文件存储信息的规则是什么样子的由于非常复杂，可以单独展开作为一篇文章讲，这里就不展开说明了。具体的文档可以参考<a href="https://github.com/git/git/blob/master/Documentation/technical/index-format.txt#L63" target="_blank" rel="noopener">git index-format</a>。</p>
+<h2 id="ORIG-HEAD"><a href="#ORIG-HEAD" class="headerlink" title="ORIG_HEAD"></a>ORIG_HEAD</h2><p>这个文件记录了上一次 HEAD 所在位置的信息。也就是用来反悔用的。</p>
+<h2 id="packed-refs"><a href="#packed-refs" class="headerlink" title="packed-refs"></a>packed-refs</h2><p>git 会定期执行一个叫做 <code>git gc</code> 的命令，gc 是 garbage collection 的缩写。这个命令会将一些暂时用不到的 commit 和分支的具体内容打包起来，打包在 objects 文件夹下的 pack 文件夹下，用来压缩所占用的体积。这个文件就是用来记录这些信息的。</p>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                几种CSS管理方案
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/blog/js/JS%E9%81%8D%E5%8E%86%E5%B1%9E%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95/">
+                JS遍历属性的方法
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

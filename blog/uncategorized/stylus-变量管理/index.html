@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>stylus 变量管理 | blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">stylus 变量管理</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-11-29
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/stylus/">#stylus</a>
+    
+    <a href="/tags/css/">#css</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <p>这两天刚刚启动一个新项目，正好有一点时间来思考一些项目整体上的东西。其中我就遇到了一个问题。我们在使用 stylus 的时候，会定义一些变量，用这些变量来写css。比如说<code>$font-base = 14px</code>。但是，如果我们在 JS 中想要使用这个字体的大小，以前我只会直接在代码里面写一个14。再好一点，在函数中定义一个变量<code>const FONT_BASE = 14</code>。或者再开一个专门的文件来定义 JS 中使用的 stylus 的变量，用的时候再引入。</p>
+<p>但是，这样的话是违背代码书写的原则的。既然 stylus 的变量定义和 JS 中我们使用的变量是同一个东西，那么，我们当然也希望可以使用一个文件就可以管理 stylus 变量的定义。</p>
+<p>经过我的寻找，我发现 stylus 中确实存在这样一个方法来实现这个目标。</p>
+<p>那就是 stylus 的 json 函数。具体的文档位置为 <a href="https://stylus-lang.com/docs/bifs.html#jsonpath-options" target="_blank" rel="noopener">stylus json函数</a></p>
+<p>我们可以把想要定义的 stylus 变量都先定义在一个 JSON 文件中，然后我们可以在 stylus 文件中使用 json 函数进行引入。而当我们想在 JS 中使用这些变量，也可以通过这个 JSON 文件引入。这样就实现了同一个文件来管理 stylus 变量的方法。我们看一个例子。</p>
+<pre><code>// variable.json
+{
+  &quot;$main&quot;: &quot;#234235&quot;,
+
+  &quot;$font&quot;: {
+    &quot;base&quot;: &quot;14px&quot;,
+    &quot;medium&quot;: &quot;16px&quot;
+  }
+}</code></pre><pre><code>// variable.styl
+json(&quot;./variable.json&quot;)</code></pre><p>这样做相当于在 variable.styl 文件中做了如下定义。</p>
+<pre><code>$main = #234235
+$font-base = &quot;14px&quot;
+$font-medium = &quot;16px&quot;</code></pre><p>我们可以看到，对象的 key 和 value 分别作为了变量名和变量的值。如果有嵌套的多层对象，那么对象将被全部展开到最底层，每一层的 key 将以中划线的形式进行连接。这就是 json 函数的使用方法。</p>
+<p>有了这个方法，我们就可以实现之前提到的目标，在同一个文件中管理 stylus 变量在 CSS 和 JS 中的使用。</p>
+<p>stylus 还是有很多高级的功能可以使用的，只不过我们平时只是常用他最基础的那些功能而已。在看 json 这个函数的文档的时候，我向下翻了一下，看到了<a href="https://stylus-lang.com/docs/bifs.html#usepath" target="_blank" rel="noopener">use 函数</a>。这个函数的作用是可以自定义一些新的函数，让 stylus 编译器可以识别这些函数。这就给了我们开发者很大的自由度，让我们可以实现一些骚操作。具体的使用方式还是见文档吧。但是这个文档写的不太仔细，详细使用方法说的不是很确切，有时间我可以再研究一下。</p>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                优化webpack打包时间
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/blog/uncategorized/canvas%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+                canvas中的图片跨域问题
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

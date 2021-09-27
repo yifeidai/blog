@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>Unicode and utf-8 | blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">Unicode and utf-8</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-09-13
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/unicode/">#unicode</a>
+    
+    <a href="/tags/utf-8/">#utf-8</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>我们知道，最一开始，我们计算机使用 ASCII 作为存贮字符集的一种规范。使用八个 bit，来表示一个字符。8 bit 一共有256中组合可能。他们使用了其中128种作为存储英文字符的编码规范。他们称之为ANSI 的”Ascii”编码（American Standard Code for Information Interchange，美国信息互换标准代码）。</p>
+<h2 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h2><p>在计算机来到中国后，当时的字符集还只有 ASCII，所以为了可以把中文编码，就创造了 GB2312 标准编码。使用两个字节来表示一个汉字。当两个大于127的字节连在一起时，就认为使用了 GBK。这就是我们常说的全角字符。而127以下的则是半角字符。但是两个127以上的字节只能表示7k多个字符，所以后来我们扩展了字符集，不再要求低位小于127，由此把更多的汉字和其他少数民族等的字符加入进去，扩展成了 GB18030。</p>
+<h2 id="UNICODE"><a href="#UNICODE" class="headerlink" title="UNICODE"></a>UNICODE</h2><p>规定了 128 个字符的字符编码。对于英文来说，这128个够用了，但是对于全世界的语言来说，明显这一个字节的空间就不够用了。所以说世界各地为了应对这种情况创造出了很多种不同的编码标准。这无疑造成了很多麻烦。为了统一全世界文字的编码方式，我们就制定了 Unicode 这个标准。使用更多的字节来存储这些字符。</p>
+<h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p>虽然 Unicode 解决了统一字符存储标准的问题，但是 Unicode 为了存储更多的字符而使用更多的存储空间显然造成了极大空间的浪费。这是不可接受的。所以，为了更好的使用 Unicode，UTF-8 出现了。<strong>UTF-8 是 Unicode 的一种实现方式。</strong></p>
+<p>UTF-8 是一种可变长的编码方式。他可以使用1-4个字节来表示一个符号。UTF-8 的编码规则有两条：</p>
+<ol>
+<li>单字节的字符，字节的第一位设为0，对于英语文本，UTF-8码只占用一个字节，和ASCII码完全相同</li>
+<li>n个字节的字符(n&gt;1)，第一个字节的前n位设为1，第n+1位设为0，后面字节的前两位都设为10，这n个字节的其余空位填充该字符unicode码，高位用0补足。</li>
+</ol>
+<pre><code>0xxxxxxx
+110xxxxx 10xxxxxx
+1110xxxx 10xxxxxx 10xxxxxx
+11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</code></pre><p>举一个例子，<code>我</code> 这个汉字的 Unicode 为 <code>%u6211</code>，用二进制表示为 <code>0110 0010 0001 0001</code>。可以看到，我们需要15位来存储这个汉字。让我们看看上面那串转换规则。一个x就表示一位可以存储的空间。一个字节可以表示7位，不够。两个字节可以存储11位，还是不够。三个字节可以存储16位，够了。所以说我们使用三个字节来存储这个字符。让我们开始填充。</p>
+<pre><code>0110 0010 0001 0001
+        变成
+     110   001000   010001
+1110xxxx 10xxxxxx 10xxxxxx
+        填充
+11100110 10001000 10010001
+        也就是
+E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编码。正是 <code>\xE6\x88\x91</code>。</p>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/blog/HTML/Hugo-with-Vue/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                Hugo with Vue
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/blog/CSS/CSS-Variables/">
+                CSS Variables
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

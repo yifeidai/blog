@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            
+<div class="cube-excerpt" id="cube-excerpt-SVG 详解">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/">SVG 详解</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-09-20
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/SVG/" class="cube-excerpt-tag-link">#SVG</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="什么是SVG"><a href="#什么是SVG" class="headerlink" title="什么是SVG"></a>什么是SVG</h2><p>SVG 是 Scalable Vector Graphics 的缩写。字面意思就是可伸缩矢量图形。他相对于传统的格式的图片（如png，jpg等）最大的优势就是他是可以<strong>无限缩放</strong>的。无论放大多少倍，他的图片都不会出现模糊的问题。而且他的兼容性也很好。除了 IE8 及以下，其他浏览器都对其提供了良好的支持。</p>
+<h2 id="SVG-语法"><a href="#SVG-语法" class="headerlink" title="SVG 语法"></a>SVG 语法</h2><p>SVG 使用 XML 来定义它的图像。常用的元素有：</p>
+<ul>
+<li>text: 创建一个文字元素</li>
+<li>circle: 创建一个圆形</li>
+<li>ellipse： 创建一个椭圆</li>
+<li>rect: 创建一个矩形</li>
+<li>line: 创建一条直线</li>
+<li>path: 创建一个路径</li>
+<li>textPath: 创建一个文本路径</li>
+<li>polygon: 创建一个多边形</li>
+<li>g: 创建一个元素组</li>
+</ul>
+<h3 id="text"><a href="#text" class="headerlink" title="text"></a>text</h3><p>属性x，y代表文本绘制的起始点</p>
+<pre><code>&lt;text x=&quot;10&quot; y=&quot;10&quot;&gt;I am a text&lt;/text&gt;</code></pre><h3 id="circle"><a href="#circle" class="headerlink" title="circle"></a>circle</h3><p>属性如下</p>
+<ul>
+<li>cx: 圆心x坐标</li>
+<li>cy：圆形y坐标</li>
+<li>r：圆半径</li>
+<li>fill：圆填充色</li>
+</ul>
+<pre><code>&lt;circle cx=&quot;20&quot; cy=&quot;20&quot; r=&quot;10&quot; fill=&quot;#e0e0e0&quot; /&gt;</code></pre><h3 id="ellipse"><a href="#ellipse" class="headerlink" title="ellipse"></a>ellipse</h3><p>属性如下</p>
+<ul>
+<li>cx： 椭圆圆心x坐标</li>
+<li>cy： 椭圆圆心y坐标</li>
+<li>rx： 椭圆横向半径</li>
+<li>ry： 椭圆纵向半径</li>
+</ul>
+<h3 id="rect"><a href="#rect" class="headerlink" title="rect"></a>rect</h3><p>属性如下</p>
+<ul>
+<li>x： 矩形左上角x坐标</li>
+<li>y： 矩形左上角y坐标</li>
+<li>width： 矩形横向长度</li>
+<li>height：矩形纵向长度</li>
+</ul>
+<h3 id="line"><a href="#line" class="headerlink" title="line"></a>line</h3><p>属性如下</p>
+<ul>
+<li>x1: 直线起点x坐标</li>
+<li>y1: 直线起点y坐标</li>
+<li>x2: 直线终点x坐标</li>
+<li>y2: 直线终点y坐标</li>
+</ul>
+<h3 id="path"><a href="#path" class="headerlink" title="path"></a>path</h3><p>有一个属性d，在这个属性中使用一些命令来绘制图形，命令如下</p>
+<ul>
+<li>M： 代表 moveto，接受一组x，y坐标，把绘制点移动到这个位置</li>
+<li>L： 代表 lineto，接受一组x，y坐标，从上一点开始到这个参数的点绘制一条直线</li>
+<li>H： 代表 horizontal lineto，接受一个x坐标，类似L，但是是绘制一条纵向的直线</li>
+<li>V： 代表 vertical lineto，接受一个y坐标，类似L，但是是绘制一条横向的直线</li>
+<li>C： 代表 curveto，接受三组x，y坐标，绘制一个三次贝塞尔曲线</li>
+<li>S： 代表 smooth curveto，接受两组x，y坐标，一个点某一侧的控制点是它另一侧的控制点的对称（以保持斜率不变），是简写的C命令</li>
+<li>Q： 代表 quadratic Bézier curve，接受两组x，y坐标，绘制一条二次贝塞尔曲线</li>
+<li>T： 代表 smooth quadratic Bézier curveto，接受一组x，y坐标，类似S命令，是Q命令的简写，可以只写终点自动推测中间的控制点。但是之前必须有Q命令或者T命令，否则将会成为一条直线</li>
+<li>A： 代表 elliptical Arc，A命令有许多参数，是用来生成一段曲线的</li>
+<li>Z： 代表 closepath，不接受参数，代表将终点和起点相连，闭合路径</li>
+</ul>
+<pre><code>&lt;path d=&quot;M 10 10 L 20 20 H 30 V 40 Z&quot; /&gt;</code></pre><h3 id="textPath"><a href="#textPath" class="headerlink" title="textPath"></a>textPath</h3><p>接受的参数和path相同。然后文字将在这段路径上显示</p>
+<pre><code>&lt;textPath d=&quot;M 10 10 L 20 20 H 30 V 40 Z&quot;&gt;i am a text path&lt;/textPath&gt;</code></pre><h3 id="polygon"><a href="#polygon" class="headerlink" title="polygon"></a>polygon</h3><p>有一个属性 points，接受多个x，y坐标组</p>
+<pre><code>&lt;polygon points=&quot;10,10 20,20 35,20&quot; /&gt;</code></pre><h3 id="g"><a href="#g" class="headerlink" title="g"></a>g</h3><p>将多个元素分组</p>
+<pre><code>&lt;g id=&quot;group&quot;&gt;
+  &lt;path d=&quot;M10 10 L20 20&quot; /&gt;
+  &lt;rect x=&quot;20&quot; y=&quot;20&quot; width=&quot;10&quot; height=&quot;10&quot;&gt;
+&lt;/g&gt;</code></pre><h2 id="SVG-常用属性"><a href="#SVG-常用属性" class="headerlink" title="SVG 常用属性"></a>SVG 常用属性</h2><ul>
+<li>fill: SVG 的填充颜色。在改变svg颜色的时候不能用color，而是要用fill。当然，你可以将fill属性设为currentColor，那么 SVG 将使用 color 属性的颜色进行渲染</li>
+<li>fill-opacity： 填充颜色的不透明度</li>
+<li>stroke: SVG 线条的颜色</li>
+<li>stroke-width: SVG 线条的宽度</li>
+</ul>
+<h2 id="使用JS，CSS操作SVG"><a href="#使用JS，CSS操作SVG" class="headerlink" title="使用JS，CSS操作SVG"></a>使用JS，CSS操作SVG</h2><p>当 SVG 使用内联的方式加载时（不是通过img等标签通过外部引入），我们可以通过JS或者CSS来操作SVG。SVG 中的每一个标签和正常的DOM标签一样，都拥有class，id等属性。可以通过设置CSS来改变样式，同时，他们也可以被类似于<code>document.querySelector</code> 等操作DOM的API来进行改变。通过这样，我们可以实现一些很炫酷的SVG动画等等功能。</p>
+<h2 id="viewport-和-viewBox"><a href="#viewport-和-viewBox" class="headerlink" title="viewport 和 viewBox"></a>viewport 和 viewBox</h2><h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h3><p>是指 SVG 可见区域，也就是 SVG 实际渲染的大小</p>
+<pre><code>&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;&lt;/svg&gt;</code></pre><p>这里定义了 SVG 长宽为 200px，这个200px的大小就是 SVG 的 viewport</p>
+<h3 id="viewBox"><a href="#viewBox" class="headerlink" title="viewBox"></a>viewBox</h3><p>viewBox 是指渲染的画布的区域范围</p>
+<p>viewBox 接受4个参数：x, y, width, height 定义了一个矩形。举一个例子</p>
+<pre><code>&lt;svg viewBox=&quot;0,0,50,50&quot;&gt;
+  &lt;rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;10&quot; height=&quot;10&quot;&gt;
+&lt;/svg&gt;</code></pre><p>这个 SVG 渲染出来的结果是什么呢？我们假设这个 SVG 设置长宽为100。那么展示的矩形起点在20，20处，长宽为20,20。</p>
+<p>也就是说，我们想象 SVG 有一个无限大的画布，里面的元素可以在这个任意大的画布中进行作画。但是我这个 SVG 向外界展示的区域是一个有限的区域，我们对 SVG 缩放的范围，渲染的范围就是这个区域。这个区域的名字就是 viewBox。</p>
+<h3 id="preserveAspectRatio"><a href="#preserveAspectRatio" class="headerlink" title="preserveAspectRatio"></a>preserveAspectRatio</h3><p>但是我们设置的 SVG 的长宽比和 viewBox 的长宽比并不一定是一样的。这时候就需要 preserveAspectRatio 属性来出马了。他由两个值组成，第一个值表示 viewBox 和 viewport 的对其方式，第二个值表示长宽比如何维持。</p>
+<p>第一个值有10种</p>
+<ul>
+<li>一种是none，这时候 SVG 的长宽比将失真，强制使 viewBox 长宽适应 viewport 的长宽</li>
+<li>另外的9种，他们分别定义了x，y方向上，以起点，终点和中点三个方向进行对其，3*3 共 9 种</li>
+</ul>
+<p>第二个值：</p>
+<ul>
+<li>meet： 保持 viewBox 纵横比缩放， viewBox 尽可能放大占满 viewport。也就是说，整个整个 viewBox 区域都是可见的，小于 viewport 的大小</li>
+<li>slice： 保持 viewBox 纵横比缩放，同时比例小的方向放大填满 viewport。也就是说，部分 viewBox 区域可能会超出 viewport 的区域变得不可见</li>
+</ul>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-Hugo with Vue">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/HTML/Hugo-with-Vue/">Hugo with Vue</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-09-18
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/Hugo/" class="cube-excerpt-tag-link">#Hugo</a>
+                
+                <a href="/tags/Vue/" class="cube-excerpt-tag-link">#Vue</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>本文主要讲述如何在 Hugo 中使用 Vue 进行开发一些复杂交互的网站。</p>
+<h2 id="Hugo"><a href="#Hugo" class="headerlink" title="Hugo"></a>Hugo</h2><p>Hugo 是一个 static site generator(静态网站生成)的框架。静态网站生成指的是利用一些模板文件，预先将所有的HTML文件生成好，挂载在服务端的一种技术。利用 Hugo 你就可以生成一系列网页。但是由于这种框架都是只基于简单的 HTML，JS，CSS，而不涉及任何其他的框架，所以如果要开发一些比较复杂的网站的时候就会变得比较困难。这时候，利用一些现代的框架（如Vue，React，Angular等等）来简化我们的开发。这里我们就以 Vue 为例来看看怎么使用 Vue 来配合 Hugo 进行开发。</p>
+<h2 id="前提知识"><a href="#前提知识" class="headerlink" title="前提知识"></a>前提知识</h2><p>本文将假设读者已经了解以下知识：</p>
+<ul>
+<li>Hugo 的基本知识（文件夹结构，编译流程等等）</li>
+<li>Vue 的基本知识</li>
+<li>webpack 配置基础</li>
+</ul>
+<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>想要使用Vue进行开发，就先思考一下，我们平时使用的Vue编译后的结果是什么样子的。只要我们模仿一下这个编译后的结果，就可以使用Vue进行开发了。</p>
+<p>首先，我们肯定是要分两种环境进行考虑的，一种是开发环境，一种是生产环境。开发环境使用热加载开发简便。生产环境直接编译出结果可以使用。</p>
+<pre><code>&lt;body&gt;
+  &lt;script src=&quot;localhost:8080/app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><p>以上大致就是开发环境中Vue的关键代码。所以在开发环境中，我们的想法是，利用webpack-dev-server启动Vue部分的代码，hugo部分的代码中判断环境，如果是开发环境就插入<code>&lt;script src=&quot;localhost:8080/app.js&quot;&gt;&lt;/script&gt;</code>这段代码。</p>
+<pre><code>&lt;body&gt;
+  &lt;script src=&quot;.../vender.vue.[hash].js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;.../vendor.[dep].[hash].js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><p>以上大致就是生产环境中Vue的关键代码。也就是很多的js业务代码，运行时的依赖文件，css文件等，要把这些依赖引入到文件之中。所以在生产环境中，我们的想法是，利用HTML-webpack-plugin把我们所有的依赖的引入代码打包成一个文件，然后在hugo中判断是生产环境就引入并序列化这个文件的内容（hugo 有一个叫 <a href="https://gohugo.io/functions/readfile/" target="_blank" rel="noopener">readFile</a> 的函数可以读取一个文件内容并序列化到模板文件中）。</p>
+<h2 id="文件结构设计"><a href="#文件结构设计" class="headerlink" title="文件结构设计"></a>文件结构设计</h2><p>该项目的文件结构如下</p>
+<pre><code>root(hugo root folder)
+  - content
+  - layouts
+    - ...(template files)
+  - ui(Vue root folder)
+  package.json</code></pre><p>其中，在 template files 中代码的末尾加入如下代码。</p>
+<pre><code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+
+{{ if eq (getenv "HUGO_DEV") "true" }}
+  &lt;script src=&quot;http://localhost:8800/app.js&quot;&gt;&lt;/script&gt;
+{{ else }}
+  {{ readFile "/ui/dist/body.partial" | safeHTML }}
+{{ end }}</code></pre><p>这样，在生成的模板文件中，会根据环境来判断引入的script标签。在开发环境使用webpack-dev-server生成的app.js文件。在生产环境中，利用HTML-webpack-plugin生成的文件，把项目需要是引入的文件全部导入。</p>
+<p>最后，在ui文件夹下就可以看做一个完整的Vue的项目。配置webpack分环境进行打包。开发环境下起webpack-dev-server，生产环境下打包进dist目录。具体的webpack配置后文将细说。</p>
+<h2 id="数据获取方式"><a href="#数据获取方式" class="headerlink" title="数据获取方式"></a>数据获取方式</h2><p>由于要用Vue来进行网页的编码，那么我们就不可能像使用hugo一样直接在模板文件中写HTML，而是要利用Vue来生成不同的页面。要生成不同的页面，其关键点就在于同类型的页面要获取不同的数据。所以说，我们的做法是预先把数据存储在网页之中。</p>
+<p>我们获取的数据源一共有两个，一个是定义在data文件夹中，一个是定义在content文件夹中md文件的frontmatter中。我们可以在模板文件中，将这些数据定义在window下，作为全局变量。这样就可以在Vue中进行调用这些数据。</p>
+<pre><code>{
+  window.data = &quot;{{ Site.Data.config }}&quot;
+  window.title = &quot;{{ .Title }}&quot;
+}</code></pre><p>还有一部分数据是定义在md文件中的markdown。这一部分也可以将其挂载在模板文件中，但是使用 <code>display:none</code> 进行隐藏。然后再使用Vue操作这一部分的DOM即可。</p>
+<pre><code>&lt;div id=&quot;_page-content&quot; style=&quot;display: none&quot;&gt;
+  {{ .Content | markdownify }}
+&lt;/div&gt;</code></pre><h2 id="打包方式"><a href="#打包方式" class="headerlink" title="打包方式"></a>打包方式</h2><p>我们将打包的命令配置在package.json文件中。具体的命令定义如下。</p>
+<pre><code>&quot;scripts&quot;: {
+  &quot;hugoDev&quot;: &quot;cross-env HUGO_DEV=true hugo server --bind 0.0.0.0 --noHTTPCache --disableFastRender&quot;,
+  &quot;webpackDev&quot;: &quot;cd ui &amp;&amp; node ../node_modules/webpack-dev-server/bin/webpack-dev-server.js&quot;,
+  &quot;hugoBuild&quot;: &quot;hugo -d dist&quot;,
+  &quot;webpackBuild&quot;: &quot;cd ui &amp;&amp; rm -rf dist &amp;&amp; cross-env BUILD=true node ../node_modules/webpack/bin/webpack.js --prod --progress --hide-modules&quot;,
+  &quot;assetCopy&quot;: &quot;cp -r ui/dist dist/assets&quot;,
+  &quot;dev&quot;: &quot;npm-run-all --parallel hugoDev webpackDev&quot;,
+  &quot;clean&quot;: &quot;rm -rf dist&quot;,
+  &quot;build&quot;: &quot;yarn clean &amp;&amp; yarn webpackBuild &amp;&amp; yarn hugoBuild &amp;&amp; yarn assetCopy&quot;
+}</code></pre><p>开发环境使用的命令是<code>yarn dev</code>。我们看到这里使用了<code>npm-run-all</code>插件。因为在开发环境webpack-dev-server和hugo的任务并不会结束，所以直接使用&amp;&amp;符号进行串行的任务并不能执行两个命令，所以要利用他让我们可以一个命令同时执行hugo和webpack的命令。我们可以看到，这个命令同时执行了两个命令。第一个 hugoDev 就是在启动开发环境hugo的编译流程，我们可以注意到其中一开始有一段<code>cross-env HUGO_DEV=true</code>的代码就是为了给 template files 中的代码区分环境用的。我们回顾一下在上一节中提到，可以发现插入在末尾的代码中判断环境使用的变量就是 <code>HUGO_DEV</code>。第二个命令就是启动webpack-dev-server。这样开发环境就可以正常使用了。</p>
+<p>生产环境使用的命令是<code>yarn build</code>。这个编译流程分为了四步。第一个命令<code>yarn clean</code>用于清除上一次编译留下来的文件。第二个命令<code>yarn webpackBuild</code>是执行webpack的打包流程，把Vue的运行时代码打包成一个文件夹。第三个命令<code>yarn hugoBuild</code>是执行hugo的打包流程。最后一个命令<code>yarn assetCopy</code>把webpack打包出的代码复制到hugo打包出的文件夹下，生成一个最终的项目打包代码文件夹。</p>
+<h2 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h2><p>webpack 配置文件中的大部分都与普通的Vue项目没有什么区别，唯一有区别的地方在于 HTML-webpack-plugin 的配置。</p>
+<p>首先，在开发环境，并不需要做任何特殊的配置。编译输出了一个app.js的文件给webpack-dev-server，直接就可以使用了。</p>
+<p>在生产环境的编译下，对配置做如下修改。</p>
+<pre><code>new HTMLWebpackPlugin({
+  inject: false,
+  minify: false,
+  filename: &quot;head.partial&quot;,
+  templateContent: ({htmlWebpackPlugin}) =&gt; `${htmlWebpackPlugin.tags.headTags}`,
+})
+
+new HTMLWebpackPlugin({
+  inject: false,
+  minify: false,
+  filename: &quot;body.partial&quot;,
+  templateContent: ({htmlWebpackPlugin}) =&gt; `${htmlWebpackPlugin.tags.bodyTags}`,
+})</code></pre><p>加入了上述两个HTML-webpack-plugin的配置后，这两者将分别把JS文件和CSS文件的引入标签代码打包成了 body.partial 和 head.partial 两个文件。让我们来看看这两个文件。</p>
+<pre><code>// body.partial
+&lt;script src=&quot;/assets/js/vendor.runtime.bf9a7ce533402d6e1e4b.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.vue.10426c5f37b9909f3356.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.core-js.0dd09ca0b957f339ec22.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.normalize.css.c25d28ba90daebf55ddd.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.velocity-animate.96372836ed735c252945.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/app.c1b601945336515e1a70.chunk.js&quot;&gt;&lt;/script&gt;</code></pre><pre><code>// head.partial
+&lt;link href=&quot;/assets/css/vendor.normalize.css.24bf1742e3764eb5de3c.chunk.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;link href=&quot;/assets/css/app.fd7d6ea5c66bbd36de53.chunk.css&quot; rel=&quot;stylesheet&quot;&gt;</code></pre><p>然后上述的两个文件在生产环境下分别被以下的代码引入模板文件。</p>
+<pre><code>{{ if not (eq (getenv "HUGO_DEV") "true") }}
+  {{ readFile "/ui/dist/head.partial" | safeHTML }}
+{{ end }}
+
+{{ if eq (getenv "HUGO_DEV") "true" }}
+  &lt;script src=&quot;http://localhost:8800/app.js&quot;&gt;&lt;/script&gt;
+{{ else }}
+  {{ readFile "/ui/dist/body.partial" | safeHTML }}
+{{ end }}</code></pre><p>这样就完成了一个 Hugo with Vue 项目的配置。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/HTML/Hugo-with-Vue/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-Unicode and utf-8">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/code/Unicode-and-utf-8/">Unicode and utf-8</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-09-13
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/unicode/" class="cube-excerpt-tag-link">#unicode</a>
+                
+                <a href="/tags/utf-8/" class="cube-excerpt-tag-link">#utf-8</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>我们知道，最一开始，我们计算机使用 ASCII 作为存贮字符集的一种规范。使用八个 bit，来表示一个字符。8 bit 一共有256中组合可能。他们使用了其中128种作为存储英文字符的编码规范。他们称之为ANSI 的”Ascii”编码（American Standard Code for Information Interchange，美国信息互换标准代码）。</p>
+<h2 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h2><p>在计算机来到中国后，当时的字符集还只有 ASCII，所以为了可以把中文编码，就创造了 GB2312 标准编码。使用两个字节来表示一个汉字。当两个大于127的字节连在一起时，就认为使用了 GBK。这就是我们常说的全角字符。而127以下的则是半角字符。但是两个127以上的字节只能表示7k多个字符，所以后来我们扩展了字符集，不再要求低位小于127，由此把更多的汉字和其他少数民族等的字符加入进去，扩展成了 GB18030。</p>
+<h2 id="UNICODE"><a href="#UNICODE" class="headerlink" title="UNICODE"></a>UNICODE</h2><p>规定了 128 个字符的字符编码。对于英文来说，这128个够用了，但是对于全世界的语言来说，明显这一个字节的空间就不够用了。所以说世界各地为了应对这种情况创造出了很多种不同的编码标准。这无疑造成了很多麻烦。为了统一全世界文字的编码方式，我们就制定了 Unicode 这个标准。使用更多的字节来存储这些字符。</p>
+<h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p>虽然 Unicode 解决了统一字符存储标准的问题，但是 Unicode 为了存储更多的字符而使用更多的存储空间显然造成了极大空间的浪费。这是不可接受的。所以，为了更好的使用 Unicode，UTF-8 出现了。<strong>UTF-8 是 Unicode 的一种实现方式。</strong></p>
+<p>UTF-8 是一种可变长的编码方式。他可以使用1-4个字节来表示一个符号。UTF-8 的编码规则有两条：</p>
+<ol>
+<li>单字节的字符，字节的第一位设为0，对于英语文本，UTF-8码只占用一个字节，和ASCII码完全相同</li>
+<li>n个字节的字符(n&gt;1)，第一个字节的前n位设为1，第n+1位设为0，后面字节的前两位都设为10，这n个字节的其余空位填充该字符unicode码，高位用0补足。</li>
+</ol>
+<pre><code>0xxxxxxx
+110xxxxx 10xxxxxx
+1110xxxx 10xxxxxx 10xxxxxx
+11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</code></pre><p>举一个例子，<code>我</code> 这个汉字的 Unicode 为 <code>%u6211</code>，用二进制表示为 <code>0110 0010 0001 0001</code>。可以看到，我们需要15位来存储这个汉字。让我们看看上面那串转换规则。一个x就表示一位可以存储的空间。一个字节可以表示7位，不够。两个字节可以存储11位，还是不够。三个字节可以存储16位，够了。所以说我们使用三个字节来存储这个字符。让我们开始填充。</p>
+<pre><code>0110 0010 0001 0001
+        变成
+     110   001000   010001
+1110xxxx 10xxxxxx 10xxxxxx
+        填充
+11100110 10001000 10010001
+        也就是
+E68891</code></pre><p>我们查一下 <code>我</code> 这个汉字的 UTF-8 编码。正是 <code>\xE6\x88\x91</code>。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/code/Unicode-and-utf-8/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-CSS Variables">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/CSS/CSS-Variables/">CSS Variables</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-09-07
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/CSS/" class="cube-excerpt-tag-link">#CSS</a>
+                
+                <a href="/tags/CSS-Variables/" class="cube-excerpt-tag-link">#CSS Variables</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="什么是-CSS-Variables"><a href="#什么是-CSS-Variables" class="headerlink" title="什么是 CSS Variables"></a>什么是 CSS Variables</h2><p>显而易见，这是一个让你可以在 CSS 中使用变量的技术。</p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>除了 IE 以外，所有主流的浏览器都对 CSS Variables 有很好的支持。但是你可以引入 polyfill，<code>css-vars-ponyfill</code> 将让你可以在 IE9+ 的浏览器中使用 CSS Variables。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>CSS Variables 的语法非常简单。定义变量一定以双中划线开头，使用 var 函数来使用定义过的变量。var 函数的第二个参数支持默认值。当那个变量没有定义的时候将使用默认值。var 函数将第一个逗号后的所有参数视为默认值，不会处理其中的逗号，引号等等。</p>
+<pre><code>// define
+--gray: #F5F5F5
+// use
+color: var(--gray)
+// use with default value
+color: var(--gray, #E0E0E0)
+border: var(--border, 1px solid gray)</code></pre><p>如果定义的是一个数字，后面不可以直接跟单位，但是你可以使用 calc 函数来做这件事</p>
+<pre><code>--twenty: 20
+
+// wrong
+height: var(--twenty)px
+// right
+height: calc(var(--twenty) * 1px)</code></pre><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>CSS Variables 和正常的 CSS 一样也有作用域的规则。权重更高的变量将生效。一般情况下，我们将CSS Variables 定义在 :root 的 CSS 选择器中。这样所有的地方都可以使用这些变量。</p>
+<h2 id="JS-与-CSS-交互"><a href="#JS-与-CSS-交互" class="headerlink" title="JS 与 CSS 交互"></a>JS 与 CSS 交互</h2><p>我们可以使用 JS 设置一些 CSS Variables，也可以通过 JS 读取 CSS Variables。</p>
+<pre><code>// set
+document.body.style.setProperty(&quot;--gray&quot;, &quot;#E0E0E0&quot;)
+// get
+document.body.style.getPropertyValue(&quot;--gray&quot;)
+// delete
+document.body.style.removeProperty(&quot;--gray&quot;)</code></pre><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="定制主题"><a href="#定制主题" class="headerlink" title="定制主题"></a>定制主题</h3><p>我们有一个常见的需求，就是网页除了正常的样式外，还要定制一个暗黑模式。这种情况下，CSS Variables 就是一种实现的方案。我们只需要定义两套不同的 CSS Variables，分别定义在暗黑模式和正常模式下的调色板是什么。通过程序控制加载什么变量即可。</p>
+<h3 id="CSS-存储信息"><a href="#CSS-存储信息" class="headerlink" title="CSS 存储信息"></a>CSS 存储信息</h3><p>我们可以看到，我们现在可以通过 JS 来读取 CSS Variables，所以我们可以在 CSS 中存储一些信息然后通过 JS 读取。</p>
+<h3 id="JS-设置-CSS"><a href="#JS-设置-CSS" class="headerlink" title="JS 设置 CSS"></a>JS 设置 CSS</h3><p>比如说我们要实现一个进度条。那么我们可以通过使用 CSS Variables 的方案，设置他的宽度为一个CSS Variable，然后通过用 JS 改变 CSS Variable 的值来改变进度条的进度。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/CSS/CSS-Variables/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-什么是AST">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/">什么是AST</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-08-30
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/AST/" class="cube-excerpt-tag-link">#AST</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>AST 是 Abstract Syntax Tree（抽象语法树）的缩写。简单的来说就是用来解析你写的代码结构的结果。</p>
+<p>AST 的作用是非常巨大的。我们平时最常用的 babel，webpack 等等生产力工具都会用到 AST 这个东西。</p>
+<p>现在，我们就来简单的看一看一个实际的 AST 的例子吧。</p>
+<pre><code>function add(a, b) {
+  return a + b
+}</code></pre><p>现在我们写了一个简单的 add 函数。希望将他解析成一个 AST。</p>
+<p>现在存在很多种解析的引擎</p>
+<ul>
+<li>esprima</li>
+<li>acron</li>
+<li>Traceur</li>
+<li>UglifyJS2</li>
+<li>shift</li>
+<li>…</li>
+</ul>
+<p>我们选择其中的一种进行解析。</p>
+<pre><code>const esprima = require(&quot;esprima&quot;)
+const code = `
+function add(a, b) {
+  return a + b
+}
+`
+const ast = esprima.parseScript(code)
+console.log(JSON.stringify(ast, null, 2))</code></pre><p>将以上的代码进行解析，转化为 AST 的结果是</p>
+<pre><code>{
+  &quot;type&quot;: &quot;Program&quot;,
+  &quot;body&quot;: [
+    {
+      &quot;type&quot;: &quot;FunctionDeclaration&quot;,
+      &quot;id&quot;: {
+        &quot;type&quot;: &quot;Identifier&quot;,
+        &quot;name&quot;: &quot;add&quot;
+      },
+      &quot;params&quot;: [
+        {
+          &quot;type&quot;: &quot;Identifier&quot;,
+          &quot;name&quot;: &quot;a&quot;
+        },
+        {
+          &quot;type&quot;: &quot;Identifier&quot;,
+          &quot;name&quot;: &quot;b&quot;
+        }
+      ],
+      &quot;body&quot;: {
+        &quot;type&quot;: &quot;BlockStatement&quot;,
+        &quot;body&quot;: [
+          {
+            &quot;type&quot;: &quot;ReturnStatement&quot;,
+            &quot;argument&quot;: {
+              &quot;type&quot;: &quot;BinaryExpression&quot;,
+              &quot;operator&quot;: &quot;+&quot;,
+              &quot;left&quot;: {
+                &quot;type&quot;: &quot;Identifier&quot;,
+                &quot;name&quot;: &quot;a&quot;
+              },
+              &quot;right&quot;: {
+                &quot;type&quot;: &quot;Identifier&quot;,
+                &quot;name&quot;: &quot;b&quot;
+              }
+            }
+          }
+        ]
+      },
+      &quot;generator&quot;: false,
+      &quot;expression&quot;: false,
+      &quot;async&quot;: false
+    }
+  ],
+  &quot;sourceType&quot;: &quot;script&quot;
+}</code></pre><p>我们可以通过上面这个 json 来很好的描述出 add 函数的代码。</p>
+<p>在我们的日常的生产力工具中，AST 占据了不小的地位。无论是 uglify，es6 到 es5 的转化，只要是对于我们代码结构解析的都无法离开 AST 的存在。这是因为 AST 不止可以解析代码结构，同样的也可以操作代码结构并生成修改后的代码结构。解析 -&gt; 操作 -&gt; 生成 这三步，正是这些生产力工具的基本原理。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/js/%E4%BB%80%E4%B9%88%E6%98%AFAST/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-几种CSS管理方案">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/">几种CSS管理方案</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-08-23
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/CSS/" class="cube-excerpt-tag-link">#CSS</a>
+                
+                <a href="/tags/CSS-in-JS/" class="cube-excerpt-tag-link">#CSS in JS</a>
+                
+                <a href="/tags/CSS-module/" class="cube-excerpt-tag-link">#CSS module</a>
+                
+                <a href="/tags/BEM/" class="cube-excerpt-tag-link">#BEM</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>CSS 的管理一直都是一个让人头大的难题。在 SPA 中，由于 CSS 的作用域是全局的，所以每一个页面的文件的样式都可能会影响到其他页面的样式。当你无意识中写了一个和其他页面同名的样式时，这无疑是致命的。而当你在对 DOM 结构进行删改时，非常容易遗留下无用的 CSS。所以如何合理的维护一个工程的 CSS 无疑是一个巨大的难题。</p>
+<h2 id="BEM"><a href="#BEM" class="headerlink" title="BEM"></a>BEM</h2><p>BEM 是最简单的解决 CSS 命名冲突的方案。是一种通过约定来解决命名冲突的实现方式。</p>
+<pre><code>.block {}
+.block__element {}
+.block__another-element {}
+.block--modifier {}</code></pre><ul>
+<li><code>block</code> 代表了一个命名空间。可能是一个页面，可能是一个组件，也可能是一个组件中的一部分。可以自行约定。</li>
+<li>所有在 <code>block</code> 命名空间下的样式都已 <code>block</code> 开头，并已双下划线连接自己的名字</li>
+<li>中划线作为连字符</li>
+<li>双中划线连接的代表不同的状态</li>
+<li>不可嵌套过深的层级，避免出现过长的 CSS</li>
+</ul>
+<p>当然这些都是一些约定，所以自然你也可以加入一些自己的约定。</p>
+<p>BEM 结构清晰，易于扩展，但是很容易出现 CSS 类名过长，CSS 文件过于繁琐的问题。</p>
+<h2 id="CSS-in-JS"><a href="#CSS-in-JS" class="headerlink" title="CSS in JS"></a>CSS in JS</h2><p>显而易见的，CSS in JSS 就是在 JS 代码中写 CSS。具体是什么样子的，我们就来看一个最流行的实现 CSS in JS 的库的代码。</p>
+<pre><code>import React, { Component } from &quot;react&quot;
+import styled from &quot;styled-components&quot;
+
+const Wrapper = styled.div`
+  background: black
+`
+const Title = styled.h1`
+  background: white
+`
+class App extends Component {
+  render() {
+    return (
+      &lt;Wrapper&gt;
+        &lt;Title&gt;Hello world!&lt;/Title&gt;
+      &lt;/Wrapper&gt;
+    )
+  }
+}
+
+export default App</code></pre><p>这一份代码应该十分的浅显易懂。每一个标签都由 styled 使用 ES6 的新语法，变迁模板字符串生成一个 HOC。这样每一层样式都定义成了一个组件来进行使用。</p>
+<p>他的实现方式并不是简单的使用内联样式，而是生成了一个随机的字符串作为类的名字，并且保证了每一个类名都不会重复。这样就完美的解决了之前提到的样式名称重复的问题。</p>
+<p>优点：</p>
+<ul>
+<li>可以在 CSS 中使用 JS 的变量</li>
+<li>可以在 CSS 中使用 JS 来进行计算</li>
+<li>解决了全局命名冲突的问题</li>
+<li>对于推崇 everything in JS 理念的人很友好</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>不能使用 post CSS</li>
+<li>不能使用 CSS 预处理器</li>
+<li>难以调试，在 devtool 中只能修改当前的组件实例</li>
+<li>性能不可避免的更低</li>
+<li>生成的代码有很多冗余</li>
+<li>将样式和 JS 代码混合在一起，对一些人来说不可接受</li>
+</ul>
+<p>除此之外，前面提到的优点都不是没有解决方法的，比如使用 BEM，使用 less，sass 等等。</p>
+<h2 id="CSS-Module"><a href="#CSS-Module" class="headerlink" title="CSS Module"></a>CSS Module</h2><p>CSS Module 的开启方法是只要在 webpack 的 css-loader 配置中的 options 选项中把 module 设为 true 即为开启了 Css Module。</p>
+<p>让我们看看 CSS Module 的使用方式。</p>
+<pre><code>// index.js
+import Index from &#39;./index.css&#39;
+
+const html = `&lt;div class=${ Index.header }&gt;
+    &lt;h1 class=${ Index.title }&gt;CSS Modules&lt;/h1&gt;
+  &lt;h1 class=&quot;title&quot;&gt;global class title&lt;/h1&gt;
+&lt;/div&gt;`</code></pre><pre><code>// index.css
+.header {
+  background: black;
+}
+
+.title {
+  color: white;
+}
+
+:global(.title) {
+  composes: header;
+  color: green;
+}</code></pre><p>CSS Module 的作用相当于把每一份 CSS 文件的进行了隔离。然后可以 import 进来引用他的名字。当不想只有页面的作用于的类在前面加上 global 即可。这样可以直接在使用他本身的类名而不用 使用 import 进来的名字。可以使用 composes 来复用已存在的类。</p>
+<p>他的原理十分的简单，就是 webpack 在编译的时候用哈希的方式另外生成了一套类名。而 import 进来的就是原来的类名和编译后的类名的映射的对象。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/CSS/%E5%87%A0%E7%A7%8DCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-.git 文件夹探秘">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/">.git 文件夹探秘</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-08-16
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/git/" class="cube-excerpt-tag-link">#git</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="什么是-git-文件夹"><a href="#什么是-git-文件夹" class="headerlink" title="什么是 .git 文件夹"></a>什么是 .git 文件夹</h2><p>.git 文件夹是 git 存储整个仓库的信息的位置。如果想要知道整个仓库的信息，那么只要这个文件夹就足够了。<br>这个文件夹的结构如下所示。</p>
+<pre><code>文件夹
+- hooks
+- info
+- logs
+- refs
+- objects
+文件
+- config
+- description
+- FETCH_HEAD
+- HEAD
+- index
+- ORIG_HEAD
+- packed-refs</code></pre><p>接下来我们来一个个看看这些文件夹都是用来干什么的。理解了这些文件夹是干什么的之后想必你对于 git 的理解将会加深一个层次。</p>
+<p>在解释 这个文件夹结构之前，我们首先要知道一个基础的知识。那就是 git 和以前的 SVN 这种版本控制系统的差别在哪里。 SVN 这种版本控制系统的原理是每一个改变都会作为一个 diff 记录下来。当前的版本就是所有 diff 之和。而 git 的存储方式是每一个文件的每一个版本都会作为一个快照保存下来。一次 commit 就相当于记录了所有文件的快照。</p>
+<h2 id="hooks"><a href="#hooks" class="headerlink" title="hooks"></a>hooks</h2><p>hooks 文件夹存储的是一些脚本，可以在不同的阶段运行，比如 commit、pull 等等。</p>
+<h2 id="info"><a href="#info" class="headerlink" title="info"></a>info</h2><p>info 文件夹中有一个文件名字叫 exclude。这个文件是派什么用的呢？顾名思义，其实这个文件的作用和 .gitignore 的作用是一样的，不过这个文件每一个人是可以不一样的，也就是说一个团队的每个人可以有一份自己的 .gitignore 文件。</p>
+<h2 id="logs"><a href="#logs" class="headerlink" title="logs"></a>logs</h2><p>顾名思义，这个文件夹的作用就是日志，给你反悔用的。我们看看这个文件夹下的文件结构</p>
+<pre><code>文件夹
+- refs
+文件
+- HEAD</code></pre><p>我们打开 HEAD 文件看一下，可以发现是如下的信息。</p>
+<pre><code>......
+9bb7f56e59fb83ea7b7c55a23409f8a2ab64a033 25c9b1108072c99c0643bad5d49092861f14e492 yifeidai &lt;floatdai@gmail.com&gt; 1581662743 +0800    commit: BBS 3114
+25c9b1108072c99c0643bad5d49092861f14e492 ce476df4e0c091b1ee00c0009778ca0fa8871c1f yifeidai &lt;floatdai@gmail.com&gt; 1581663490 +0800    commit: BBS 3120
+ce476df4e0c091b1ee00c0009778ca0fa8871c1f 1f1295bda02bb5d7e19b66bf3c86264bfdc0ce62 yifeidai &lt;floatdai@gmail.com&gt; 1582288127 +0800    commit: Finish sprint 20
+1f1295bda02bb5d7e19b66bf3c86264bfdc0ce62 a6d8378f0fcf66c6f00b61f5ce7150d645727c28 yifeidai &lt;floatdai@gmail.com&gt; 1588214020 +0800    pull: Fast-forward
+a6d8378f0fcf66c6f00b61f5ce7150d645727c28 978be520018e6a72359148afe2e5af9f5ba893a4 yifeidai &lt;floatdai@gmail.com&gt; 1588227237 +0800    commit: Add export data in welfare orders
+978be520018e6a72359148afe2e5af9f5ba893a4 c1348b61a2dd28ce03a98e1327909b5dc0ba377d yifeidai &lt;floatdai@gmail.com&gt; 1588229105 +0800    commit: Add import data in welfare orders
+c1348b61a2dd28ce03a98e1327909b5dc0ba377d 572ecb8ccd0b4259cd2acabbec57445b682d74dd yifeidai &lt;floatdai@gmail.com&gt; 1588242537 +0800    commit: Add edit in welfare goods
+572ecb8ccd0b4259cd2acabbec57445b682d74dd 401b1dff157a06b4dc53cf281bfbdb1c231128ae yifeidai &lt;floatdai@gmail.com&gt; 1588245717 +0800    commit: Fix welfare permission bug
+401b1dff157a06b4dc53cf281bfbdb1c231128ae 462579259947c59c562df4c43152ef4440e2d3e7 yifeidai &lt;floatdai@gmail.com&gt; 1589969280 +0800    pull: Fast-forward
+462579259947c59c562df4c43152ef4440e2d3e7 48b2c8aa20317ba0ee997897cd4b4c3a5ce47460 yifeidai &lt;floatdai@gmail.com&gt; 1589969439 +0800    commit: Change auth of management/userinfo</code></pre><p>可以看到，这是由一个个 commit 的信息组成的。然后再看看文件的名字： HEAD，显然这个就是 git 的 HEAD 变更的日志呀。再看看 refs 文件夹下的内容。</p>
+<pre><code>- heads
+  - master
+- remotes
+  - origin
+    - HEAD
+    - master
+    - release</code></pre><p>显然这个就是一个本地和远程的每一个分支的文件组成结构。打开后可以发现他们的内容和之前的 HEAD 文件是相同的类型。也就是说他们分别记录了本地和远程每一个分支的变动信息。</p>
+<p>记得如果我们有时候如果用了 hard 的 git reset 命令时想要找回被自己删掉的代码该怎么办吗？就是使用 <code>git reflog</code> 命令，会展示出所有的提交的信息。这些信息的来源就是这个文件夹。</p>
+<h2 id="refs-和-objects"><a href="#refs-和-objects" class="headerlink" title="refs 和 objects"></a>refs 和 objects</h2><p>refs 文件夹和 objects 文件夹必须放在一起说明。我们之前说的那些文件夹其实都没有涉及到 git 的核心，也就是 git 的版本控制是怎么实现的。这其中的秘密就在这两个文件夹里面。</p>
+<p>首先看一下 refs 文件夹下的文件结构</p>
+<pre><code>- heads
+  - master
+- remotes
+  - origin
+    - HEAD
+- tags
+  - v1.0.0
+  - v1.0.1
+  ...</code></pre><p>和上面 logs 文件夹的文件结构类似，这个文件结构包含了本地和远程所有的分支信息，除此之外还加上了 tags 的信息。那么显然每一个文件都是用来记载一个分支或者 tag 的详细信息的。那么这些文件是怎么记录这些信息的呢？让我们打开其中一个文件来看看。</p>
+<pre><code>heads/master 文件
+48b2c8aa20317ba0ee997897cd4b4c3a5ce47460</code></pre><p>这个是什么？这个显然是一个 git 的 commit 的 SHA-1 啊。我们知道 git 的每一个提交都会生成一个 SHA-1 来作为这个 commit 的唯一标记。所以我们可以知道 refs 文件夹的作用是保存了每个分支和 tag 的当前的 commit 是什么的信息。但是这个文件夹并没有保存每个 commit 具体内容是什么，也没有保存整条分支，而是只知道一个分支的最新的提交是什么。那么这个任务也就是有 objects 文件夹来完成的。那么久让我们看看 objects 文件夹中有哪些东西。</p>
+<pre><code>- 0a
+- 0b
+- 0c
+- 0d
+- 0e
+...
+- d0
+- d4
+- d5
+- d6
+...
+- fc
+- fd
+- fe
+- info
+- pack</code></pre><p>中间省略号部分省略了很多两个字母的文件夹。哇，这些乱七八糟的文件夹到底是干什么的？很显然，这些都是两位的十六进制数组成的。再联想到我们之前 refs 文件夹中记录的内容 SHA-1，显然这是在为 SHA-1 做索引啊。我们打开 0a 这个文件夹，发现里面有两个文件。</p>
+<pre><code>9bbb2c1faa43e0dcb27e93ec9263ec4a5cc539
+f23568e3ccab0fcfd4ce5e561076660e674d4c</code></pre><p>把这两个文件的前面加上 0a，可以发现这就是两个 SHA-1。也就说，之前在 refs 文件夹中记录的信息的意义找到了。这个 SHA-1 将这个 commit 的信息保存在了 objects 文件夹的一个个文件之中（注意，并不是所有的在 objects 文件夹中的文件都是这个，接下来我会意义说明）。那么就让我们打开之前之前记录在 heads/master 文件中的那串 SHA-1 的文件。由于 git 会对 objects 中的每一个文件做压缩，所以直接打开文件看到的都是乱码。 git 提供了指令 <code>git cat-file</code> 来查看 objects 文件夹中每一个文件的内容。那么就让我们输入 <code>git cat-file -p 48b2c8aa20317ba0ee997897cd4b4c3a5ce47460</code> 来看看这个文件中到底记录了什么。</p>
+<pre><code>tree bde4c5ed97de8cf3a311e8edc93ec2c1bbe7224e
+parent 462579259947c59c562df4c43152ef4440e2d3e7
+author yifeidai &lt;floatdai@gmail.com&gt; 1589969439 +0800
+committer yifeidai &lt;floatdai@gmail.com&gt; 1589969439 +0800</code></pre><p>我们先跳过第一行，看第二行。parent 代表的是这个 commit 的上一个 commit 的内容是什么，这个 commit 的对应的文件同样也可以在 objects 文件夹中找到。也就是说每一个 commit 的具体信息中都记录了上一个 commit 到底是什么。所以说之前的疑惑就得到了解决。在 refs 文件夹中的没有个分支文件都只记录了当前分支最新的 commit 是什么，那么怎么才能得出整个分支是什么样子的呢。那就是靠每一个 commit 都记录了他上一个 commit 是什么。一个个串起来就得到了一整条分支是有哪些 commit 构成的。</p>
+<p>接下来看第三第四行，他们分别具体记录了作者和提交者的信息和提交的具体时间。</p>
+<p>最后我们来看最重要的第一行。之前的那些信息让我们可以理解了 git 的 commit 树的信息是怎么存储的。但是，具体每一个 commit 他所包含的文件内容是什么还是没有。这个信息就是这个 tree 对象所存储的。tree 的意思其实就是相当于一个文件夹，最顶层的文件夹的信息当然就是一个提交的目录信息了。我们看看 tree 右边是什么？又是 SHA-1，说明这个 tree 的具体信息也是作为一个文件存储在 objects 文件夹之中的。说到这里大家可能有点蒙，objects 文件夹中村的不是所有 commit 的 SHA-1 吗？怎么突然有蹦出来一个具体 commit 的 tree 的 SHA-1？其实他们都是存储在 objects 文件夹之中的。这个文件夹存储了很多信息。可以看成一个索引的系统。那么就让我们看看这个 tree 中的信息是什么？同样的，我们使用 <code>git log -p bde4c5ed97de8cf3a311e8edc93ec2c1bbe7224e</code> 来查看这个文件</p>
+<pre><code>100644 blob cd68a1b91fea8d5f57f6bafe03b81bc0c89a78b0    .browserslistrc
+100644 blob 107ed74e6bfd14740b6334a931034b99c542cb5f    .gitignore
+040000 tree 0274a81f8ee9ca3669295dc40f510bd2021d0043    .vscode
+100644 blob 36109a8ca1e99df196b62750beffd2fb95ffd1a5    README.md
+100644 blob 12da593be7f40fed6e53780801e3ad03d54affa4    babel.config.js
+040000 tree d810c104ef132cd9765c070e9ee0f9a32db2d309    build
+100644 blob a4dbc245f2bc6c829ea3d7ebc1b9d25f5d664cd7    index.html
+100644 blob d9745d0b909f1a2497696f50bfd1347f399ca32b    package.json
+040000 tree 7c94cf2b4494855cd0b4f92d4a85cbfe36bf8e6b    src
+040000 tree 827cbc09e4a73bafe37c80eefd43f53f936cc89e    static
+100644 blob cead9117d91f1abc3339be2dcb0f7b71e70ce633    yarn.lock</code></pre><p>我们可以看到，这个文件中的第二列有两种值，blob 和 tree，之前说过了，tree 就相当于一个文件夹，那么 blob 显然就相当于一个具体的文件。我们再看看最后一列，他们就是每一个文件或文件夹的名字。而第一列则记录了这个文件或文件夹的具体类型等信息。和 linux 文件系统是不是很像。而第三列显然就是这些文件或文件夹的 SHA-1，他们具体的详细信息也将保存在另一个在 objects 文件夹中的文件中。tree 的文件保存的信息都和这个文件差不多，那么让我们看看 blob 类型的文件是什么样子的。同样的我们利用 <code>git cat-file -p cd68a1b91fea8d5f57f6bafe03b81bc0c89a78b0</code> 命令来看看 .browserslistrc 文件的内容是怎么保存的。</p>
+<pre><code>last 2 Chrome versions</code></pre><p>这个就是这个文件中的具体内容了。</p>
+<p>这样一来整个 git 的存储逻辑就非常清晰了。首先在 refs 文件夹中对每一个分支都简建立一个具体的文件。这个文件中保存了每个分支最新的 commit 的信息。接下来每一个 commit 的信息都记录在 objects 文件夹中。首先，每一个 commit 的文件中记录的是提交者的信息。其次是该 commit 的上一个 commit 的信息，这让每一个 commit 都连了起来，记录一个 commit 就相当于记录了整个分支的 commit 信息。最后是 tree，也就是一个文件夹的信息。每一个文件夹的信息文件中都记录了下一层文件夹中的文件和文件夹信息。这就构成了每一次提交的文件结构快照。最后 tree 的末端，也就是文件夹的末端就是 blob 类型，一个个具体的文件。每一个文件的信息也作为一个个单独的快照文件保存在了 objects 文件夹之中。这结合起来就构成了每一个提交的具体内容快照。</p>
+<h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><p>显然，这个文件夹就是我们每一个项目自己的 config， <code>git config --local</code> 命令中具体的信息就存储在这个文件中</p>
+<h2 id="description"><a href="#description" class="headerlink" title="description"></a>description</h2><p>这是一个被 git web 所使用的文件，展示了这个仓库的描述。</p>
+<h2 id="FETCH-HEAD"><a href="#FETCH-HEAD" class="headerlink" title="FETCH_HEAD"></a>FETCH_HEAD</h2><p>这个文件保存了 FETCH_HEAD 的引用是什么</p>
+<h2 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h2><p>打开这个文件，内容如下</p>
+<pre><code>ref: refs/heads/master</code></pre><p>这个文件显然记录了本地的 head 的具体信息。</p>
+<h2 id="index"><a href="#index" class="headerlink" title="index"></a>index</h2><p>顾名思义，这个文件保存了 git 的 index 区（暂存区）的信息。这个文件也是经过加密的。我们可以通过 <code>xxd -b -c 4 .git/index</code> 命令看看这个文件的全貌。</p>
+<pre><code>00000000: 01000100 01001001 01010010 01000011  DIRC
+00000004: 00000000 00000000 00000000 00000010  ....
+00000008: 00000000 00000000 00000000 00000001  ....
+0000000c: 01011110 01011011 11000111 10010001  ^[..
+00000010: 00101111 00001011 00100011 00101010  /.#*
+00000014: 01011110 01011011 11000111 10010001  ^[..
+00000018: 00100111 00101111 10101000 11100000  &#39;/..
+......</code></pre><p>我们也可以通过 <code>git ls-files --stage</code> 来查看仓库中的每一个文件及其对应的文件对象。</p>
+<pre><code>100644 063b0e4ce79bbd23403f7e8ebfb71fb7779f869a 0       .gitignore
+100644 3a814e386167aeb4e5bdc1ddc146612c4a42c154 0       package.json
+......</code></pre><p>具体这个文件存储信息的规则是什么样子的由于非常复杂，可以单独展开作为一篇文章讲，这里就不展开说明了。具体的文档可以参考<a href="https://github.com/git/git/blob/master/Documentation/technical/index-format.txt#L63" target="_blank" rel="noopener">git index-format</a>。</p>
+<h2 id="ORIG-HEAD"><a href="#ORIG-HEAD" class="headerlink" title="ORIG_HEAD"></a>ORIG_HEAD</h2><p>这个文件记录了上一次 HEAD 所在位置的信息。也就是用来反悔用的。</p>
+<h2 id="packed-refs"><a href="#packed-refs" class="headerlink" title="packed-refs"></a>packed-refs</h2><p>git 会定期执行一个叫做 <code>git gc</code> 的命令，gc 是 garbage collection 的缩写。这个命令会将一些暂时用不到的 commit 和分支的具体内容打包起来，打包在 objects 文件夹下的 pack 文件夹下，用来压缩所占用的体积。这个文件就是用来记录这些信息的。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/git/git-%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8E%A2%E7%A7%98/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-JS遍历属性的方法">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/js/JS%E9%81%8D%E5%8E%86%E5%B1%9E%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95/">JS遍历属性的方法</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-08-09
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/js/" class="cube-excerpt-tag-link">#js</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="什么是可枚举属性"><a href="#什么是可枚举属性" class="headerlink" title="什么是可枚举属性"></a>什么是可枚举属性</h2><p>可枚举是指属性内部可枚举属性没设为 true 的属性。对于通过属性赋值的方式出现的属性来说，默认是可枚举的。对于通过 <code>Object.defineProperty</code> 方式定义的属性默认是不可枚举的。js中的原型属性是不可枚举的。</p>
+<pre><code>const a = {}
+Object.defineProperty(a, &quot;b&quot;, {
+  value: &quot;hello&quot;,
+  // 是否为可枚举属性
+  enumerable: true,
+})</code></pre><p>我们可以看到，使用 <code>defineProperty</code> 方法可以显式的控制设置的属性是否是可枚举属性。</p>
+<p>可枚举属性和不可枚举属性在控制台上有十分明显的区别。可枚举属性在控制台上打印出来是正常的颜色，但是不可枚举属性打印出来是有一定透明度的。</p>
+<h2 id="遍历可枚举属性的方法"><a href="#遍历可枚举属性的方法" class="headerlink" title="遍历可枚举属性的方法"></a>遍历可枚举属性的方法</h2><ol>
+<li>for … in …</li>
+</ol>
+<p>for in 方法可以遍历对先的每一个可枚举属性，包括了<strong>原型链上的可枚举属性</strong></p>
+<pre><code>const a = {}
+a.b = &quot;b&quot;
+a.__proto__.c = &quot;c&quot;
+Object.defineProperty(a, &quot;d&quot;, {
+  value: &quot;d&quot;,
+  enumerable: false,
+})
+
+for(let key in a) {
+  console.log(key) // b, c
+}</code></pre><ol start="2">
+<li>Object.keys</li>
+</ol>
+<p>Object.keys 可以遍历自身对象的所有可枚举属性，区别于 for in ，他<strong>不能</strong>遍历原型链上的可枚举属性</p>
+<p>和它类似的还有 <code>Object.values</code> 和 <code>Object.entries</code>， 他们可以遍历的属性都遵循相同的规则。至少返回值上， Object.values 返回对象的值的数组， Object.entries 返回对象键值对的数组</p>
+<pre><code>const a = {}
+a.b = &quot;b value&quot;
+a.__proto__.c = &quot;c&quot;
+Object.defineProperty(a, &quot;d&quot;, {
+  value: &quot;d&quot;,
+  enumerable: false,
+})
+
+console.log(Object.keys(a)) // [&quot;b&quot;]
+console.log(Object.values(a)) // [&quot;b value&quot;]
+console.log(Object.entries(a)) // [[&quot;b&quot;, &quot;b value&quot;]]</code></pre><ol start="3">
+<li>Object.getOwnPropertyNames</li>
+</ol>
+<p>Object.getOwnPropertyNames 可以遍历自己对象的所有属性，<strong>包括可枚举和不可枚举属性</strong>。但是不能遍历自己原型链上的属性。</p>
+<pre><code>const a = {}
+a.b = &quot;b&quot;
+a.__proto__.c = &quot;c&quot;
+Object.defineProperty(a, &quot;d&quot;, {
+  value: &quot;d&quot;,
+  enumerable: false,
+})
+
+const keys = Object.getOwnPropertyNames(a)
+console.log(keys) // &quot;b&quot;</code></pre><ol start="4">
+<li>Object.getOwnPropertySymbols</li>
+</ol>
+<p>Object.getOwnPropertySymbols 可以遍历自己对象上所有以 Symbol 类型的可枚举和不可枚举属性。这里单独拿出来是因为 Symbol 类型的属性的表现十分的特殊。</p>
+<ul>
+<li>for in 不可以遍历 Symbol 类型的属性</li>
+<li>Object.keys 不可以遍历 Symbol 类型的属性</li>
+<li>Object.getOwnPropertyNames 不可以遍历 Symbol 类型的属性</li>
+</ul>
+<pre><code>const a = {}
+const b = Symbol(&quot;b&quot;)
+a[b] = &quot;b&quot;
+
+console.log(Object.getOwnPropertySymbols(a)) // [Symbol(b)]
+console.log(Object.keys(a)) // []
+console.log(Object.getOwnPropertyNames) // []
+for(let key in a) {
+  console.log(key) // 没有输出
+}</code></pre><ol start="5">
+<li>Reflect.ownKeys</li>
+</ol>
+<p>Reflect.ownKeys 直白的说，可以理解为</p>
+<pre><code>Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols(target)</code></pre><p>也就是说，Reflect.ownKeys 可以遍历<strong>包括 Symbol 类型</strong>的所有课枚举和不可枚举属性</p>
+<pre><code>const a = {}
+a.b = &quot;b&quot;
+a.__proto__.c = &quot;c&quot;
+Object.defineProperty(a, &quot;d&quot;, {
+  value: &quot;d&quot;,
+  enumerable: false,
+})
+Object.defineProperty(a, Symbol(&quot;e&quot;), {
+  value: &quot;e&quot;,
+  enumerable: false,
+})
+
+const keys = Reflect.ownKeys(a)
+console.log(keys) // [&quot;b&quot;, &quot;d&quot;, Symbol(e)]</code></pre>
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/js/JS%E9%81%8D%E5%8E%86%E5%B1%9E%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-web component">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/HTML/web-component/">web component</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-08-02
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/Web-Component/" class="cube-excerpt-tag-link">#Web Component</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="Web-Component-概况"><a href="#Web-Component-概况" class="headerlink" title="Web Component 概况"></a>Web Component 概况</h2><p>Web Component 提供了原生的<strong>组件化</strong>支持。也就是说，这是可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。</p>
+<h2 id="Web-Component-的基本用法"><a href="#Web-Component-的基本用法" class="headerlink" title="Web Component 的基本用法"></a>Web Component 的基本用法</h2><p>以下的代码都写在 my-button.js 中</p>
+<pre><code>const template = document.createElement(&#39;template&#39;);
+
+template.innerHTML = `
+  &lt;div&gt;
+    &lt;button&gt;my button&lt;/button&gt;
+  &lt;/div&gt;
+`</code></pre><p>如果我们想要定义一个组件，首先我们要定义他的 HTML 模板。</p>
+<pre><code>class Button extends HTMLElement {
+  constructor() {
+    super();
+
+    this._shadowRoot = this.attachShadow({ mode: &#39;open&#39; });
+    this._shadowRoot.appendChild(template.content.cloneNode(true));
+  }
+}</code></pre><p>其次，我们要定义这个组件的内部行为。我们看到，Web Component 的定义采取了类继承的定义方式。继承了 HTMLElement 类。所以在这个类中我们可以使用一切 Element 有的方法。<br>在构造函数中，第一行 <code>attachShadow</code> 获取到了当前组件的根节点(称为 shadowRoot)。这里设置了 mode 为 open，意思是可以直接通过 JS 访问和修改该元素。如果设置为 closed，那么将无法被 JS 访问及修改。例如 video 标签。<br>下一行中，把 template 元素克隆了一下加入到了 HTML 中。注意一定要<strong>克隆</strong>节点。因为在多次调用这个组件时，如果不克隆而是直接 appendChild 的话，几个组件就会公用这个节点而引起问题。</p>
+<pre><code>window.customElements.define(&#39;my-button&#39;, Button);</code></pre><p>最后这一行代码申明了，当使用 my-button 标签的时候，使用我们刚刚定义的类 Button 来描述他的行为。请注意，为了区分 Web Component 与平常的 HTML 标签，Web Component 强制规定了在申明的标签名中必须要带有 <code>-</code> 符号。</p>
+<p>这些代码合在一起，组成了定义一个 Web Component 的文件。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./my-button.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;my-button&gt;&lt;/my-button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>最后在想要使用 Web Component 的地方引入这个文件，并像普通的 HTML 标签一样使用即可。</p>
+<h2 id="Web-Component-的生命周期与传参"><a href="#Web-Component-的生命周期与传参" class="headerlink" title="Web Component 的生命周期与传参"></a>Web Component 的生命周期与传参</h2><p>Web Component 提供了 <code>connectedCallback</code> 的生命周期。这个生命周期在这个组件被插入 DOM 树后触发。相当于 React 的 componentDidMount， Vue 的 mounted 生命周期。<br>与之对应的是 <code>disconnectCallback</code>，在元素被移出 DOM 数后触发。</p>
+<pre><code>// index.html
+&lt;my-button label=&quot;hi&quot;&gt;&lt;/my-button&gt;
+
+// my-button.js
+static get observedAttributes() {
+  return [&quot;label&quot;]
+}
+
+attributeChangedCallback(attr, oldVal, newVal) {
+  switch(attr) {
+    case &quot;label&quot;:
+      document.querySelector(&quot;button&quot;).innerHTML = newVal
+  }
+}</code></pre><p>Web Component 提供了生命周期 <code>attributeChangedCallback</code> 来提示属性的变化。但是只有在 <code>observedAttributes</code> 中注册过的变量才会触发这个生命周期。这个生命周期在组件初始化时会触发，之后在任一注册过的属性发生变化时也会触发。</p>
+<pre><code>&lt;my-button&gt;&lt;/my-button&gt;
+
+const button = document.querySelector(&quot;my-button&quot;)
+button.label = &quot;hi&quot;</code></pre><p>单纯的这样定义和改变一个组件的属性是不会触发 <code>attributeChangedCallback</code> 的生命周期的。我们可以通过使用 getter 和 setter 的方式来控制和获取。</p>
+<pre><code>class Button extends HTMLElement {
+  ...
+
+  set label(value) {
+    this.setAttribute(&quot;label&quot;, value)
+  }
+
+  get label() {
+    return this.getAtribute(&quot;label&quot;)
+  }
+
+  attributeChangedCallback(attr, oldVal, newVal) {
+    this.render()
+  }
+
+  render() {
+    // render HTML
+  }
+}</code></pre><h2 id="使用-Web-Component-内部的方法"><a href="#使用-Web-Component-内部的方法" class="headerlink" title="使用 Web Component 内部的方法"></a>使用 Web Component 内部的方法</h2><pre><code>// my-button.js
+class Button extends HTMLElement {
+  ...
+  doSomething() {
+
+  }
+}
+
+// index.html
+&lt;my-button&gt;&lt;/my-button&gt;
+
+document.querySelector(&quot;my-button&quot;).doSomething()</code></pre><p>我们可以直接访问我们定义的 Web Component 下定义的方法。</p>
+<h2 id="Web-Component-的事件"><a href="#Web-Component-的事件" class="headerlink" title="Web Component 的事件"></a>Web Component 的事件</h2><pre><code>// my-button.js
+connectedCallback() {
+  this.$button.addEventListener(&quot;click&quot;, () =&gt; {
+    this.$button.dispatchEvent(
+      new CustomEvent(&quot;test&quot;, {
+        detail: &quot;hello,
+        composed: true,
+      })
+    );
+  })
+}
+
+// index.html
+document.querySelector(&quot;my-button&quot;).addEventListener(&quot;test&quot;, value =&gt; {
+  console.log(&quot;test&quot;, value) // CustomEvent Object
+})</code></pre><p>当想要向外触发事件的时候，先使用 <code>CustomEvent</code> 自定义一个事件，其中 detail 字段可以是任意值，为向外传递的信息。必须设置 <code>composed: true</code>，否则将无法在组件外监听到信息。然后使用 dispatchEvent 在组件的一个 HTML 元素上触发事件。这样就可以在外界监听到这个事件。</p>
+<h2 id="Shadow-DOM"><a href="#Shadow-DOM" class="headerlink" title="Shadow DOM"></a>Shadow DOM</h2><p>你所定义的 Web Component 全部都封装在 Shadow Dom 中。你在其中定义的 CSS 将不会污染外部的 CSS。但是你可以通过外部来改变 Shadow DOM 内部的样式。推荐的方法是在 Shadow DOM 内部使用 CSS 变量，然后在外部定义不同的 CSS 变量值来控制内部的样式。所有的自定义组件的元素将被挂载在一个被称为 Shadow Root 的根元素上。这个元素的 css 选择器为 <code>:host</code>。</p>
+<h2 id="Web-Component-的-slot"><a href="#Web-Component-的-slot" class="headerlink" title="Web Component 的 slot"></a>Web Component 的 slot</h2><p>Web Component 中的 slot 和 Vue 中的 slot 形式非常相似。</p>
+<pre><code>// my-button.js 的 template 定义部分
+&lt;div&gt;
+  &lt;button&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/button&gt;
+  &lt;slot name=&quot;after&quot;&gt;&lt;/slot&gt;
+&lt;/div&gt;
+
+// index.html
+&lt;my-button&gt;
+  &lt;div&gt;hello&lt;/div&gt;
+  &lt;div slot=&quot;after&quot;&gt;after&lt;/div&gt;
+&lt;/my-button&gt;
+
+// 实际渲染
+&lt;div&gt;
+  &lt;button&gt;
+    &lt;slot&gt;
+      &lt;div&gt;hello&lt;/div&gt;
+    &lt;/slot&gt;
+  &lt;/button&gt;
+  &lt;slot name=&quot;after&quot;&gt;
+    &lt;div&gt;after&lt;/div&gt;
+  &lt;/slot&gt;
+&lt;/div&gt;</code></pre><p>有默认的 slot 和具名的 slot，他们分别将插入在各自对应的 slot 的内部。slot 也有他自己的 CSS 选择器： <code>::slot(after)</code> 指名字为 after 的 slot 的 CSS 选择器。</p>
+<h2 id="扩展原生元素"><a href="#扩展原生元素" class="headerlink" title="扩展原生元素"></a>扩展原生元素</h2><p>当你想让你的元素继承一个原生元素所有的特性时，你可以这样定义你的组件。</p>
+<pre><code>class MyButton extends HTMLButtonElement {
+  ...
+}
+
+customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&quot; });</code></pre><p>只需要在继承时继承那个原生组件的类，并且在 define 时的第三个属性中申明 extends 的原生标签的名字。这是就可以使用这个元素。这个元素可以通过 is 属性来使用。</p>
+<pre><code>&lt;button is=&quot;my-button&quot;&gt;&lt;/button&gt;</code></pre><p>但是在扩展元素时不能尝试创建 Shadow Root。如果尝试创建 Shadow Root 将会报错。</p>
+<p>扩展原生元素的另一个好处是在子元素被限制的时候也可以使用。例如 thead 的子元素必须是 tr。这时如果你想使用一个自己定义的 Web Component 作为子元素的话是不行的，只有使用这种扩展原生元素的方法，写成 <code>&lt;tr is=&quot;my-tr&quot;&gt;&lt;/tr&gt;</code> 才能正常使用。</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/HTML/web-component/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-git不常用命令整理（1）">
+    <header class="cube-excerpt-header">
+        <h1><a href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">git不常用命令整理（1）</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2020-07-26
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/git/" class="cube-excerpt-tag-link">#git</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <p>本文是对于一些不是很常用的 git 命令的整理，让我们想要用到一些 git 不常用的功能时，心里可以有一点逼数，知道哪些是可以做的，哪些是做不到的。</p>
+<h2 id="基础的-git-命令"><a href="#基础的-git-命令" class="headerlink" title="基础的 git 命令"></a>基础的 git 命令</h2><p>在写不常用的命令前，这里是我整理的一些比较常用的一些 git 命令。如果发现自己不认识的话就自己去谷歌一下补补课吧。</p>
+<ul>
+<li>git init</li>
+<li>git config</li>
+<li>git clone</li>
+<li>git add</li>
+<li>git status</li>
+<li>git diff</li>
+<li>git commit</li>
+<li>git mv</li>
+<li>git rm</li>
+<li>git reset</li>
+<li>git branch</li>
+<li>git checkout</li>
+<li>git merge</li>
+<li>git log</li>
+<li>git stash</li>
+<li>git tag</li>
+<li>git fetch</li>
+<li>git pull</li>
+<li>git push</li>
+<li>git remote</li>
+<li>git cherry-pick</li>
+<li>git rebase</li>
+<li>git revert</li>
+<li>git help</li>
+</ul>
+<h2 id="不常用的-git-命令"><a href="#不常用的-git-命令" class="headerlink" title="不常用的 git 命令"></a>不常用的 git 命令</h2><p>以下是一些不常用的 git 命令。由于这是一篇总结性的文章，所以这里只会简单的说明每个命令的功能，让大家知道 git 可以干些什么。如果想要知道更加详细具体的用法，或者遇到了某些不知道含义的名词，可以去查看 git 文档。</p>
+<ul>
+<li><p>git archive: 将整个项目打包并压缩成一个文件，<strong>不包含 git 历史</strong></p>
+</li>
+<li><p>git bisect: 在项目遇到 bug 时，用这个命令可以帮助你用二分查找法的方式迅速定位是哪一个 commit 引入了这个 bug</p>
+</li>
+<li><p>git bundle: 将整个项目打包成一个文件，<strong>包含 git 历史</strong></p>
+</li>
+<li><p>git citool: 这是一个图形化 <code>git commit</code> 命令，是 <code>git gui citool</code> 的 alias</p>
+</li>
+<li><p>git clean: 删除所有不在暂存区的<strong>文件或目录</strong></p>
+</li>
+<li><p>git describe: 查找从提交可访问的最新标记。 如果标签指向提交，则只显示标签。 否则，它将标记名称与标记对象之上的其他提交数量以及最近提交的缩写对象名称后缀</p>
+</li>
+<li><p>git format-patch: 打包出一个包含 commit 信息的 patch 文件。可以只用 <code>git am</code> 把打包文件应用于另一个 git 仓库。类似于使用 <code>git diff</code> 生成的 patch 文件，只不过多了 commit 信息。</p>
+</li>
+<li><p>git gc: gc 是 garbage collection 的缩写，主要是用于优化磁盘空间</p>
+</li>
+<li><p>git grep: 用于在 git 历史中进行搜索</p>
+</li>
+<li><p>git gui: 展示 git 的 gui 界面</p>
+</li>
+<li><p>gitk: 展示 git 图形化操作工具</p>
+</li>
+<li><p>git notes: 为提交添加评注</p>
+</li>
+<li><p>git range-diff: 展示两组提交之间的 diff。比如我在master上提交了一些 commit，你也在master上提交了一些 commit（由于没有 push，没冲突），对你我提交的内容进行 diff</p>
+</li>
+<li><p>git restore: 类似于 <code>git checkout --</code></p>
+</li>
+<li><p>git shortlog: 输出所有的git 的 commit msg，以用户进行分组</p>
+</li>
+<li><p>git show: 展示一个或者多个对象。如 <code>git show HEAD</code> 是展示当前最新提交的 diff 信息</p>
+</li>
+<li><p>git sparse-checkout: 只下载远程仓库中某一个特定文件夹</p>
+</li>
+<li><p>git submodule: 在一个 git 仓库中允许建立另一个 git 仓库。但是可以保持各自的工作流独立。常用于多个项目复用同一个包。</p>
+</li>
+<li><p>git switch: 切换分支，相当于 git checkout</p>
+</li>
+<li><p>git worktree: 在存在一个 git 仓库的情况下，在另一个文件夹下创建这个项目某一个分支的代码，但是新的文件夹下的 .git 并不会维护全部的代码历史，只会标明指向原来的项目。这样可以节省磁盘空间。也省了切换分支的开销。常用于大型项目。</p>
+</li>
+<li><p>git fast-export: 将提交导出为 git-fast-import 格式</p>
+</li>
+<li><p>git fast-import: 其他版本库迁移至Git的通用工具</p>
+</li>
+</ul>
+<p>TODO， 敬请期待下一期</p>
+<ul>
+<li><p>git filter-branch:</p>
+</li>
+<li><p>git mergetool:</p>
+</li>
+<li><p>git pack-refs:</p>
+</li>
+<li><p>git repack:</p>
+</li>
+<li><p>git replace:</p>
+</li>
+<li><p>git annotate:</p>
+</li>
+<li><p>git blame:</p>
+</li>
+<li><p>git bugreport:</p>
+</li>
+<li><p>git count-objects:</p>
+</li>
+<li><p>git difftool:</p>
+</li>
+<li><p>git fsck:</p>
+</li>
+<li><p>git instaweb:</p>
+</li>
+<li><p>git merge-tree:</p>
+</li>
+<li><p>git rerere:</p>
+</li>
+<li><p>git show-branch:</p>
+</li>
+<li><p>git verify-commit:</p>
+</li>
+<li><p>git verify-tag:</p>
+</li>
+<li><p>git whatchanged:</p>
+</li>
+<li><p>git archimport:</p>
+</li>
+<li><p>git cvsexportcommit:</p>
+</li>
+<li><p>git cvsimport:</p>
+</li>
+<li><p>git cvsserver:</p>
+</li>
+<li><p>git imap-send:</p>
+</li>
+<li><p>git p4:</p>
+</li>
+<li><p>git quiltimport:</p>
+</li>
+<li><p>git request-pull:</p>
+</li>
+<li><p>git send-email:</p>
+</li>
+<li><p>git svn:</p>
+</li>
+<li><p>git apply:</p>
+</li>
+<li><p>git checkout-index:</p>
+</li>
+<li><p>git commit-graph:</p>
+</li>
+<li><p>git commit-tree:</p>
+</li>
+<li><p>git hash-object:</p>
+</li>
+<li><p>git index-pack:</p>
+</li>
+<li><p>git merge-file:</p>
+</li>
+<li><p>git merge-index:</p>
+</li>
+<li><p>git multi-pack-index:</p>
+</li>
+<li><p>git mktag:</p>
+</li>
+<li><p>git mktree:</p>
+</li>
+<li><p>git pack-objects:</p>
+</li>
+<li><p>git prune-packed:</p>
+</li>
+<li><p>git read-tree:</p>
+</li>
+<li><p>git symbolic-ref:</p>
+</li>
+<li><p>git unpack-objects:</p>
+</li>
+<li><p>git update-index:</p>
+</li>
+<li><p>git update-ref:</p>
+</li>
+<li><p>git write-tree:</p>
+</li>
+<li><p>git cat-file:</p>
+</li>
+<li><p>git cherry:</p>
+</li>
+<li><p>git diff-files:</p>
+</li>
+<li><p>git diff-index:</p>
+</li>
+<li><p>git diff-tree:</p>
+</li>
+<li><p>git for-each-ref:</p>
+</li>
+<li><p>git get-tar-commit-id:</p>
+</li>
+<li><p>git ls-files:</p>
+</li>
+<li><p>git ls-remote:</p>
+</li>
+<li><p>git ls-tree:</p>
+</li>
+<li><p>git merge-base:</p>
+</li>
+<li><p>git name-rev:</p>
+</li>
+<li><p>git pack-redundant:</p>
+</li>
+<li><p>git rev-list:</p>
+</li>
+<li><p>git rev-parse:</p>
+</li>
+<li><p>git show-index:</p>
+</li>
+<li><p>git show-ref:</p>
+</li>
+<li><p>git unpack-file:</p>
+</li>
+<li><p>git var:</p>
+</li>
+<li><p>git verify-pack:</p>
+</li>
+<li><p>git daemon:</p>
+</li>
+<li><p>git fetch-pack:</p>
+</li>
+<li><p>git http-backend:</p>
+</li>
+<li><p>git send-pack:</p>
+</li>
+<li><p>git update-server-info:</p>
+</li>
+<li><p>git http-fetch:</p>
+</li>
+<li><p>git http-push:</p>
+</li>
+<li><p>git parse-remote:</p>
+</li>
+<li><p>git receive-pack:</p>
+</li>
+<li><p>git shell:</p>
+</li>
+<li><p>git upload-archive:</p>
+</li>
+<li><p>git upload-pack:</p>
+</li>
+<li><p>git check-attr:</p>
+</li>
+<li><p>git check-ignore:</p>
+</li>
+<li><p>git check-mailmap:</p>
+</li>
+<li><p>git check-ref-format:</p>
+</li>
+<li><p>git column:</p>
+</li>
+<li><p>git credential:</p>
+</li>
+<li><p>git credential-cache:</p>
+</li>
+<li><p>git credential-store:</p>
+</li>
+<li><p>git fmt-merge-msg:</p>
+</li>
+<li><p>git interpret-trailers:</p>
+</li>
+<li><p>git mailinfo:</p>
+</li>
+<li><p>git mailsplit:</p>
+</li>
+<li><p>git merge-one-file:</p>
+</li>
+<li><p>git patch-id:</p>
+</li>
+<li><p>git sh-i18n:</p>
+</li>
+<li><p>git sh-setup:</p>
+</li>
+<li><p>git stripspace:</p>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a href="https://git-scm.com/docs" target="_blank" rel="noopener">git reference</a></li>
+</ul>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">Read More</a>
+    </footer>
+</div>
+
+
+
+<ul class="cube-pagination cube-pagination-6">
+    
+    <li class="cube-pagination-prev">
+        <a href="/">« Prev</a>
+    </li>
+    
+    
+        
+            
+            <li class="cube-pagination-index">
+                <a href="/">1</a>
+            </li>
+            
+        
+            
+            <li class="cube-pagination-index disabled">
+                <span>2</span>
+            </li>
+            
+        
+            
+            <li class="cube-pagination-index">
+                <a href="/page/3">3</a>
+            </li>
+            
+        
+    
+
+    
+    <li class="cube-pagination-next">
+        <a href="/page/3/">Next »</a>
+    </li>
+    
+</ul>
+
+<!--其他组件后续添加-->
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

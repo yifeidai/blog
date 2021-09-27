@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>Hugo with Vue | blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">Hugo with Vue</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-09-18
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/Hugo/">#Hugo</a>
+    
+    <a href="/tags/Vue/">#Vue</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <p>本文主要讲述如何在 Hugo 中使用 Vue 进行开发一些复杂交互的网站。</p>
+<h2 id="Hugo"><a href="#Hugo" class="headerlink" title="Hugo"></a>Hugo</h2><p>Hugo 是一个 static site generator(静态网站生成)的框架。静态网站生成指的是利用一些模板文件，预先将所有的HTML文件生成好，挂载在服务端的一种技术。利用 Hugo 你就可以生成一系列网页。但是由于这种框架都是只基于简单的 HTML，JS，CSS，而不涉及任何其他的框架，所以如果要开发一些比较复杂的网站的时候就会变得比较困难。这时候，利用一些现代的框架（如Vue，React，Angular等等）来简化我们的开发。这里我们就以 Vue 为例来看看怎么使用 Vue 来配合 Hugo 进行开发。</p>
+<h2 id="前提知识"><a href="#前提知识" class="headerlink" title="前提知识"></a>前提知识</h2><p>本文将假设读者已经了解以下知识：</p>
+<ul>
+<li>Hugo 的基本知识（文件夹结构，编译流程等等）</li>
+<li>Vue 的基本知识</li>
+<li>webpack 配置基础</li>
+</ul>
+<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>想要使用Vue进行开发，就先思考一下，我们平时使用的Vue编译后的结果是什么样子的。只要我们模仿一下这个编译后的结果，就可以使用Vue进行开发了。</p>
+<p>首先，我们肯定是要分两种环境进行考虑的，一种是开发环境，一种是生产环境。开发环境使用热加载开发简便。生产环境直接编译出结果可以使用。</p>
+<pre><code>&lt;body&gt;
+  &lt;script src=&quot;localhost:8080/app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><p>以上大致就是开发环境中Vue的关键代码。所以在开发环境中，我们的想法是，利用webpack-dev-server启动Vue部分的代码，hugo部分的代码中判断环境，如果是开发环境就插入<code>&lt;script src=&quot;localhost:8080/app.js&quot;&gt;&lt;/script&gt;</code>这段代码。</p>
+<pre><code>&lt;body&gt;
+  &lt;script src=&quot;.../vender.vue.[hash].js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;.../vendor.[dep].[hash].js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><p>以上大致就是生产环境中Vue的关键代码。也就是很多的js业务代码，运行时的依赖文件，css文件等，要把这些依赖引入到文件之中。所以在生产环境中，我们的想法是，利用HTML-webpack-plugin把我们所有的依赖的引入代码打包成一个文件，然后在hugo中判断是生产环境就引入并序列化这个文件的内容（hugo 有一个叫 <a href="https://gohugo.io/functions/readfile/" target="_blank" rel="noopener">readFile</a> 的函数可以读取一个文件内容并序列化到模板文件中）。</p>
+<h2 id="文件结构设计"><a href="#文件结构设计" class="headerlink" title="文件结构设计"></a>文件结构设计</h2><p>该项目的文件结构如下</p>
+<pre><code>root(hugo root folder)
+  - content
+  - layouts
+    - ...(template files)
+  - ui(Vue root folder)
+  package.json</code></pre><p>其中，在 template files 中代码的末尾加入如下代码。</p>
+<pre><code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+
+{{ if eq (getenv "HUGO_DEV") "true" }}
+  &lt;script src=&quot;http://localhost:8800/app.js&quot;&gt;&lt;/script&gt;
+{{ else }}
+  {{ readFile "/ui/dist/body.partial" | safeHTML }}
+{{ end }}</code></pre><p>这样，在生成的模板文件中，会根据环境来判断引入的script标签。在开发环境使用webpack-dev-server生成的app.js文件。在生产环境中，利用HTML-webpack-plugin生成的文件，把项目需要是引入的文件全部导入。</p>
+<p>最后，在ui文件夹下就可以看做一个完整的Vue的项目。配置webpack分环境进行打包。开发环境下起webpack-dev-server，生产环境下打包进dist目录。具体的webpack配置后文将细说。</p>
+<h2 id="数据获取方式"><a href="#数据获取方式" class="headerlink" title="数据获取方式"></a>数据获取方式</h2><p>由于要用Vue来进行网页的编码，那么我们就不可能像使用hugo一样直接在模板文件中写HTML，而是要利用Vue来生成不同的页面。要生成不同的页面，其关键点就在于同类型的页面要获取不同的数据。所以说，我们的做法是预先把数据存储在网页之中。</p>
+<p>我们获取的数据源一共有两个，一个是定义在data文件夹中，一个是定义在content文件夹中md文件的frontmatter中。我们可以在模板文件中，将这些数据定义在window下，作为全局变量。这样就可以在Vue中进行调用这些数据。</p>
+<pre><code>{
+  window.data = &quot;{{ Site.Data.config }}&quot;
+  window.title = &quot;{{ .Title }}&quot;
+}</code></pre><p>还有一部分数据是定义在md文件中的markdown。这一部分也可以将其挂载在模板文件中，但是使用 <code>display:none</code> 进行隐藏。然后再使用Vue操作这一部分的DOM即可。</p>
+<pre><code>&lt;div id=&quot;_page-content&quot; style=&quot;display: none&quot;&gt;
+  {{ .Content | markdownify }}
+&lt;/div&gt;</code></pre><h2 id="打包方式"><a href="#打包方式" class="headerlink" title="打包方式"></a>打包方式</h2><p>我们将打包的命令配置在package.json文件中。具体的命令定义如下。</p>
+<pre><code>&quot;scripts&quot;: {
+  &quot;hugoDev&quot;: &quot;cross-env HUGO_DEV=true hugo server --bind 0.0.0.0 --noHTTPCache --disableFastRender&quot;,
+  &quot;webpackDev&quot;: &quot;cd ui &amp;&amp; node ../node_modules/webpack-dev-server/bin/webpack-dev-server.js&quot;,
+  &quot;hugoBuild&quot;: &quot;hugo -d dist&quot;,
+  &quot;webpackBuild&quot;: &quot;cd ui &amp;&amp; rm -rf dist &amp;&amp; cross-env BUILD=true node ../node_modules/webpack/bin/webpack.js --prod --progress --hide-modules&quot;,
+  &quot;assetCopy&quot;: &quot;cp -r ui/dist dist/assets&quot;,
+  &quot;dev&quot;: &quot;npm-run-all --parallel hugoDev webpackDev&quot;,
+  &quot;clean&quot;: &quot;rm -rf dist&quot;,
+  &quot;build&quot;: &quot;yarn clean &amp;&amp; yarn webpackBuild &amp;&amp; yarn hugoBuild &amp;&amp; yarn assetCopy&quot;
+}</code></pre><p>开发环境使用的命令是<code>yarn dev</code>。我们看到这里使用了<code>npm-run-all</code>插件。因为在开发环境webpack-dev-server和hugo的任务并不会结束，所以直接使用&amp;&amp;符号进行串行的任务并不能执行两个命令，所以要利用他让我们可以一个命令同时执行hugo和webpack的命令。我们可以看到，这个命令同时执行了两个命令。第一个 hugoDev 就是在启动开发环境hugo的编译流程，我们可以注意到其中一开始有一段<code>cross-env HUGO_DEV=true</code>的代码就是为了给 template files 中的代码区分环境用的。我们回顾一下在上一节中提到，可以发现插入在末尾的代码中判断环境使用的变量就是 <code>HUGO_DEV</code>。第二个命令就是启动webpack-dev-server。这样开发环境就可以正常使用了。</p>
+<p>生产环境使用的命令是<code>yarn build</code>。这个编译流程分为了四步。第一个命令<code>yarn clean</code>用于清除上一次编译留下来的文件。第二个命令<code>yarn webpackBuild</code>是执行webpack的打包流程，把Vue的运行时代码打包成一个文件夹。第三个命令<code>yarn hugoBuild</code>是执行hugo的打包流程。最后一个命令<code>yarn assetCopy</code>把webpack打包出的代码复制到hugo打包出的文件夹下，生成一个最终的项目打包代码文件夹。</p>
+<h2 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h2><p>webpack 配置文件中的大部分都与普通的Vue项目没有什么区别，唯一有区别的地方在于 HTML-webpack-plugin 的配置。</p>
+<p>首先，在开发环境，并不需要做任何特殊的配置。编译输出了一个app.js的文件给webpack-dev-server，直接就可以使用了。</p>
+<p>在生产环境的编译下，对配置做如下修改。</p>
+<pre><code>new HTMLWebpackPlugin({
+  inject: false,
+  minify: false,
+  filename: &quot;head.partial&quot;,
+  templateContent: ({htmlWebpackPlugin}) =&gt; `${htmlWebpackPlugin.tags.headTags}`,
+})
+
+new HTMLWebpackPlugin({
+  inject: false,
+  minify: false,
+  filename: &quot;body.partial&quot;,
+  templateContent: ({htmlWebpackPlugin}) =&gt; `${htmlWebpackPlugin.tags.bodyTags}`,
+})</code></pre><p>加入了上述两个HTML-webpack-plugin的配置后，这两者将分别把JS文件和CSS文件的引入标签代码打包成了 body.partial 和 head.partial 两个文件。让我们来看看这两个文件。</p>
+<pre><code>// body.partial
+&lt;script src=&quot;/assets/js/vendor.runtime.bf9a7ce533402d6e1e4b.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.vue.10426c5f37b9909f3356.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.core-js.0dd09ca0b957f339ec22.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.normalize.css.c25d28ba90daebf55ddd.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/vendor.velocity-animate.96372836ed735c252945.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/app.c1b601945336515e1a70.chunk.js&quot;&gt;&lt;/script&gt;</code></pre><pre><code>// head.partial
+&lt;link href=&quot;/assets/css/vendor.normalize.css.24bf1742e3764eb5de3c.chunk.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;link href=&quot;/assets/css/app.fd7d6ea5c66bbd36de53.chunk.css&quot; rel=&quot;stylesheet&quot;&gt;</code></pre><p>然后上述的两个文件在生产环境下分别被以下的代码引入模板文件。</p>
+<pre><code>{{ if not (eq (getenv "HUGO_DEV") "true") }}
+  {{ readFile "/ui/dist/head.partial" | safeHTML }}
+{{ end }}
+
+{{ if eq (getenv "HUGO_DEV") "true" }}
+  &lt;script src=&quot;http://localhost:8800/app.js&quot;&gt;&lt;/script&gt;
+{{ else }}
+  {{ readFile "/ui/dist/body.partial" | safeHTML }}
+{{ end }}</code></pre><p>这样就完成了一个 Hugo with Vue 项目的配置。</p>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/blog/HTML/SVG-%E8%AF%A6%E8%A7%A3/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                SVG 详解
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/blog/code/Unicode-and-utf-8/">
+                Unicode and utf-8
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

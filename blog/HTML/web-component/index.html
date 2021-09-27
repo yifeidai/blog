@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>web component | blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">web component</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-08-02
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/Web-Component/">#Web Component</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h2 id="Web-Component-概况"><a href="#Web-Component-概况" class="headerlink" title="Web Component 概况"></a>Web Component 概况</h2><p>Web Component 提供了原生的<strong>组件化</strong>支持。也就是说，这是可以在不使用 React, Vue, Angular 等框架的情况下，浏览器原生所提供的组件化功能。最新版本的 Chrome, Safari, Edge 都已经对 Web Component 提供了支持。对于那些不支持的版本，同样也可以引入 polyfill 来解决。引入 polyfill 最多可以兼容到 IE11，也就是说，在大多数现代浏览器中都是可以使用 Web Component 的。</p>
+<h2 id="Web-Component-的基本用法"><a href="#Web-Component-的基本用法" class="headerlink" title="Web Component 的基本用法"></a>Web Component 的基本用法</h2><p>以下的代码都写在 my-button.js 中</p>
+<pre><code>const template = document.createElement(&#39;template&#39;);
+
+template.innerHTML = `
+  &lt;div&gt;
+    &lt;button&gt;my button&lt;/button&gt;
+  &lt;/div&gt;
+`</code></pre><p>如果我们想要定义一个组件，首先我们要定义他的 HTML 模板。</p>
+<pre><code>class Button extends HTMLElement {
+  constructor() {
+    super();
+
+    this._shadowRoot = this.attachShadow({ mode: &#39;open&#39; });
+    this._shadowRoot.appendChild(template.content.cloneNode(true));
+  }
+}</code></pre><p>其次，我们要定义这个组件的内部行为。我们看到，Web Component 的定义采取了类继承的定义方式。继承了 HTMLElement 类。所以在这个类中我们可以使用一切 Element 有的方法。<br>在构造函数中，第一行 <code>attachShadow</code> 获取到了当前组件的根节点(称为 shadowRoot)。这里设置了 mode 为 open，意思是可以直接通过 JS 访问和修改该元素。如果设置为 closed，那么将无法被 JS 访问及修改。例如 video 标签。<br>下一行中，把 template 元素克隆了一下加入到了 HTML 中。注意一定要<strong>克隆</strong>节点。因为在多次调用这个组件时，如果不克隆而是直接 appendChild 的话，几个组件就会公用这个节点而引起问题。</p>
+<pre><code>window.customElements.define(&#39;my-button&#39;, Button);</code></pre><p>最后这一行代码申明了，当使用 my-button 标签的时候，使用我们刚刚定义的类 Button 来描述他的行为。请注意，为了区分 Web Component 与平常的 HTML 标签，Web Component 强制规定了在申明的标签名中必须要带有 <code>-</code> 符号。</p>
+<p>这些代码合在一起，组成了定义一个 Web Component 的文件。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./my-button.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;my-button&gt;&lt;/my-button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>最后在想要使用 Web Component 的地方引入这个文件，并像普通的 HTML 标签一样使用即可。</p>
+<h2 id="Web-Component-的生命周期与传参"><a href="#Web-Component-的生命周期与传参" class="headerlink" title="Web Component 的生命周期与传参"></a>Web Component 的生命周期与传参</h2><p>Web Component 提供了 <code>connectedCallback</code> 的生命周期。这个生命周期在这个组件被插入 DOM 树后触发。相当于 React 的 componentDidMount， Vue 的 mounted 生命周期。<br>与之对应的是 <code>disconnectCallback</code>，在元素被移出 DOM 数后触发。</p>
+<pre><code>// index.html
+&lt;my-button label=&quot;hi&quot;&gt;&lt;/my-button&gt;
+
+// my-button.js
+static get observedAttributes() {
+  return [&quot;label&quot;]
+}
+
+attributeChangedCallback(attr, oldVal, newVal) {
+  switch(attr) {
+    case &quot;label&quot;:
+      document.querySelector(&quot;button&quot;).innerHTML = newVal
+  }
+}</code></pre><p>Web Component 提供了生命周期 <code>attributeChangedCallback</code> 来提示属性的变化。但是只有在 <code>observedAttributes</code> 中注册过的变量才会触发这个生命周期。这个生命周期在组件初始化时会触发，之后在任一注册过的属性发生变化时也会触发。</p>
+<pre><code>&lt;my-button&gt;&lt;/my-button&gt;
+
+const button = document.querySelector(&quot;my-button&quot;)
+button.label = &quot;hi&quot;</code></pre><p>单纯的这样定义和改变一个组件的属性是不会触发 <code>attributeChangedCallback</code> 的生命周期的。我们可以通过使用 getter 和 setter 的方式来控制和获取。</p>
+<pre><code>class Button extends HTMLElement {
+  ...
+
+  set label(value) {
+    this.setAttribute(&quot;label&quot;, value)
+  }
+
+  get label() {
+    return this.getAtribute(&quot;label&quot;)
+  }
+
+  attributeChangedCallback(attr, oldVal, newVal) {
+    this.render()
+  }
+
+  render() {
+    // render HTML
+  }
+}</code></pre><h2 id="使用-Web-Component-内部的方法"><a href="#使用-Web-Component-内部的方法" class="headerlink" title="使用 Web Component 内部的方法"></a>使用 Web Component 内部的方法</h2><pre><code>// my-button.js
+class Button extends HTMLElement {
+  ...
+  doSomething() {
+
+  }
+}
+
+// index.html
+&lt;my-button&gt;&lt;/my-button&gt;
+
+document.querySelector(&quot;my-button&quot;).doSomething()</code></pre><p>我们可以直接访问我们定义的 Web Component 下定义的方法。</p>
+<h2 id="Web-Component-的事件"><a href="#Web-Component-的事件" class="headerlink" title="Web Component 的事件"></a>Web Component 的事件</h2><pre><code>// my-button.js
+connectedCallback() {
+  this.$button.addEventListener(&quot;click&quot;, () =&gt; {
+    this.$button.dispatchEvent(
+      new CustomEvent(&quot;test&quot;, {
+        detail: &quot;hello,
+        composed: true,
+      })
+    );
+  })
+}
+
+// index.html
+document.querySelector(&quot;my-button&quot;).addEventListener(&quot;test&quot;, value =&gt; {
+  console.log(&quot;test&quot;, value) // CustomEvent Object
+})</code></pre><p>当想要向外触发事件的时候，先使用 <code>CustomEvent</code> 自定义一个事件，其中 detail 字段可以是任意值，为向外传递的信息。必须设置 <code>composed: true</code>，否则将无法在组件外监听到信息。然后使用 dispatchEvent 在组件的一个 HTML 元素上触发事件。这样就可以在外界监听到这个事件。</p>
+<h2 id="Shadow-DOM"><a href="#Shadow-DOM" class="headerlink" title="Shadow DOM"></a>Shadow DOM</h2><p>你所定义的 Web Component 全部都封装在 Shadow Dom 中。你在其中定义的 CSS 将不会污染外部的 CSS。但是你可以通过外部来改变 Shadow DOM 内部的样式。推荐的方法是在 Shadow DOM 内部使用 CSS 变量，然后在外部定义不同的 CSS 变量值来控制内部的样式。所有的自定义组件的元素将被挂载在一个被称为 Shadow Root 的根元素上。这个元素的 css 选择器为 <code>:host</code>。</p>
+<h2 id="Web-Component-的-slot"><a href="#Web-Component-的-slot" class="headerlink" title="Web Component 的 slot"></a>Web Component 的 slot</h2><p>Web Component 中的 slot 和 Vue 中的 slot 形式非常相似。</p>
+<pre><code>// my-button.js 的 template 定义部分
+&lt;div&gt;
+  &lt;button&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/button&gt;
+  &lt;slot name=&quot;after&quot;&gt;&lt;/slot&gt;
+&lt;/div&gt;
+
+// index.html
+&lt;my-button&gt;
+  &lt;div&gt;hello&lt;/div&gt;
+  &lt;div slot=&quot;after&quot;&gt;after&lt;/div&gt;
+&lt;/my-button&gt;
+
+// 实际渲染
+&lt;div&gt;
+  &lt;button&gt;
+    &lt;slot&gt;
+      &lt;div&gt;hello&lt;/div&gt;
+    &lt;/slot&gt;
+  &lt;/button&gt;
+  &lt;slot name=&quot;after&quot;&gt;
+    &lt;div&gt;after&lt;/div&gt;
+  &lt;/slot&gt;
+&lt;/div&gt;</code></pre><p>有默认的 slot 和具名的 slot，他们分别将插入在各自对应的 slot 的内部。slot 也有他自己的 CSS 选择器： <code>::slot(after)</code> 指名字为 after 的 slot 的 CSS 选择器。</p>
+<h2 id="扩展原生元素"><a href="#扩展原生元素" class="headerlink" title="扩展原生元素"></a>扩展原生元素</h2><p>当你想让你的元素继承一个原生元素所有的特性时，你可以这样定义你的组件。</p>
+<pre><code>class MyButton extends HTMLButtonElement {
+  ...
+}
+
+customElements.define(&quot;my-button&quot;, MyButton, { extends: &quot;button&quot; });</code></pre><p>只需要在继承时继承那个原生组件的类，并且在 define 时的第三个属性中申明 extends 的原生标签的名字。这是就可以使用这个元素。这个元素可以通过 is 属性来使用。</p>
+<pre><code>&lt;button is=&quot;my-button&quot;&gt;&lt;/button&gt;</code></pre><p>但是在扩展元素时不能尝试创建 Shadow Root。如果尝试创建 Shadow Root 将会报错。</p>
+<p>扩展原生元素的另一个好处是在子元素被限制的时候也可以使用。例如 thead 的子元素必须是 tr。这时如果你想使用一个自己定义的 Web Component 作为子元素的话是不行的，只有使用这种扩展原生元素的方法，写成 <code>&lt;tr is=&quot;my-tr&quot;&gt;&lt;/tr&gt;</code> 才能正常使用。</p>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/blog/js/JS%E9%81%8D%E5%8E%86%E5%B1%9E%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                JS遍历属性的方法
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">
+                git不常用命令整理（1）
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

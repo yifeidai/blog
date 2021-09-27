@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>SVG 详解 | blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">SVG 详解</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-09-20
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/SVG/">#SVG</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h2 id="什么是SVG"><a href="#什么是SVG" class="headerlink" title="什么是SVG"></a>什么是SVG</h2><p>SVG 是 Scalable Vector Graphics 的缩写。字面意思就是可伸缩矢量图形。他相对于传统的格式的图片（如png，jpg等）最大的优势就是他是可以<strong>无限缩放</strong>的。无论放大多少倍，他的图片都不会出现模糊的问题。而且他的兼容性也很好。除了 IE8 及以下，其他浏览器都对其提供了良好的支持。</p>
+<h2 id="SVG-语法"><a href="#SVG-语法" class="headerlink" title="SVG 语法"></a>SVG 语法</h2><p>SVG 使用 XML 来定义它的图像。常用的元素有：</p>
+<ul>
+<li>text: 创建一个文字元素</li>
+<li>circle: 创建一个圆形</li>
+<li>ellipse： 创建一个椭圆</li>
+<li>rect: 创建一个矩形</li>
+<li>line: 创建一条直线</li>
+<li>path: 创建一个路径</li>
+<li>textPath: 创建一个文本路径</li>
+<li>polygon: 创建一个多边形</li>
+<li>g: 创建一个元素组</li>
+</ul>
+<h3 id="text"><a href="#text" class="headerlink" title="text"></a>text</h3><p>属性x，y代表文本绘制的起始点</p>
+<pre><code>&lt;text x=&quot;10&quot; y=&quot;10&quot;&gt;I am a text&lt;/text&gt;</code></pre><h3 id="circle"><a href="#circle" class="headerlink" title="circle"></a>circle</h3><p>属性如下</p>
+<ul>
+<li>cx: 圆心x坐标</li>
+<li>cy：圆形y坐标</li>
+<li>r：圆半径</li>
+<li>fill：圆填充色</li>
+</ul>
+<pre><code>&lt;circle cx=&quot;20&quot; cy=&quot;20&quot; r=&quot;10&quot; fill=&quot;#e0e0e0&quot; /&gt;</code></pre><h3 id="ellipse"><a href="#ellipse" class="headerlink" title="ellipse"></a>ellipse</h3><p>属性如下</p>
+<ul>
+<li>cx： 椭圆圆心x坐标</li>
+<li>cy： 椭圆圆心y坐标</li>
+<li>rx： 椭圆横向半径</li>
+<li>ry： 椭圆纵向半径</li>
+</ul>
+<h3 id="rect"><a href="#rect" class="headerlink" title="rect"></a>rect</h3><p>属性如下</p>
+<ul>
+<li>x： 矩形左上角x坐标</li>
+<li>y： 矩形左上角y坐标</li>
+<li>width： 矩形横向长度</li>
+<li>height：矩形纵向长度</li>
+</ul>
+<h3 id="line"><a href="#line" class="headerlink" title="line"></a>line</h3><p>属性如下</p>
+<ul>
+<li>x1: 直线起点x坐标</li>
+<li>y1: 直线起点y坐标</li>
+<li>x2: 直线终点x坐标</li>
+<li>y2: 直线终点y坐标</li>
+</ul>
+<h3 id="path"><a href="#path" class="headerlink" title="path"></a>path</h3><p>有一个属性d，在这个属性中使用一些命令来绘制图形，命令如下</p>
+<ul>
+<li>M： 代表 moveto，接受一组x，y坐标，把绘制点移动到这个位置</li>
+<li>L： 代表 lineto，接受一组x，y坐标，从上一点开始到这个参数的点绘制一条直线</li>
+<li>H： 代表 horizontal lineto，接受一个x坐标，类似L，但是是绘制一条纵向的直线</li>
+<li>V： 代表 vertical lineto，接受一个y坐标，类似L，但是是绘制一条横向的直线</li>
+<li>C： 代表 curveto，接受三组x，y坐标，绘制一个三次贝塞尔曲线</li>
+<li>S： 代表 smooth curveto，接受两组x，y坐标，一个点某一侧的控制点是它另一侧的控制点的对称（以保持斜率不变），是简写的C命令</li>
+<li>Q： 代表 quadratic Bézier curve，接受两组x，y坐标，绘制一条二次贝塞尔曲线</li>
+<li>T： 代表 smooth quadratic Bézier curveto，接受一组x，y坐标，类似S命令，是Q命令的简写，可以只写终点自动推测中间的控制点。但是之前必须有Q命令或者T命令，否则将会成为一条直线</li>
+<li>A： 代表 elliptical Arc，A命令有许多参数，是用来生成一段曲线的</li>
+<li>Z： 代表 closepath，不接受参数，代表将终点和起点相连，闭合路径</li>
+</ul>
+<pre><code>&lt;path d=&quot;M 10 10 L 20 20 H 30 V 40 Z&quot; /&gt;</code></pre><h3 id="textPath"><a href="#textPath" class="headerlink" title="textPath"></a>textPath</h3><p>接受的参数和path相同。然后文字将在这段路径上显示</p>
+<pre><code>&lt;textPath d=&quot;M 10 10 L 20 20 H 30 V 40 Z&quot;&gt;i am a text path&lt;/textPath&gt;</code></pre><h3 id="polygon"><a href="#polygon" class="headerlink" title="polygon"></a>polygon</h3><p>有一个属性 points，接受多个x，y坐标组</p>
+<pre><code>&lt;polygon points=&quot;10,10 20,20 35,20&quot; /&gt;</code></pre><h3 id="g"><a href="#g" class="headerlink" title="g"></a>g</h3><p>将多个元素分组</p>
+<pre><code>&lt;g id=&quot;group&quot;&gt;
+  &lt;path d=&quot;M10 10 L20 20&quot; /&gt;
+  &lt;rect x=&quot;20&quot; y=&quot;20&quot; width=&quot;10&quot; height=&quot;10&quot;&gt;
+&lt;/g&gt;</code></pre><h2 id="SVG-常用属性"><a href="#SVG-常用属性" class="headerlink" title="SVG 常用属性"></a>SVG 常用属性</h2><ul>
+<li>fill: SVG 的填充颜色。在改变svg颜色的时候不能用color，而是要用fill。当然，你可以将fill属性设为currentColor，那么 SVG 将使用 color 属性的颜色进行渲染</li>
+<li>fill-opacity： 填充颜色的不透明度</li>
+<li>stroke: SVG 线条的颜色</li>
+<li>stroke-width: SVG 线条的宽度</li>
+</ul>
+<h2 id="使用JS，CSS操作SVG"><a href="#使用JS，CSS操作SVG" class="headerlink" title="使用JS，CSS操作SVG"></a>使用JS，CSS操作SVG</h2><p>当 SVG 使用内联的方式加载时（不是通过img等标签通过外部引入），我们可以通过JS或者CSS来操作SVG。SVG 中的每一个标签和正常的DOM标签一样，都拥有class，id等属性。可以通过设置CSS来改变样式，同时，他们也可以被类似于<code>document.querySelector</code> 等操作DOM的API来进行改变。通过这样，我们可以实现一些很炫酷的SVG动画等等功能。</p>
+<h2 id="viewport-和-viewBox"><a href="#viewport-和-viewBox" class="headerlink" title="viewport 和 viewBox"></a>viewport 和 viewBox</h2><h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h3><p>是指 SVG 可见区域，也就是 SVG 实际渲染的大小</p>
+<pre><code>&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;&lt;/svg&gt;</code></pre><p>这里定义了 SVG 长宽为 200px，这个200px的大小就是 SVG 的 viewport</p>
+<h3 id="viewBox"><a href="#viewBox" class="headerlink" title="viewBox"></a>viewBox</h3><p>viewBox 是指渲染的画布的区域范围</p>
+<p>viewBox 接受4个参数：x, y, width, height 定义了一个矩形。举一个例子</p>
+<pre><code>&lt;svg viewBox=&quot;0,0,50,50&quot;&gt;
+  &lt;rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;10&quot; height=&quot;10&quot;&gt;
+&lt;/svg&gt;</code></pre><p>这个 SVG 渲染出来的结果是什么呢？我们假设这个 SVG 设置长宽为100。那么展示的矩形起点在20，20处，长宽为20,20。</p>
+<p>也就是说，我们想象 SVG 有一个无限大的画布，里面的元素可以在这个任意大的画布中进行作画。但是我这个 SVG 向外界展示的区域是一个有限的区域，我们对 SVG 缩放的范围，渲染的范围就是这个区域。这个区域的名字就是 viewBox。</p>
+<h3 id="preserveAspectRatio"><a href="#preserveAspectRatio" class="headerlink" title="preserveAspectRatio"></a>preserveAspectRatio</h3><p>但是我们设置的 SVG 的长宽比和 viewBox 的长宽比并不一定是一样的。这时候就需要 preserveAspectRatio 属性来出马了。他由两个值组成，第一个值表示 viewBox 和 viewport 的对其方式，第二个值表示长宽比如何维持。</p>
+<p>第一个值有10种</p>
+<ul>
+<li>一种是none，这时候 SVG 的长宽比将失真，强制使 viewBox 长宽适应 viewport 的长宽</li>
+<li>另外的9种，他们分别定义了x，y方向上，以起点，终点和中点三个方向进行对其，3*3 共 9 种</li>
+</ul>
+<p>第二个值：</p>
+<ul>
+<li>meet： 保持 viewBox 纵横比缩放， viewBox 尽可能放大占满 viewport。也就是说，整个整个 viewBox 区域都是可见的，小于 viewport 的大小</li>
+<li>slice： 保持 viewBox 纵横比缩放，同时比例小的方向放大填满 viewport。也就是说，部分 viewBox 区域可能会超出 viewport 的区域变得不可见</li>
+</ul>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/blog/uncategorized/JS-%E5%BC%82%E6%AD%A5%E9%99%B7%E9%98%B1/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                JS 异步陷阱
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/blog/HTML/Hugo-with-Vue/">
+                Hugo with Vue
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

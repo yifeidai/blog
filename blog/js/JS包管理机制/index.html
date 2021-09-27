@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>JS包管理机制 | blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">JS包管理机制</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-07-15
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/AMD/">#AMD</a>
+    
+    <a href="/tags/CMD/">#CMD</a>
+    
+    <a href="/tags/UMD/">#UMD</a>
+    
+    <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+    
+    <a href="/tags/webpack/">#webpack</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h2 id="最初的JS模块化"><a href="#最初的JS模块化" class="headerlink" title="最初的JS模块化"></a>最初的JS模块化</h2><p>最初的JS是不存在规范化的模块化管理的，所有的函数和变量会直接污染全局的命名空间。最初人们的解决方法是使用立即执行函数(IIFE: Immediately Invoked Function Expression)进行模块化。</p>
+<pre><code>// 全局变量
+var global = &quot;hello world&quot;
+(function() {
+  // 只能在闭包内访问的变量
+  var a = 1
+})()</code></pre><p>但是仅仅这样是不够的。2009年 Mozilla 工程师 Kevin Dangoor 发起了 ServerJS 项目（后更名为CommonJS），后被我们熟知的 Node.js 使用作为模块管理的规范，也就是后来广为人知的 CommonJS 规范。</p>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><p>CommonJS 使用入如下语法定义一个模块。 CommonJS 暴露了 <code>module.exports</code> 作为了对外界的接口。CommonJS 同时定义了 <code>exports</code> 作为了 <code>module.exports</code> 的引用。同样可以使用他来作为输出对象。</p>
+<pre><code>// module.js
+const a = 1
+function b() {
+  console.log(&quot;hello world&quot;)
+}
+module.exports = {
+  b: b,
+}
+
+exports.a = a</code></pre><p>这时候，如果想在另一个模块引用这些函数以及变量</p>
+<pre><code>// main.js
+const a = require(&quot;module&quot;).a
+const b = require(&quot;module&quot;).b</code></pre><p>如果想让模块直接暴露一个函数或变量，可以这么写</p>
+<pre><code>// module.js
+const a = 1
+module.exports = a</code></pre><p>这时候如果想要使用这个变量</p>
+<pre><code>// main.js
+const a = require(&quot;module&quot;) // 1</code></pre><p>但是，如果你抖一个小机灵说，既然同样可以使用 <code>exports</code> 来输出对象，那我这样写怎么样？</p>
+<pre><code>// module.js
+const a = 1
+exports = a</code></pre><p>这样是不行的。因为之前说过， <code>exports</code> 是作为 <code>module.exports</code> 的引用存在的，你这样写相当于改变了 <code>exports</code> 的指向。程序对外暴露的只是 <code>module.exports</code>，这时的 <code>exports</code> 当然无法生效了。看如下代码你就明白了。</p>
+<pre><code>const module = {
+  exports: {},
+}
+const exports = module.exports
+// 以上代码是程序的预定义部分，将 module.exports 向外暴露
+const a = 1
+exports = a // 这时 module.exports 仍然为空对象</code></pre><p>CommonJS 致力于服务端的生态。但是对于浏览器端 CommonJS 是无法接受的。在服务端，在引用一个模块时，从磁盘中读取一个模块的延时是很短的，但是在浏览器端，网络的延迟导致了模块的加载可能会阻碍其他代码的运行。所以 CommonJS 是无法被浏览器端所接受的。这时候， AMD 规范也就应运而生。</p>
+<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><p>AMD 规范采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。require.js 是最常见的实现 AMD 规范的库。</p>
+<p>require.js 的 API 是这样子的</p>
+<pre><code>define(id?, dependencies?, factory)</code></pre><p>第一个参数是这个模块的名字。第二个参数是这个模块的依赖。第三个参数是定义这个模块的代码主题。如果你想要定义的模块存在依赖，定义的回调函数将在所有的依赖加载完，并且初始化完成后加载。</p>
+<pre><code>// define 第一个参数是依赖列表，分别对应第二个参数回调函数的每一个函数参数
+define([&quot;a&quot;, &quot;jquery&quot;, &quot;c&quot;], function(a, $, c)) {
+  $(&quot;body&quot;).innerHTML = &quot;hello world&quot;
+  a.doSomething()
+  c.doSomething()
+}</code></pre><p>如果你想引用一个模块，第一个参数是依赖列表，第二个参数是所有模块加载完后的回调函数</p>
+<pre><code>require([&quot;jquery&quot;], function($) {
+  $(&quot;body&quot;).innerHTML = &quot;hello world&quot;
+})</code></pre><p>但是 玉伯 认为 RequireJS 不够完善，于是就催生了 CMD</p>
+<h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><p>SeaJS 是实现 CMD 规范的一个库。</p>
+<p>不同于 AMD 推崇的<strong>依赖前置</strong>, CMD 推崇的是<strong>依赖就近</strong>。他们俩都会提前把依赖下载下载下来，但是不同的是 AMD 在下载后悔立即执行依赖模块的代码，但是 CMD 只有在你实际使用的时候，也就是你调用 <code>require</code> 的时候才会执行被你所 <code>require</code> 的模块的代码。这两种模式的优劣社区中有很多中看法。仁者见仁，智者见智。</p>
+<p>SeaJS 的 API 是这样子的</p>
+<pre><code>define(function(require, exports, module) {
+  var $ = require(&quot;jquery.js&quot;)
+  $(&quot;body&quot;).innerHTML = &quot;hello world&quot;
+});</code></pre><h2 id="ES6-MODULE"><a href="#ES6-MODULE" class="headerlink" title="ES6 MODULE"></a>ES6 MODULE</h2><p>之前提到的几种模块化标准都是不是一种标准，而是由社区提出并广受大众接受的一种方案。而 ES6 MODULE 则是在语言标准层面实现的模块化。目前所有的现代浏览器都已经支持了这种语法。</p>
+<pre><code>// 导出早前定义的函数
+const myFunction = () =&gt; {}
+export { myFunction }
+// 或者作为默认导出，相当于 export { myFunction as default } 的语法糖
+export default myFunction
+
+// 导入模块
+import { foo, bar } from &quot;module.js&quot;
+// 导入默认模块，相当于 import { default as foo } from &quot;module.js&quot; 的语法糖
+import foo from &quot;module.js&quot;</code></pre><p>这种声明式而非命令式的语法让静态分析成为了可能。在编译时和写代码时带来了极大的益处。</p>
+<p>和 CommonJS 不同的是， import 导出的是一个引用，而 require 导出的是一个拷贝。也就是说，在 CommonJS 中如果改变一个模块内部的值是不会对引用他的地方的值造成影响的，但是 ES6 MODULE 是有影响的。举一个简单的例子。</p>
+<pre><code>// 对于 CommonJS
+// module.js
+let a = 1
+const adder = () =&gt; a++
+module.export = {
+  a,
+  adder,
+}
+
+// main.js
+const { a, adder } = require(&quot;module.js&quot;)
+console.log(a) // 1
+adder()
+console.log(a) // 1</code></pre><pre><code>// 对于 ES6 MODULE
+// module.js
+let a = 1
+const adder = () =&gt; a++
+export { a, adder }
+
+// main.js
+import { a, adder } from &quot;module.js&quot;
+console.log(a) // 1
+adder()
+console.log(a) // 2</code></pre><h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><p>UMD 其实是一种利用 IIFE(立即执行函数) 来兼容 AMD 和 CommonJS 的一种形式。使你的代码可以在多个不同平台上，不同的模块化标准都可以运行。</p>
+<pre><code>(function(global, factory) {
+  // 判断是 CommonJS 环境
+  typeof exports === &#39;object&#39; &amp;&amp; typeof module !== &#39;undefined&#39; ? module.exports = factory() :
+  // 判断使用 AMD 标准，如果想要兼容 CMD，多加一条判断 define.cmd 即可
+  typeof define === &#39;function&#39; &amp;&amp; define.amd ?
+    define(factory)
+   :
+   // 否则就作为全局变量挂在当前环境的 this 上
+  (global.NAME = factory());
+}(this, (function () {
+  // 你自己定义的模块
+  return obj;
+})));</code></pre><h2 id="Webpack-中的模块化打包"><a href="#Webpack-中的模块化打包" class="headerlink" title="Webpack 中的模块化打包"></a>Webpack 中的模块化打包</h2><p>那么在现在大家常用的打包工具 Webpack 中，模块化是如何进行编译处理的呢？让我们看一个例子。节选自 <a href="https://github.com/lq782655835/webpack-module-example" target="_blank" rel="noopener">lq782655835/webpack-module-example</a></p>
+<pre><code>// src/add.js
+export default function(a, b) {
+    let { name } = { name: &#39;hello world,&#39;}
+    return name + a + b
+}
+
+// src/main.js
+import Add from &#39;./add&#39;
+console.log(Add, Add(1, 2))</code></pre><pre><code>// modules是存放所有模块的数组，数组中每个元素存储{ 模块路径: 模块导出代码函数 }
+(function(modules) {
+// 模块缓存作用，已加载的模块可以不用再重新读取，提升性能
+var installedModules = {};
+
+// 关键函数，加载模块代码
+// 形式有点像Node的CommonJS模块，但这里是可跑在浏览器上的es5代码
+function __webpack_require__(moduleId) {
+  // 缓存检查，有则直接从缓存中取得
+  if(installedModules[moduleId]) {
+    return installedModules[moduleId].exports;
+  }
+  // 先创建一个空模块，塞入缓存中
+  var module = installedModules[moduleId] = {
+    i: moduleId,
+    l: false, // 标记是否已经加载
+    exports: {} // 初始模块为空
+  };
+
+  // 把要加载的模块内容，挂载到module.exports上
+  modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+  module.l = true; // 标记为已加载
+
+  // 返回加载的模块，调用方直接调用即可
+  return module.exports;
+}
+
+// __webpack_require__对象下的r函数
+// 在module.exports上定义__esModule为true，表明是一个模块对象
+__webpack_require__.r = function(exports) {
+  Object.defineProperty(exports, &#39;__esModule&#39;, { value: true });
+};
+
+// 启动入口模块main.js
+return __webpack_require__(__webpack_require__.s = &quot;./src/main.js&quot;);
+})
+({
+  // add模块
+  &quot;./src/add.js&quot;: (function(module, __webpack_exports__, __webpack_require__) {
+    // 在module.exports上定义__esModule为true
+    __webpack_require__.r(__webpack_exports__);
+    // 直接把add模块内容，赋给module.exports.default对象上
+    __webpack_exports__[&quot;default&quot;] = (function(a, b) {
+      let { name } = { name: &#39;hello world,&#39;}
+      return name + a + b
+    });
+  }),
+
+  // 入口模块
+  &quot;./src/main.js&quot;: (function(module, __webpack_exports__, __webpack_require__) {
+    __webpack_require__.r(__webpack_exports__)
+    // 拿到add模块的定义
+    // _add__WEBPACK_IMPORTED_MODULE_0__ = module.exports，有点类似require
+    var _add__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(&quot;./src/add.js&quot;);
+    // add模块内容: _add__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;]
+    console.log(_add__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;], Object(_add__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;])(1, 2))
+  })
+});</code></pre><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="https://juejin.im/post/5aaa37c8f265da23945f365c" target="_blank" rel="noopener">前端模块化：CommonJS,AMD,CMD,ES6</a><br><a href="https://juejin.im/post/5c94a2f36fb9a070fc623df4" target="_blank" rel="noopener">Webpack 模块打包原理</a></p>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/blog/git/git%E4%B8%8D%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                git不常用命令整理（1）
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

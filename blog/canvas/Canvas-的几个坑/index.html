@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Yifei Dai">
+    
+    
+    
+    
+    
+    
+    <title>Canvas 的几个坑 | blog</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">floatdaiの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-repeat: no-repeat;
+            background-position: center -356px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png');
+            background-position: center -400px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">floatdaiの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1414'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">Canvas 的几个坑</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2020-12-28
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/canvas/">#canvas</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <p>最近接到公司的一个临时需求，要生成一批不同名字的邀请函。一开始我觉得这实在是太简单了，不就是canvas上贴一张图再写名字就结束了吗？但是没想到，因为不熟悉canvas导致这其中好几个坑花了我好多时间。</p>
+<h2 id="fillText-参数"><a href="#fillText-参数" class="headerlink" title="fillText 参数"></a>fillText 参数</h2><p>接到这个需求，上来肯定是先去看看写字的api喽。然后我就开始测试一下。</p>
+<pre><code>ctx.fillText(&quot;hello&quot;, 0, 0)</code></pre><p>咦，怎么canvas上啥都没有啊？这个api我用错了吗？后来我发现我确实用错了。后两个参数代表的点是文字的左下角而不是左上角。这也很可以理解，因为绘制文字的时候总是以下方的线进行对齐绘制的。</p>
+<h2 id="canvas-的字体"><a href="#canvas-的字体" class="headerlink" title="canvas 的字体"></a>canvas 的字体</h2><p>为了让邀请函比较好看，当然是要对字使用某些比较好看的字体啦。但是，我却发现我设置的字体参数没有任何效果。</p>
+<p>咦？不会呀，我明明已经用 font-face 定义了这些字体了啊。到底问题在哪里呢？我打开调试器发现，字体文件竟然都没有被下载？？？那一定是我 font-face 的定义格式写错了？</p>
+<p>最后发现并非如此，浏览器会对字体进行懒加载，只有当实际使用这个字体的时候才会下载字体文件。所以说只定义 font-face 就在 canvas 中使用这个字体是没有效果的，因为这个字体文件都没有下载呢。这时候有两个办法：</p>
+<ol>
+<li>在 DOM 中事先使用一次这个字体，让这个字体文件先加载了。这种方法有比较大的限制。需要保证在 canvas 中使用这个字体的时候字体文件已经加载完成了。</li>
+<li>使用 JS 来加载这个字体。话不多说上代码</li>
+</ol>
+<pre><code>// 像font-face中一样定义这个字体
+const font = new FontFace(&quot;Arial&quot;, &quot;url(Arial.woff)&quot;, { style: &quot;normal&quot;, weight: 700 })
+// 下载字体
+font.load()
+  .then(function(loadedFace) {
+    // 把定义的字体加入文档流
+    document.fonts.add(loadedFace)
+  }).catch(function(error) {
+    // error
+  })</code></pre><ol start="3">
+<li>有一个字体加载的回调函数：</li>
+</ol>
+<pre><code>document.fonts.ready.then(function(fontFaceSet) {
+    // all fonts have been loaded
+})</code></pre><h2 id="获取文字的高度"><a href="#获取文字的高度" class="headerlink" title="获取文字的高度"></a>获取文字的高度</h2><p>由于要计算文字放置的位置，所以就需要获取文字的宽高。这时候就找到了 <code>measureText</code> 这个 api 了。但是之后才发现，这个 api 并不能获取文字的高度，只能获取宽度。</p>
+<p>经过查找，发现并不存在直接获取高度的api。准确的说，没有兼容度良好的获取高度的api。</p>
+<pre><code>const metrics = ctx.measureText(text)
+// 字体的高度，无论使用哪个字
+const fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent
+// 某一个字的实际高度
+const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent</code></pre><p>通过 caniuse 查看兼容度发现，Chrome 要版本 87 后才支持。Firefox和Edge默认不支持，需要设置某些特殊的实验属性才能支持。Safari要版本14才开始支持。</p>
+<p>网上常见的方法都是一些比较hack的方法。主要思路就是手动构造一段这个文字。然后测量这段文字的高度。测量的方式一种是在DOM中构造用JS进行测量，还有一种是在canvas中作图，转化成图片，根据图片的像素点进行测量。</p>
+<h2 id="绘制文字的参数"><a href="#绘制文字的参数" class="headerlink" title="绘制文字的参数"></a>绘制文字的参数</h2><p>这个很容易注意到，就提一句。当你绘制了一段文字后，要注意重置那些参数，否则下一段文字将要继续使用这些参数。</p>
+<h2 id="canvas-绘制层级"><a href="#canvas-绘制层级" class="headerlink" title="canvas 绘制层级"></a>canvas 绘制层级</h2><p>由于图片加载是异步的，所以如果用同步的方式写代码图片总是后与文字画的。也就是说图片会叠加在文字之上。当时我想偷懒不想写异步代码，所以很自然想到 canvas 中会不会有类似 css 中 z-index 的属性。结果发现是不存在的，层级只能由绘制的先后关系决定。</p>
+<h2 id="canvas-撤销操作"><a href="#canvas-撤销操作" class="headerlink" title="canvas 撤销操作"></a>canvas 撤销操作</h2><p>画上一张图，一段文字后生成了一张邀请函。这时候我就想要撤销写文字的操作。由于印象中 canvas 有 save 和 restore 的 api，就直接尝试了一下，发现不起作用。这时候我才知道 save 保存的是画布的坐标状态，而不是画布的全部状态。我又尝试找了一下canvas中撤销该怎么实现，发现并没有简单的实现方法。我看到的一共有以下几种方法：</p>
+<ol>
+<li>记录一个操作栈，撤销后就把canvas清空，然后把之前的操作重复一遍。当步数过多的时候就可能存在性能问题</li>
+<li>同样是记录一个操作栈，每次进行操作的时候，都记录一下要回撤这个操作所需要的操作是什么。这个比较难以实现，很难用程序写出所有的撤销应该怎么做。</li>
+<li>记录一个 canvas 状态的栈，每一次都把canvas当前图片保存下来。当步数过多时会占用很大的内存。</li>
+</ol>
+<p>所以还是需要根据程序的实际情况来做撤销的实现。当然我这里就直接清空重新画一遍是最方便的。</p>
+<h2 id="canvas-图片下载"><a href="#canvas-图片下载" class="headerlink" title="canvas 图片下载"></a>canvas 图片下载</h2><p>当邀请函生成后我就想要下载邀请函的图片了。我使用了 <code>toDataURL</code> 这个 api。然后把他放到一个HTML的链接标签 a 的 src 属性中。然后调用元素的 click 方法模拟点击进行下载。但是没想到下载的东西报了一个网络错误。经过调查，发现是因为某些浏览器中对于src属性中的值的长度有限制，如果太长就无法正常下载。为了解决这个问题，我找到了以下两个方法。</p>
+<ol>
+<li><p>减小图片体积：toDataURL 这个 api 的第一个参数是 MIME 类型。这时候我们可以将其指定为 image/jpeg 来压缩图片的体积。如果这还不够，toDataURL 的第二个参数是图片的压缩程度。我们可以使用 <code>toDataURL(&quot;image/jpeg&quot;, 0.5)</code> 来继续缩小图片体积。</p>
+</li>
+<li><p>使用 blob 来进行下载。</p>
+</li>
+</ol>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                JS垃圾回收机制
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/blog/webpack/%E4%BC%98%E5%8C%96webpack%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4/">
+                优化webpack打包时间
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>Yifei Dai</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>21</span>Article</a>
+        <a class="count tags"><span>28</span>Tags</a>
+        <a class="count categories"><span>7</span>Categories</a>
+    </div>
+</div>
+
+
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/yarn/" title="yarn">yarn</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/js/webpack5%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" title="webpack5迁移记录">webpack5迁移记录</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/wsl2%E8%B8%A9%E5%9D%91/" title="wsl踩坑">wsl踩坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/uncategorized/JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JS垃圾回收机制">JS垃圾回收机制</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/blog/canvas/Canvas-%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/" title="Canvas 的几个坑">Canvas 的几个坑</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/HTML/">#HTML</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/code/">#code</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/webpack/">#webpack</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Hugo/">#Hugo</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Vue/">#Vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/js/">#js</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AMD/">#AMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CMD/">#CMD</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/UMD/">#UMD</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/webpack/">#webpack</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SVG/">#SVG</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/stylus/">#stylus</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/css/">#css</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/yarn/">#yarn</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Plug-n-Play/">#Plug&#39;n&#39;Play</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Zero-Installs/">#Zero-Installs</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Web-Component/">#Web Component</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AST/">#AST</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-in-JS/">#CSS in JS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-module/">#CSS module</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/BEM/">#BEM</a>
+        </div>
+        
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 Yifei Dai
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>
