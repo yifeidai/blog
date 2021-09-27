@@ -49,8 +49,12 @@ webpack 提供了专门的文档，[迁移到webpack5](https://webpack.js.org/mi
 
 - vue-loader
 - webpack-dev-middleware
+- html-webpack-plugin
+- 移除optimize-css-assets-webpack-plugin，使用 css-minimizer-webpack-plugin 替代
 
 3. 确认构建没有 error 和 warning
+
+- 我配置了 html-webpack-plugin 中 `inject: head`，插入的 script 标签中，自动加上了 defer 属性。所以我在 body 中手动引入的那些 script 也需要加上 defer 属性才可以保证执行顺序。
 
 4. 确保设置了 mode 选项
 
