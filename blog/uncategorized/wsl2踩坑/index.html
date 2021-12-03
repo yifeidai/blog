@@ -196,6 +196,15 @@ swap=2GB
 localhostForwarding=true</code></pre><p>memory为系统内存上限，可根据实际情况进行配置</p>
 <p>运行<code>wsl --shutdown</code>命令，关闭wsl的运行</p>
 <p>然后运行<code>wsl</code>命令，重启wsl</p>
+<h2 id="wsl2-set-proxy"><a href="#wsl2-set-proxy" class="headerlink" title="wsl2 set proxy"></a>wsl2 set proxy</h2><p>因为 shadowSocks 不是运行在 wsl2 本地，所以得通过 IP 访问 Windows。Windows 的 IP 对于 wsl2 是动态的，可以通过一个脚本来获取。<br>在 <code>~/.bashrc</code> 中加入以下配置。<br>注意，在代理软件中的设置中打开 <strong>允许来自局域网的链接</strong> 选项</p>
+<pre><code>export HOST_IP=$(grep -oP &#39;(?&lt;=nameserver\ ).*&#39; /etc/resolv.conf)
+export PROXY_ADDR=&quot;http://$HOST_IP:1080&quot;
+yarn config set proxy &quot;$PROXY_ADDR&quot;
+yarn config set https-proxy &quot;$PROXY_ADDR&quot;
+npm config set proxy &quot;$PROXY_ADDR&quot;
+npm config set https-proxy &quot;$PROXY_ADDR&quot;
+export http_proxy=$PROXY_ADDR
+export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接，可能是因为 Windows 的防火墙的原因。<br>按 win 按钮打开开始菜单，搜索 允许应用通过 Windows Defender 防火墙。更改其中的配置，寻找你的代理程序（对我是 ShadowSockR)，把所有的勾都打上。应该就可以解决了。</p>
 
     </div>
 </div>
@@ -374,17 +383,17 @@ localhostForwarding=true</code></pre><p>memory为系统内存上限，可根据�
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/git/">#git</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/js/">#js</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/code/">#code</a>
         </div>
         
@@ -430,12 +439,12 @@ localhostForwarding=true</code></pre><p>memory为系统内存上限，可根据�
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/git/">#git</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/js/">#js</a>
         </div>
         
@@ -460,7 +469,7 @@ localhostForwarding=true</code></pre><p>memory为系统内存上限，可根据�
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
@@ -480,7 +489,7 @@ localhostForwarding=true</code></pre><p>memory为系统内存上限，可根据�
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
         </div>
         
@@ -495,7 +504,7 @@ localhostForwarding=true</code></pre><p>memory为系统内存上限，可根据�
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/unicode/">#unicode</a>
         </div>
         
