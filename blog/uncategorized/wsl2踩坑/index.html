@@ -205,6 +205,10 @@ npm config set proxy &quot;$PROXY_ADDR&quot;
 npm config set https-proxy &quot;$PROXY_ADDR&quot;
 export http_proxy=$PROXY_ADDR
 export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接，可能是因为 Windows 的防火墙的原因。<br>按 win 按钮打开开始菜单，搜索 允许应用通过 Windows Defender 防火墙。更改其中的配置，寻找你的代理程序（对我是 ShadowSockR)，把所有的勾都打上。应该就可以解决了。</p>
+<h2 id="局域网访问"><a href="#局域网访问" class="headerlink" title="局域网访问"></a>局域网访问</h2><p>自动化脚本映射端口（需提前配置需要映射的端口）：<a href="https://github.com/microsoft/WSL/issues/4150#issuecomment-504209723" target="_blank" rel="noopener">https://github.com/microsoft/WSL/issues/4150#issuecomment-504209723</a></p>
+<p>直接的命令：</p>
+<pre><code># $addr: 0.0.0.0, $remoteport: wsl2 的内网地址，可通过 ipconfig 查看
+netsh interface portproxy add v4tov4 listenport=$port listenaddress=$addr connectport=$port connectaddress=$remoteport</code></pre><h2 id="解除-windows-defender-影响"><a href="#解除-windows-defender-影响" class="headerlink" title="解除 windows defender 影响"></a>解除 windows defender 影响</h2><p><a href="https://github.com/microsoft/WSL/issues/4139#issuecomment-732067409" target="_blank" rel="noopener">https://github.com/microsoft/WSL/issues/4139#issuecomment-732067409</a></p>
 
     </div>
 </div>
@@ -369,22 +373,22 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
         
         
         <div class="cube-box ">
-            <a href="/categories/canvas/">#canvas</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/categories/HTML/">#HTML</a>
-        </div>
-        
-        
-        <div class="cube-box ">
             <a href="/categories/CSS/">#CSS</a>
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/canvas/">#canvas</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/HTML/">#HTML</a>
         </div>
         
         
@@ -414,6 +418,21 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
     <div class="cube-boxs">
         
         
+        <div class="cube-box-bg ">
+            <a href="/tags/CSS/">#CSS</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CSS-Variables/">#CSS Variables</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
         <div class="cube-box ">
             <a href="/tags/canvas/">#canvas</a>
         </div>
@@ -426,31 +445,6 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
         
         <div class="cube-box ">
             <a href="/tags/Vue/">#Vue</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS/">#CSS</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/CSS-Variables/">#CSS Variables</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/git/">#git</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/js/">#js</a>
-        </div>
-        
-        
-        <div class="cube-box ">
-            <a href="/tags/JS/">#JS</a>
         </div>
         
         
@@ -469,7 +463,7 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/ES6-MODULE/">#ES6 MODULE</a>
         </div>
         
@@ -480,7 +474,7 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
         
         
         <div class="cube-box ">
-            <a href="/tags/SVG/">#SVG</a>
+            <a href="/tags/js/">#js</a>
         </div>
         
         
@@ -489,12 +483,22 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
         </div>
         
         
-        <div class="cube-box-bg ">
-            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        <div class="cube-box ">
+            <a href="/tags/JS/">#JS</a>
         </div>
         
         
         <div class="cube-box ">
+            <a href="/tags/unicode/">#unicode</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/utf-8/">#utf-8</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
             <a href="/tags/stylus/">#stylus</a>
         </div>
         
@@ -504,17 +508,22 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
         </div>
         
         
+        <div class="cube-box ">
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+        </div>
+        
+        
         <div class="cube-box-bg ">
-            <a href="/tags/unicode/">#unicode</a>
+            <a href="/tags/Web-Component/">#Web Component</a>
         </div>
         
         
         <div class="cube-box ">
-            <a href="/tags/utf-8/">#utf-8</a>
+            <a href="/tags/SVG/">#SVG</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/yarn/">#yarn</a>
         </div>
         
@@ -530,11 +539,6 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
         
         
         <div class="cube-box ">
-            <a href="/tags/Web-Component/">#Web Component</a>
-        </div>
-        
-        
-        <div class="cube-box-bg ">
             <a href="/tags/AST/">#AST</a>
         </div>
         
@@ -544,12 +548,12 @@ export https_proxy=$PROXY_ADDR</code></pre><p>如果，还是无法成功连接�
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/CSS-module/">#CSS module</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/BEM/">#BEM</a>
         </div>
         
