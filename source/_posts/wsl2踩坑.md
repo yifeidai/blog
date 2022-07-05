@@ -65,3 +65,38 @@ memory为系统内存上限，可根据实际情况进行配置
 运行`wsl --shutdown`命令，关闭wsl的运行
 
 然后运行`wsl`命令，重启wsl
+
+## wsl2 set proxy
+
+因为 shadowSocks 不是运行在 wsl2 本地，所以得通过 IP 访问 Windows。Windows 的 IP 对于 wsl2 是动态的，可以通过一个脚本来获取。
+在 `~/.bashrc` 中加入以下配置。
+注意，在代理软件中的设置中打开 **允许来自局域网的链接** 选项
+
+```
+export HOST_IP=$(grep -oP '(?<=nameserver\ ).*' /etc/resolv.conf)
+export PROXY_ADDR="http://$HOST_IP:1080"
+yarn config set proxy "$PROXY_ADDR"
+yarn config set https-proxy "$PROXY_ADDR"
+npm config set proxy "$PROXY_ADDR"
+npm config set https-proxy "$PROXY_ADDR"
+export http_proxy=$PROXY_ADDR
+export https_proxy=$PROXY_ADDR
+```
+
+如果，还是无法成功连接，可能是因为 Windows 的防火墙的原因。
+按 win 按钮打开开始菜单，搜索 允许应用通过 Windows Defender 防火墙。更改其中的配置，寻找你的代理程序（对我是 ShadowSockR)，把所有的勾都打上。应该就可以解决了。
+
+## 局域网访问
+
+自动化脚本映射端口（需提前配置需要映射的端口）：https://github.com/microsoft/WSL/issues/4150#issuecomment-504209723
+
+直接的命令：
+
+```
+# $addr: 0.0.0.0, $remoteport: wsl2 的内网地址，可通过 ipconfig 查看
+netsh interface portproxy add v4tov4 listenport=$port listenaddress=$addr connectport=$port connectaddress=$remoteport
+```
+
+## 解除 windows defender 影响
+
+https://github.com/microsoft/WSL/issues/4139#issuecomment-732067409
