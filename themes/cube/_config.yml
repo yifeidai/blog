@@ -4,7 +4,7 @@ theme: cube
 header:
   background: https://floatdai-blog.oss-cn-beijing.aliyuncs.com/%E6%9A%AE%E8%89%B2%E7%9A%84%E5%9B%9E%E5%BF%86%20%E7%89%B9%E8%AE%AD%E5%89%8D.png
   # both pc and mobile required title(make it the same as your hexo site _config.yml's title)
-  title: floatdaiの部落格
+  title: floatdai的部落格
 
 
 # background display for pc
